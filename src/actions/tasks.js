@@ -1,4 +1,4 @@
-import firebase from './firebase';
+import firebase from 'firebase';
 import {ADD_TASK, DELETE_TASK, COMPLETE_TASK, EDIT_TASK} from './types';
 
 export const addTask = () => ({type: ADD_TASK});

@@ -1,5 +1,5 @@
-import firebase from './firebase';
-import {GET_SCHEDULES, CREATE_SCHEDULE, DELETE_SCHEDULE, EDIT_SCHEDULE, CREATE_TEMPLATE} from '.types';
+import firebase from 'firebase';
+import {GET_SCHEDULES, CREATE_SCHEDULE, DELETE_SCHEDULE, EDIT_SCHEDULE, CREATE_TEMPLATE} from './types';
 
 export const getSchedules = schedules => ({type: GET_SCHEDULES, schedules})
 export const createSchedule = () => ({type: CREATE_SCHEDULE});
