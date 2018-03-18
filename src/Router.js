@@ -2,7 +2,7 @@ import React from 'react';
 import LoginForm from './components/LoginForm';
 import ScheduleList from './components/ScheduleList';
 import ScheduleForm from './components/ScheduleForm';
-import {Scene, Router} from 'react-native-router-flux';
+import {Scene, Router, Actions} from 'react-native-router-flux';
 
 const RouterComponent = () => {
   return (
