@@ -19,3 +19,15 @@ export const ADD_TASK = 'ADD_TASK';
 export const DELETE_TASK = 'DELETE_TASK ';
 export const COMPLETE_TASK = 'COMPLETE_TASK';
 export const EDIT_TASK = 'EDIT_TASK';
+
+
+//Schedule Form Actions
+export const SCHEDULE_FORM_EDIT = 'SCHEDULE_FORM_EDIT';
+export const SCHEDULE_FORM_CLEAR = 'SCHEDULE_FORM_CLEAR';
+export const SCHEDULE_FORM_LOADING = 'SCHEDULE_FORM_LOADING';
+
+
+//Task Form Actions
+export const TASK_FORM_EDIT = 'TASK_FORM_EDIT';
+export const TASK_FORM_CLEAR = 'TASK_FORM_CLEAR';
+export const TASK_FORM_LOADING = 'TASK_FORM_LOADING';

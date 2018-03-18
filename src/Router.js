@@ -24,7 +24,7 @@ const RouterComponent = () => {
             component={ScheduleList}
             title="Schedule List"
             />
-             <Scene
+          <Scene
             rightTitle = "Add Task"
             // onRight={() => Actions.scheduleForm();}
             key="scheduleForm"
