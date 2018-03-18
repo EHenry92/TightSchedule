@@ -1,32 +1,36 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Card, CardSection, InputField, Spinner, Button} from './common';
-import {saveSchedule, formChange, saveTemplate} from '../actions';
+import {submitForm, formChange, saveTemplate} from '../actions';
 import DatePicker from 'react-native-datepicker';
 
 
 class ScheduleForm extends Component {
   render () {
-    const {title, date, loading, error, saveSchedule, formChange, saveTemplate} = this.props;
+    const currDate = new Date();
+    const minDate =  currDate.getFullYear() + '-' + (currDate.getMonth() + 1) + '-' + currDate.getDate();
+    const maxDate = (currDate.getFullYear() + 1) + '-' + currDate.getMonth() + '-' + currDate.getDate();
+    const {title, date, loading, error, submitForm, formChange, saveTemplate} = this.props;
+
     return (
       <Card>
         <CardSection>
           <InputField
-            label = 'Title'
-            onChangeText = {(text) => {formChange({title: text}, true)}}
+            label = "Title"
+            onChangeText = {(text) => {formChange({title: text});}}
             value = {title}
-            palceHolder = 'Schedule Name'
+            palceHolder = "Schedule Name"
           />
         </CardSection>
         <CardSection>
         <DatePicker
         style={{width: 200}}
-        date={date}
+        date={minDate}
         mode="date"
         placeholder="select date"
         format="YYYY-MM-DD"
-        minDate="2018-01-01"
-        maxDate="2019-06-01"
+        minDate= {minDate}
+        maxDate= {maxDate}
         confirmBtnText="Confirm"
         cancelBtnText="Cancel"
         customStyles={{
@@ -47,13 +51,19 @@ class ScheduleForm extends Component {
          }
 
         }}
-        onDateChange={(text) => {formChange({date: text}, true)}}
+        onDateChange={(text) => {formChange({date: text});}}
       />
         </CardSection>
         <CardSection>
-          <Button onPress = {() => saveSchedule({title, date})}>
-            Save
-          </Button>
+          {
+            loading ?
+            <Spinner size='large'/>
+            :
+            <Button onPress = {() =>
+            submitForm({title, date})}>
+              Save
+            </Button>
+          }
         </CardSection>
       </Card>
     );
@@ -65,4 +75,4 @@ const mapState = ({scheduleForm}) => {
   return {title, date, loading, error };
 };
 
-export default connect(mapState, {saveSchedule, formChange, saveTemplate})(ScheduleForm);
+export default connect(mapState, {submitForm, formChange, saveTemplate})(ScheduleForm);

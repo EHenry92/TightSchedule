@@ -7,8 +7,8 @@ export const finishTask = () => ({type: COMPLETE_TASK});
 export const editTask = () => ({type: EDIT_TASK});
 
 export const createTask = (sId, task ) => dispatch => {
-  let user = firebase.auth();
-  firebase.database().ref(`/users/${user.uid}/schedules/${sId}/tasks`)
+  const {currentUser} = firebase.auth();
+  firebase.database().ref(`/users/${currentUser.uid}/schedules/${sId}/tasks`)
   .push(task)
   .then(() => {
     dispatch(addTask());
@@ -16,8 +16,8 @@ export const createTask = (sId, task ) => dispatch => {
 };
 
 export const removeTask = (sId, taskId) => dispatch => {
-  let user = firebase.auth();
-  firebase.database().ref(`/users/${user.uid}/schedules/${sId}/tasks/${taskId}`)
+  const {currentUser} = firebase.auth();
+  firebase.database().ref(`/users/${currentUser.uid}/schedules/${sId}/tasks/${taskId}`)
   .remove()
   .then(() => {
     dispatch(delTask());
@@ -25,8 +25,8 @@ export const removeTask = (sId, taskId) => dispatch => {
 };
 
 export const changeTask = (sId, tId, change) => dispatch => {
-  let user = firebase.auth();
-  firebase.database().ref(`/users/${user.uid}/schedules/${sId}/tasks/${tId}`)
+  const {currentUser} = firebase.auth();
+  firebase.database().ref(`/users/${currentUser.uid}/schedules/${sId}/tasks/${tId}`)
   .set(change)
   .then(() => {
     dispatch(editTask());
