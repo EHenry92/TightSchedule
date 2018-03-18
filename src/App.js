@@ -1,18 +1,21 @@
 import React, {Component} from 'react';
+import {Provider} from 'react-redux';
+import ReduxThunk from 'redux-thunk';
+import {createStore, applyMiddleware} from 'redux';
 import firebase from 'firebase';
-import firebaseData from '../secrets';
-import {Text, View} from 'react-native';
-// import Router from './Router';
-
+import {firebaseData} from '../secrets';
+import Router from './Router';
+import reducers from './reducers';
 class App extends Component {
   componentWillMount() {
     firebase.initializeApp(firebaseData);
   }
   render () {
+    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     return (
-        <View>
-          <Text>Tight Schedule</Text>
-        </View>
+        <Provider store={store}>
+          <Router />
+        </Provider>
     )
   }
 
