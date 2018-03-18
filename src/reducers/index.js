@@ -7,3 +7,8 @@ import schedules from './schedules';
 export default combineReducers({
   auth, schedules, taskFrom, scheduleForm
 });
+
+export * from './auth';
+export * from './scheduleForm';
+export * from './taskForm';
+export * from './schedules';

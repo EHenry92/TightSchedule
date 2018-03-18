@@ -16,6 +16,7 @@ export const fetchSchedules = () => dispatch => {
 };
 
 export const saveSchedule = schedule => dispatch => {
+  console.log("trying to send tis to firebase", schedule)
   let user = firebase.auth();
   firebase.database().ref(`/users/${user.uid}/schedules`)
   .push(schedule)
