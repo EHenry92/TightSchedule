@@ -8,11 +8,11 @@ export const LOADING = 'LOADING';
 
 
 //Schedule Actions
+export const GET_SCHEDULES = 'GET_SCHEDULES';
 export const CREATE_SCHEDULE = 'CREATE_SCHEDULE';
 export const DELETE_SCHEDULE = 'DELETE_SCHEDULE ';
-export const GET_SCHEDULE = 'GET_SCHEDULE';
 export const EDIT_SCHEDULE = 'EDIT_SCHEDULE';
-export const SAVE_TEMPLATE = 'SAVE_TEMPLATE';
+export const CREATE_TEMPLATE = 'SAVE_TEMPLATE';
 
 //Task Actions
 export const ADD_TASK = 'ADD_TASK';
