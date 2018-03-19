@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
 import {View, Text, ListView} from 'react-native';
-import Actions from 'react-native-router-flux';
+import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 import {Card, CardSection, InputField, Button, Confirm, ListItem} from './common';
-import {fetchSchedules} from '../actions';
+import {fetchSchedules, removeSchedule} from '../actions';
 
 class ScheduleList extends Component {
   componentWillMount() {
@@ -15,8 +15,6 @@ class ScheduleList extends Component {
     this.createDataSource(nextProps.schedules);
   }
   createDataSource(schedules) {
-    console.log("this is th eschedule dta", schedules)
-
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
@@ -25,19 +23,21 @@ class ScheduleList extends Component {
   renderScheduleRow (schedule) {
     return <ListItem
             rowData = {schedule.title}
-            sideData = {schedule.date}
+            rightData = {schedule.date}
             onRowPress = {() => {
-              console.log("should be changing to single schedule page")
-            }}
+              Actions.taskForm({schedule})
+              }}
+            leftAction = {true}
+            onActionPress = {() => {this.props.removeSchedule(schedule.uid)}}
+            actionText = 'X'
           />
   }
   render () {
     return (
-      // <Text>  The list belongs here</Text>
       <ListView
         enableEmptySections
         dataSource = {this.dataSource}
-        renderRow = {this.renderScheduleRow}
+        renderRow = {this.renderScheduleRow.bind(this)}
       >
       </ListView>
     );
@@ -52,4 +52,4 @@ const mapState = (state) => {
   // return {schedules: state.schedules}
 };
 
-export default connect(mapState, {fetchSchedules})(ScheduleList);
+export default connect(mapState, {fetchSchedules, removeSchedule})(ScheduleList);

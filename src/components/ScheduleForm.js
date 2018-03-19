@@ -5,12 +5,11 @@ import {submitForm, formChange, saveTemplate} from '../actions';
 import DatePicker from 'react-native-datepicker';
 
 
-class ScheduleForm extends Component {
-  render () {
+const ScheduleForm = (props) => {
     const currDate = new Date();
     const minDate =  currDate.getFullYear() + '-' + (currDate.getMonth() + 1) + '-' + currDate.getDate();
     const maxDate = (currDate.getFullYear() + 1) + '-' + currDate.getMonth() + '-' + currDate.getDate();
-    const {title, date, loading, error, submitForm, formChange, saveTemplate} = this.props;
+    const {title, date, loading, error, submitForm, formChange, saveTemplate} = props;
 
     return (
       <Card>
@@ -25,7 +24,7 @@ class ScheduleForm extends Component {
         <CardSection>
         <DatePicker
         style={{width: 200}}
-        date={minDate}
+        date={date}
         mode="date"
         placeholder="select date"
         format="YYYY-MM-DD"
@@ -49,7 +48,6 @@ class ScheduleForm extends Component {
          btnTextCancel: {
             height: 20
          }
-
         }}
         onDateChange={(text) => {formChange({date: text});}}
       />
@@ -67,7 +65,6 @@ class ScheduleForm extends Component {
         </CardSection>
       </Card>
     );
-  }
 }
 
 const mapState = ({scheduleForm}) => {

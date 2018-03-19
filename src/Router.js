@@ -2,6 +2,7 @@ import React from 'react';
 import LoginForm from './components/LoginForm';
 import ScheduleList from './components/ScheduleList';
 import ScheduleForm from './components/ScheduleForm';
+import TaskForm from './components/TaskForm';
 import {Scene, Router, Actions} from 'react-native-router-flux';
 
 const RouterComponent = () => {
@@ -18,16 +19,21 @@ const RouterComponent = () => {
         </Scene>
         <Scene key="main">
           <Scene
-            rightTitle = "Create New"
-            onRight={() => Actions.scheduleForm()}
             key="scheduleList"
             component={ScheduleList}
             title="Schedule List"
+            rightTitle = "Create New"
+            onRight={() => Actions.scheduleForm()}
             />
           <Scene
             key="scheduleForm"
             component={ScheduleForm}
             title="New Schedule"
+            />
+          <Scene
+            key="taskForm"
+            component={TaskForm}
+            title="New Task"
             />
         </Scene>
       </Scene>

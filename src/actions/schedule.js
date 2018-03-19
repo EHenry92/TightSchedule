@@ -27,7 +27,7 @@ export const fetchSchedules = () => dispatch => {
 
 export const removeSchedule = sId => dispatch => {
   const {currentUser} = firebase.auth();
-  firebase.database.ref(`/users/${currentUser.uid}/schedules/${sId}`)
+  firebase.database().ref(`/users/${currentUser.uid}/schedules/${sId}`)
   .remove()
   .then(() => {
     dispatch(deleteSchedule());
@@ -36,7 +36,7 @@ export const removeSchedule = sId => dispatch => {
 
 export const changeSchedule = (sId, changes) => dispatch => {
   const {currentUser} = firebase.auth();
-  firebase.database.ref(`/users/${currentUser.uid}/schedules/${sId}`)
+  firebase.database().ref(`/users/${currentUser.uid}/schedules/${sId}`)
   .set(changes)
   .then(() => {
     dispatch(editSchedule());
