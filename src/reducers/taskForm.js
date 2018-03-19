@@ -4,7 +4,8 @@ const defaultState = {
   title: '',
   description: '',
   startTime: '',
-  duration: '',
+  durationMin: 0,
+  durationHr: 5,
   loading: false,
   error: ' '
 };

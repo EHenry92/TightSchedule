@@ -25,11 +25,11 @@ class ScheduleList extends Component {
             rowData = {schedule.title}
             rightData = {schedule.date}
             onRowPress = {() => {
-              Actions.taskForm({schedule})
+              Actions.singleSchedule({schedule})
               }}
             leftAction = {true}
             onActionPress = {() => {this.props.removeSchedule(schedule.uid)}}
-            actionText = 'X'
+            actionText = 'x'
           />
   }
   render () {

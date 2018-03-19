@@ -29,8 +29,6 @@ export const formClear = (scheduleForm = true) => dispatch => {
 
 export const submitForm = (data, scheduleForm = true, sId) => dispatch => {
   const {currentUser} = firebase.auth();
-  console.log("dk", data, sId)
-
   if (scheduleForm) {
     dispatch(scheduleFormLoad());
     firebase.database().ref(`/users/${currentUser.uid}/schedules`)
