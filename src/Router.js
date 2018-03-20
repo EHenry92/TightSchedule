@@ -32,15 +32,20 @@ const RouterComponent = () => {
             title="New Schedule"
             />
           <Scene
+            key="singleSchedule"
+            component={SingleSchedule}
+            title="Schedule Details"
+            rightTitle = "Add Task"
+            onRight = {(evt) => {
+              console.log("the evt gain", evt)
+              Actions.taskForm({schedule: evt.schedule})}}
+            />
+          <Scene
             key="taskForm"
             component={TaskForm}
             title="New Task"
             />
-            <Scene
-            key="singleSchedule"
-            component={SingleSchedule}
-            title="Schedule Details"
-            />
+
         </Scene>
       </Scene>
     </Router>

@@ -27,7 +27,7 @@ export const formClear = (scheduleForm = true) => dispatch => {
   scheduleForm ? dispatch(scheduleFormClear()) : dispatch(taskFormClear());
 };
 
-export const submitForm = (data, scheduleForm = true, sId) => dispatch => {
+export const submitForm = (data, scheduleForm = true, schedule) => dispatch => {
   const {currentUser} = firebase.auth();
   if (scheduleForm) {
     dispatch(scheduleFormLoad());
@@ -41,12 +41,12 @@ export const submitForm = (data, scheduleForm = true, sId) => dispatch => {
   }
   else {
     dispatch(taskFormLoad());
-    firebase.database().ref(`/users/${currentUser.uid}/schedules/${sId}/tasks`)
+    firebase.database().ref(`/users/${currentUser.uid}/schedules/${schedule.uid}/tasks`)
     .push(data)
     .then(() => {
       dispatch(addTask());
       dispatch(taskFormClear());
-      Actions.scheduleList();
+      // Actions.singleSchedule();
     });
   }
 };

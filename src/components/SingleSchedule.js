@@ -2,28 +2,35 @@ import React, {Component} from 'react';
 import {View, Text, ListView} from 'react-native';
 import {connect} from 'react-redux';
 import { ListItem, Header} from './common';
-import {removeTask} from '../actions';
+import {removeTask, fetchTasks} from '../actions';
+import _ from 'lodash';
 
 class SingleSchedule extends Component {
   componentWillMount() {
-    this.createDataSource(this.props.schedule.tasks);
+    this.props.fetchTasks(this.props.schedule.uid);
+    this.createDataSource(this.props.tasks);
   }
-  componentWillReceiveProps(newProps) {
-    this.createDataSource(newProps.schedule.tasks);
+
+  componentWillReceiveProps(nextProps) {
+    this.createDataSource(nextProps.tasks);
   }
   createDataSource(tasks) {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
+    console.log("incdsoruce", tasks);
+    console.log("ds", ds);
+
     this.dataSource = ds.cloneWithRows(tasks);
   }
   renderTaskRow (task) {
+    const {removeTask, schedule} = this.props;
     return (<ListItem
               rowData = {task.title}
               rightData = {task.startTime}
               onRowPress = {() => {console.log('go to edit task');}}
               leftAction = {true}
-              onActionPress = {() => {this.props.removeTask(this.props.schedule.uid, task.uid);}}
+              onActionPress = {() => {removeTask(schedule.uid, task.uid);}}
               actionText = "x"
             />);
   }
@@ -42,5 +49,11 @@ class SingleSchedule extends Component {
   }
 }
 
+const mapState = (state) => {
+  const tasks = _.map(state.tasks, (val, uid) => {
+    return {...val, uid};
+  });
+  return {tasks};
+};
 
-export default connect(null, {removeTask})(SingleSchedule);
+export default connect(mapState, {removeTask, fetchTasks})(SingleSchedule);

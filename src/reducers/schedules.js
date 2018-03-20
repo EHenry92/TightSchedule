@@ -9,7 +9,6 @@ export default function (state = defaultState, action) {
     case CREATE_SCHEDULE:
     case DELETE_SCHEDULE:
     case EDIT_SCHEDULE:
-      return state;
     default:
       return state;
   }

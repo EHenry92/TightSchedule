@@ -1,10 +1,11 @@
 import firebase from 'firebase';
-import {ADD_TASK, DELETE_TASK, COMPLETE_TASK, EDIT_TASK} from './types';
+import {GET_TASKS, DELETE_TASK, COMPLETE_TASK, EDIT_TASK} from './types';
 
 // export const addTask = () => ({type: ADD_TASK});
 export const delTask = () => ({type: DELETE_TASK});
 export const finishTask = () => ({type: COMPLETE_TASK});
 export const editTask = () => ({type: EDIT_TASK});
+export const getTasks = (tasks) => ({type: GET_TASKS, tasks});
 
 // export const createTask = (sId, task ) => dispatch => {
 //   const {currentUser} = firebase.auth();
@@ -14,6 +15,14 @@ export const editTask = () => ({type: EDIT_TASK});
 //     dispatch(addTask());
 //   });
 // };
+
+export const fetchTasks = (sId) => dispatch => {
+  const {currentUser} = firebase.auth();
+  firebase.database().ref(`/users/${currentUser.uid}/schedules/${sId}/tasks`)
+  .on('value', snapshot => {
+    dispatch(getTasks(snapshot.val()));
+  });
+};
 
 export const removeTask = (sId, taskId) => dispatch => {
   const {currentUser} = firebase.auth();

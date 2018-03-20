@@ -9,7 +9,8 @@ import DatePicker from 'react-native-datepicker';
 
 const TaskForm = (props) => {
     const currTime = new Date().getTime;
-    const {title, description, durationMin, durationHr, startTime, loading, error, submitForm, formChange } = props;
+    const {title, description, duration, durationMin, durationHr, startTime, loading, error, submitForm, formChange, schedule } = props;
+    const {lableTextStyle, pickerStyle} = styles;
     const minIntervals = _.range(5, 60, 5);
     const hrIntervals = _.range(0, 24, 1);
 
@@ -25,7 +26,7 @@ const TaskForm = (props) => {
           />
         </CardSection>
         <CardSection>
-          <Text> Start Time: </Text>
+          <Text style = {lableTextStyle}> Start Time: </Text>
           <DatePicker
             style={{width: 200}}
             date={startTime}
@@ -46,38 +47,59 @@ const TaskForm = (props) => {
           />
         </CardSection>
         <CardSection>
-        <Text> Duration: </Text>
-        <Picker
-          style = {{width: 30, height: 10}}
-          selectedValue={durationHr}
-          onValueChange={(itemValue) => formChange({durationHr: itemValue}, false)}
-          >
-          {
-            hrIntervals.map(amt =>
-              <Picker.Item key={amt} label={amt.toString()} value= {amt} />
-            )
-          }
-        </Picker>
-        <Picker
-          style = {{width: 30, height: 10}}
-          selectedValue={durationMin}
-          onValueChange={(itemValue) => formChange({durationMin: itemValue}, false)}
-          >
-          {
-            minIntervals.map(amt =>
-              <Picker.Item key={amt} label={amt.toString()} value= {amt} />
-            )
-          }
-        </Picker>
-
+        <Text style = {lableTextStyle}> Duration: </Text>
+          <DatePicker
+            style={{width: 150}}
+            date={duration}
+            mode="time"
+            format="HH:mm"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            minuteInterval={5}
+            onDateChange={(time) => {formChange({duration: time}, false);}}
+            customStyles={{
+              btnTextConfirm: {
+                height: 20
+             },
+             btnTextCancel: {
+                height: 20
+             }
+            }}
+          />
         </CardSection>
+        {/* <CardSection>
+          <Text style = {lableTextStyle}> Duration: </Text>
+          <Text> {durationHr} : {durationMin} </Text>
+          <Picker
+            style = {pickerStyle}
+            selectedValue={durationHr}
+            onValueChange={(itemValue) => formChange({durationHr: itemValue}, false)}
+            >
+            {
+              hrIntervals.map(amt =>
+                <Picker.Item key={amt} label={amt.toString()} value= {amt} />
+              )
+            }
+          </Picker>
+          <Picker
+            style = {pickerStyle}
+            selectedValue={durationMin}
+            onValueChange={(itemValue) => formChange({durationMin: itemValue}, false)}
+            >
+            {
+              minIntervals.map(amt =>
+                <Picker.Item key={amt} label={amt.toString()} value= {amt} />
+              )
+            }
+          </Picker>
+        </CardSection> */}
         <CardSection>
           {
             loading ?
             <Spinner size='large'/>
             :
             <Button onPress = {() =>
-            submitForm({title, startTime, durationHr, durationMin}, false, props.schedule.uid)}>
+            submitForm({title, startTime, duration}, false, schedule)}>
               Save
             </Button>
           }
@@ -86,9 +108,17 @@ const TaskForm = (props) => {
     );
 };
 
+const styles = {
+  pickerStyle: {
+    width: 30
+  },
+  lableTextStyle: {
+    fontSize: 20
+  }
+}
 const mapState = (state) => {
-  const {title, description, durationMin, durationHr, startTime, loading, error } = state.taskForm;
-  return {title, description, durationMin, durationHr,  startTime, loading, error };
+  const {title, description, duration, durationMin, durationHr, startTime, loading, error } = state.taskForm;
+  return {title, description, duration, durationMin, durationHr,  startTime, loading, error };
 };
 
 export default connect(mapState, {submitForm, formChange})(TaskForm);
