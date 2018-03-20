@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, ListView} from 'react-native';
 import {connect} from 'react-redux';
-import { ListItem, Header} from './common';
+import { ListItem, Header, Card} from './common';
 import {removeTask, fetchTasks} from '../actions';
 import _ from 'lodash';
 
@@ -18,9 +18,6 @@ class SingleSchedule extends Component {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
-    console.log("incdsoruce", tasks);
-    console.log("ds", ds);
-
     this.dataSource = ds.cloneWithRows(tasks);
   }
   renderTaskRow (task) {
@@ -38,12 +35,14 @@ class SingleSchedule extends Component {
     return (
       <View>
         <Header title={this.props.schedule.title} />
-        <ListView
-          enableEmptySections
-          dataSource = {this.dataSource}
-          renderRow = {this.renderTaskRow.bind(this)}
-           >
-      </ListView>
+        <Card>
+          <ListView
+            enableEmptySections
+            dataSource = {this.dataSource}
+            renderRow = {this.renderTaskRow.bind(this)}
+            >
+          </ListView>
+        </Card>
       </View>
     );
   }

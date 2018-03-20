@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {View, Text, ListView} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
-import {Card, CardSection, InputField, Button, Confirm, ListItem} from './common';
+import {Card, CardSection, InputField, Button, PopUp, ListItem} from './common';
 import {fetchSchedules, removeSchedule} from '../actions';
 
 class ScheduleList extends Component {

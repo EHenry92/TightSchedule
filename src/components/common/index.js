@@ -4,5 +4,5 @@ export * from './CardSection';
 export * from './Header';
 export * from './InputField';
 export * from './Spinner';
-export * from './Confirm';
+export * from './PopUp';
 export * from './ListItem';

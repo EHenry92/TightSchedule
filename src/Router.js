@@ -37,7 +37,6 @@ const RouterComponent = () => {
             title="Schedule Details"
             rightTitle = "Add Task"
             onRight = {(evt) => {
-              console.log("the evt gain", evt)
               Actions.taskForm({schedule: evt.schedule})}}
             />
           <Scene
