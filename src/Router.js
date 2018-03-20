@@ -37,7 +37,7 @@ const RouterComponent = () => {
             title="Schedule Details"
             rightTitle = "Add Task"
             onRight = {(evt) => {
-              Actions.taskForm({schedule: evt.schedule})}}
+              Actions.taskForm({schedule: evt.schedule});}}
             />
           <Scene
             key="taskForm"
@@ -48,6 +48,6 @@ const RouterComponent = () => {
         </Scene>
       </Scene>
     </Router>
-  )
-}
+  );
+};
 export default RouterComponent;

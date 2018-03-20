@@ -8,10 +8,10 @@ import DatePicker from 'react-native-datepicker';
 
 
 class TaskForm extends Component {
-    constructor (props) {
+    constructor () {
       super();
       this.state = {
-        pickDur: true
+        pickDur: false
       };
       this.showPopUp = this.showPopUp.bind(this);
     }

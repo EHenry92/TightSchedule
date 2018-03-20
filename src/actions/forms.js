@@ -36,7 +36,7 @@ export const submitForm = (data, scheduleForm = true, schedule) => dispatch => {
     .then(() => {
       dispatch(createSchedule());
       dispatch(scheduleFormClear());
-      Actions.taskForm();
+      Actions.scheduleList();
     });
   }
   else {
@@ -46,7 +46,7 @@ export const submitForm = (data, scheduleForm = true, schedule) => dispatch => {
     .then(() => {
       dispatch(addTask());
       dispatch(taskFormClear());
-      // Actions.singleSchedule();
+      Actions.pop();
     });
   }
 };
