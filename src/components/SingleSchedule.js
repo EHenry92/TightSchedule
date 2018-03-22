@@ -21,13 +21,13 @@ class SingleSchedule extends Component {
     this.dataSource = ds.cloneWithRows(tasks);
   }
   renderTaskRow (task) {
-    const {removeTask, schedule} = this.props;
+    const {removeTask, schedule, changeTask} = this.props;
     return (
       <ListItem
               rowData = {task.title}
               rightData = {task.startTime}
               onRowPress = {() => {console.log("pressing row")}}
-              onActionPress = {() => {changeTask(schedule.uid, task.uid, {complete: true})}}
+              onActionPress = {() => {changeTask(schedule.uid, task.uid, {complete: !task.complete || true})}}
               leftAction = {true}
               onDelPress = {() => {removeTask(schedule.uid, task.uid);}}
               delText = "x"
@@ -59,4 +59,4 @@ const mapState = (state) => {
   return {tasks};
 };
 
-export default connect(mapState, {removeTask, fetchTasks})(SingleSchedule);
+export default connect(mapState, {removeTask, fetchTasks, changeTask})(SingleSchedule);

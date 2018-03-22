@@ -5,7 +5,7 @@ import {Button} from './Button';
 import {Card} from './Card';
 
 
-const ListItem = ({rowData, onRowPress, rightData, leftAction = false, onActionPress, actionText, delText, onDelPress}) => {
+const ListItem = ({rowData, onRowPress, rightData, leftAction = false, onActionPress, actionText, delText, onDelPress, disabled}) => {
     return (
       <View>
       <CardSection>

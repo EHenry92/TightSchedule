@@ -27,7 +27,7 @@ export const removeTask = (sId, taskId) => dispatch => {
 export const changeTask = (sId, tId, change) => dispatch => {
   const {currentUser} = firebase.auth();
   firebase.database().ref(`/users/${currentUser.uid}/schedules/${sId}/tasks/${tId}`)
-  .set(change)
+  .update(change)
   .then(() => {
     dispatch(editTask());
   });
