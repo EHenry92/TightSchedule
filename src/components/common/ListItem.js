@@ -8,6 +8,20 @@ import {Card} from './Card';
 const ListItem = ({rowData, onRowPress, rightData, leftAction = false, onActionPress, actionText, delText, onDelPress, disabled}) => {
     return (
       <View>
+      {
+        disabled ?
+        <CardSection style = {{ opacity: 0.5 }}>
+          {
+        leftAction &&
+        <View style={{width: 25}}>
+          <Button disabled styleButton={[styles.sideButtonStyle, {backgroundColor: 'black'}]} onPress = {onActionPress} />
+        </View>
+        }
+          <Text style = {styles.titleStyle}>
+            {rowData}
+          </Text>
+        </CardSection>
+        :
       <CardSection>
         {
         leftAction &&
@@ -39,14 +53,15 @@ const ListItem = ({rowData, onRowPress, rightData, leftAction = false, onActionP
           </Text>
         </View>
       </CardSection>
+    }
       </View>
     );
 };
 
 const styles = {
   sideButtonStyle: {
-    width: 25,
-    height: 25
+    width: 20,
+    height: 20
   },
   titleStyle: {
     fontSize: 20,
