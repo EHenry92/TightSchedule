@@ -3,8 +3,6 @@ SCHEDULE_FORM_EDIT, SCHEDULE_FORM_CLEAR, SCHEDULE_FORM_LOADING, CREATE_SCHEDULE,
 TASK_FORM_EDIT, TASK_FORM_CLEAR, TASK_FORM_LOADING, ADD_TASK
 } from './types';
 import firebase from 'firebase';
-// import {saveSchedule} from './schedule';
-import {createTask} from './tasks';
 import {Actions} from 'react-native-router-flux';
 
 export const scheduleFormEdit = change => ({type: SCHEDULE_FORM_EDIT, change});
@@ -33,16 +31,16 @@ export const submitForm = (data, scheduleForm = true, schedule) => dispatch => {
     dispatch(scheduleFormLoad());
     firebase.database().ref(`/users/${currentUser.uid}/schedules`)
     .push(data)
-    .then(() => {
+    .then((test, other )=> {
       dispatch(createSchedule());
       dispatch(scheduleFormClear());
-      Actions.scheduleList();
+      Actions.pop();
     });
   }
   else {
     dispatch(taskFormLoad());
     firebase.database().ref(`/users/${currentUser.uid}/schedules/${schedule.uid}/tasks`)
-    .push(data)
+    .push({...data, ...{complete: false}})
     .then(() => {
       dispatch(addTask());
       dispatch(taskFormClear());

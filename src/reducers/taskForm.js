@@ -6,9 +6,9 @@ const defaultState = {
   startTime: '',
   durationMin: 0,
   durationHr: 5,
+  complete: false,
   loading: false,
-  error: ' ',
-  duration: [0,0]
+  error: ' '
 };
 
 export default function (state = defaultState, action) {

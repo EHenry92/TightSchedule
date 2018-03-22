@@ -50,7 +50,7 @@ class TaskForm extends Component {
     }
 
     render (){
-      const {title, duration, durationMin, durationHr, startTime, loading, submitForm, formChange, schedule} = this.props;
+      const {title, durationMin, durationHr, startTime, loading, submitForm, formChange, schedule} = this.props;
       const {lableTextStyle} = styles;
       return (
         <Card>
@@ -105,7 +105,7 @@ class TaskForm extends Component {
               <Spinner size="large" />
               :
               <Button onPress = {() =>
-              submitForm({title, startTime, duration}, false, schedule)}>
+              submitForm({title, startTime, durationHr, durationMin}, false, schedule)}>
                 Save
               </Button>
             }

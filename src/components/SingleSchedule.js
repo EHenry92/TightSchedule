@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import {View, Text, ListView} from 'react-native';
+import {View, Text, ListView, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
-import { ListItem, Header, Card} from './common';
-import {removeTask, fetchTasks} from '../actions';
+import { ListItem, Header, Card, Button, CardSection} from './common';
+import {removeTask, fetchTasks, changeTask} from '../actions';
 import _ from 'lodash';
 
 class SingleSchedule extends Component {
@@ -22,14 +22,18 @@ class SingleSchedule extends Component {
   }
   renderTaskRow (task) {
     const {removeTask, schedule} = this.props;
-    return (<ListItem
+    return (
+      <ListItem
               rowData = {task.title}
               rightData = {task.startTime}
-              onRowPress = {() => {console.log('go to edit task');}}
+              onRowPress = {() => {console.log("pressing row")}}
+              onActionPress = {() => {changeTask(schedule.uid, task.uid, {complete: true})}}
               leftAction = {true}
-              onActionPress = {() => {removeTask(schedule.uid, task.uid);}}
-              actionText = "x"
-            />);
+              onDelPress = {() => {removeTask(schedule.uid, task.uid);}}
+              delText = "x"
+              disabled = {task.complete || false}
+            />
+            );
   }
   render () {
     return (

@@ -27,19 +27,20 @@ class ScheduleList extends Component {
             onRowPress = {() => {
               Actions.singleSchedule({schedule})
               }}
-            leftAction = {true}
-            onActionPress = {() => {this.props.removeSchedule(schedule.uid)}}
-            actionText = 'x'
+            onDelPress = {() => {this.props.removeSchedule(schedule.uid)}}
+            delText = 'x'
           />
   }
   render () {
     return (
+    <Card>
       <ListView
         enableEmptySections
         dataSource = {this.dataSource}
         renderRow = {this.renderScheduleRow.bind(this)}
       >
       </ListView>
+    </Card>
     );
   }
 }

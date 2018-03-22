@@ -3,9 +3,9 @@ import {Text, TouchableOpacity} from 'react-native';
 
 const Button = (props) => {
   const {buttonStyle, textStyle} = styles;
-  const {children, onPress} = props;
+  const {children, onPress, styleButton} = props;
   return (
-  <TouchableOpacity style = {buttonStyle} onPress={onPress}>
+  <TouchableOpacity style = {[buttonStyle, styleButton]} onPress={onPress}>
     <Text style={textStyle}>
       {children}
     </Text>
@@ -31,6 +31,6 @@ const styles = {
     paddingTop: 10,
     paddingBottom: 10
   }
-}
+};
 
 export {Button};

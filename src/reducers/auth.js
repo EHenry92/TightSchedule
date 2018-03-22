@@ -20,7 +20,6 @@ export default function (state = defaultState, action) {
         loading: false
       });
     case LOADING:
-      console.log('starting to load')
       return Object.assign({}, state,
         {error: '', loading: true}
       );
