@@ -9,10 +9,10 @@ import {fetchSchedules, removeSchedule} from '../actions';
 class ScheduleList extends Component {
   componentWillMount() {
     this.props.fetchSchedules();
-    this.createDataSource(this.props.schedules);
+    this.createDataSource(this.props.schedules.sort(compareSchedule));
   }
   componentWillReceiveProps(nextProps) {
-    this.createDataSource(nextProps.schedules);
+    this.createDataSource(nextProps.schedules.sort(compareSchedule));
   }
   createDataSource(schedules) {
     const ds = new ListView.DataSource({
@@ -54,3 +54,14 @@ const mapState = (state) => {
 };
 
 export default connect(mapState, {fetchSchedules, removeSchedule})(ScheduleList);
+
+function compareSchedule(a, b) {
+  if (a.date < b.date || (a.date && !b.date)) {
+    return -1;
+  }
+  if (b.date < a.date || b.title < a.title) {
+    return 1;
+  }
+  // a must be equal to b
+  return 0;
+}
