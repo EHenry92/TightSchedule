@@ -8,11 +8,11 @@ import _ from 'lodash';
 class SingleSchedule extends Component {
   componentWillMount() {
     this.props.fetchTasks(this.props.schedule.uid);
-    this.createDataSource(this.props.tasks);
+    this.createDataSource(this.props.tasks.sort(compare));
   }
 
   componentWillReceiveProps(nextProps) {
-    this.createDataSource(nextProps.tasks);
+    this.createDataSource(nextProps.tasks.sort(compare));
   }
   createDataSource(tasks) {
     const ds = new ListView.DataSource({
@@ -60,3 +60,19 @@ const mapState = (state) => {
 };
 
 export default connect(mapState, {removeTask, fetchTasks, changeTask})(SingleSchedule);
+
+
+function compare(a, b) {
+  if (a.complete == false ||(a.startTime && (a.startTime < b.startTime)) ) {
+    return -1;
+  }
+  if (b.complete == false || (b.startTime && (b.startTime < a.startTime))) {
+    return 1;
+  }
+  // a must be equal to b
+  return 0;
+}
+
+//a < b --> -1
+//a > b --> 1
+//a == b --> 0

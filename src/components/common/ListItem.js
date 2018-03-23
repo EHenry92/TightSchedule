@@ -10,11 +10,11 @@ const ListItem = ({rowData, onRowPress, rightData, leftAction = false, onActionP
       <View>
       {
         disabled ?
-        <CardSection style = {{ opacity: 0.5 }}>
+        <CardSection style = {{ opacity: 0.4, minHeight: 40}}>
           {
         leftAction &&
         <View style={{width: 25}}>
-          <Button disabled styleButton={[styles.sideButtonStyle, {backgroundColor: 'black'}]} onPress = {onActionPress} />
+          <Button disabled styleButton={[styles.sideButtonStyle, {backgroundColor: 'white'}]} onPress = {onActionPress} />
         </View>
         }
           <Text style = {styles.titleStyle}>
