@@ -4,7 +4,6 @@ import {CardSection} from './CardSection';
 import {Button} from './Button';
 import {Card} from './Card';
 
-
 const ListItem = ({rowData, onRowPress, rightData, leftAction = false, onActionPress, actionText, delText, onDelPress, disabled}) => {
     return (
       <View>
@@ -14,7 +13,8 @@ const ListItem = ({rowData, onRowPress, rightData, leftAction = false, onActionP
           {
         leftAction &&
         <View style={{width: 25}}>
-          <Button disabled styleButton={[styles.sideButtonStyle, {backgroundColor: 'white'}]} onPress = {onActionPress} />
+          <Button disabled styleButton={[styles.sideButtonStyle, {backgroundColor: 'white'}]}>
+          </Button>
         </View>
         }
           <Text style = {styles.titleStyle}>

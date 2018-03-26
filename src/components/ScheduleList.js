@@ -56,12 +56,11 @@ const mapState = (state) => {
 export default connect(mapState, {fetchSchedules, removeSchedule})(ScheduleList);
 
 function compareSchedule(a, b) {
-  if (a.date < b.date || (a.date && !b.date)) {
-    return -1;
-  }
-  if (b.date < a.date || b.title < a.title) {
-    return 1;
-  }
-  // a must be equal to b
+  if (a.date && !b.date ) {return -1;}
+  if (b.date && !a.date ) {return 1;}
+  if (a.date < b.date) {return -1;}
+  if (b.date < a.date) {return 1;}
+  if (a.title < b.title) {return -1;}
+  if (b.title < a.title) {return 1;}
   return 0;
 }

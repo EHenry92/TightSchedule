@@ -63,16 +63,16 @@ export default connect(mapState, {removeTask, fetchTasks, changeTask})(SingleSch
 
 
 function compareTasks(a, b) {
-  if (a.complete == false ||(a.startTime && (a.startTime < b.startTime)) ) {
-    return -1;
-  }
-  if (b.complete == false || (b.startTime && (b.startTime < a.startTime))) {
-    return 1;
-  }
-  // a must be equal to b
+  if (!a.complete && b.complete ) {return -1;}
+  if (!b.complete && a.complete ) {return 1;}
+  if (a.startTime < b.startTime || (a.startTime && !b.startTime)) {return -1;}
+  if (b.startTime < a.startTime || (b.startTime && !a.startTime)) {return 1;}
+  if (a.title < b.title) {return -1;}
+  if (b.title < a.title) {return 1;}
   return 0;
 }
 
 //a < b --> -1
 //a > b --> 1
 //a == b --> 0
+
