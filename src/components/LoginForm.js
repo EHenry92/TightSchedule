@@ -1,29 +1,37 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Text} from 'react-native';
+import {Text, AsyncStorage} from 'react-native';
 import {Card, CardSection, Button, InputField, Spinner } from './common';
 import {loginAttempt, editForm} from '../actions';
 
 class LoginForm extends Component {
+  componentWillMount(){
+    // AsyncStorage.clear()
+    AsyncStorage.getItem('LOGIN', (err, result) => {
+      if (err) console.log(err);
+      const data = JSON.parse(result);
+      this.props.loginAttempt({email: data.email, password: data.password});
+    });
+  }
   render (){
     const {email, password, loading,
-          error, editForm,loginAttempt} = this.props;
-    return(
+          error, editForm, loginAttempt} = this.props;
+    return (
       <Card>
         <CardSection>
           <InputField
-            label = 'Email'
+            label = "Email"
             onChangeText = {(text) => editForm({email: text})}
             value = {email}
-            placeholder = 'example@email.com'
+            placeholder = "example@email.com"
           />
         </CardSection>
         <CardSection>
         <InputField
-            label = 'Password'
+            label = "Password"
             onChangeText = {(text) => editForm({password: text})}
             value = {password}
-            placeholder = 'password'
+            placeholder = "password"
             secureTextEntry
           />
         </CardSection>
@@ -36,7 +44,7 @@ class LoginForm extends Component {
         <CardSection>
          {
            loading ?
-          <Spinner size='large' />
+          <Spinner size="large" />
            :
           <Button onPress= {() => loginAttempt({email, password})}>
             Enter
