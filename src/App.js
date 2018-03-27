@@ -3,7 +3,7 @@ import {Provider} from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import {createStore, applyMiddleware} from 'redux';
 import firebase from 'firebase';
-import {pushNotifications} from './src/services';
+import {pushNotifications} from './services';
 import {firebaseData} from '../secrets';
 import Router from './Router';
 import reducers from './reducers';

@@ -22,7 +22,7 @@ const configure = () => {
 };
 
 const localNotification = ({bigText, subText, title, message}) => {
-  pushNotification.localNotification({
+  PushNotification.localNotification({
     autoCancel: true,
     largeIcon: "ic_launcher",
     smallIcon: "ic_notification",

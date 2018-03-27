@@ -5,6 +5,8 @@ import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 import {Card, CardSection, InputField, Button, PopUp, ListItem} from './common';
 import {fetchSchedules, removeSchedule} from '../actions';
+import {pushNotifications} from '../services';
+
 
 class ScheduleList extends Component {
   componentWillMount() {
@@ -31,6 +33,14 @@ class ScheduleList extends Component {
             delText = 'x'
           />
   }
+  showNotification () {
+    pushNotifications.localNotification({
+      bigText: "This is the big text",
+      subText: "This is the sub text",
+      title: "This is the title",
+      message: "This is the message"
+    });
+  }
   render () {
     return (
     <Card>
@@ -40,6 +50,11 @@ class ScheduleList extends Component {
         renderRow = {this.renderScheduleRow.bind(this)}
       >
       </ListView>
+      <CardSection>
+      <Button onPress = {() => this.showNotification.bind(this)}>
+          Press Me
+        </Button>
+      </CardSection>
     </Card>
     );
   }

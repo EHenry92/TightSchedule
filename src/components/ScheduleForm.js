@@ -55,7 +55,7 @@ const ScheduleForm = (props) => {
         <CardSection>
           {
             loading ?
-            <Spinner size='large'/>
+            <Spinner size="large" />
             :
             <Button onPress = {() =>
             submitForm({title, date})}>
@@ -65,7 +65,7 @@ const ScheduleForm = (props) => {
         </CardSection>
       </Card>
     );
-}
+};
 
 const mapState = ({scheduleForm}) => {
   const {title, date, loading, error } = scheduleForm;
