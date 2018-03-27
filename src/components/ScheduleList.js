@@ -5,6 +5,7 @@ import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 import {Card, CardSection, InputField, Button, PopUp, ListItem} from './common';
 import {fetchSchedules, removeSchedule} from '../actions';
+import Logout from './Logout';
 
 class ScheduleList extends Component {
   componentWillMount() {
@@ -33,6 +34,7 @@ class ScheduleList extends Component {
   }
   render () {
     return (
+  <View>
     <Card>
       <ListView
         enableEmptySections
@@ -41,6 +43,8 @@ class ScheduleList extends Component {
       >
       </ListView>
     </Card>
+    <Logout />
+  </View>
     );
   }
 }

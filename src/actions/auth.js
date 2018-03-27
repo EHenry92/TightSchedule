@@ -12,10 +12,13 @@ export const loggingOut = () => ({type: LOGOUT_USER});
 
 export const loginAttempt = ({email, password}) => dispatch => {
   dispatch(loading());
+  const storageData = {
+      login: {email, password}
+  };
   firebase.auth().signInWithEmailAndPassword(email, password)
   .then(user => {
     dispatch(loggingIn());
-    AsyncStorage.mergeItem('LOGIN', JSON.stringify({email, password}), () => {});
+    AsyncStorage.mergeItem('TightSchedule', JSON.stringify(storageData), () => {});
     Actions.main();
   })
   .catch(() => {
@@ -23,7 +26,7 @@ export const loginAttempt = ({email, password}) => dispatch => {
   })
   .then(newUser => {
     dispatch(loggingIn());
-    AsyncStorage.setItem('LOGIN', JSON.stringify({email, password}), () => {});
+    AsyncStorage.setItem('TightSchedule', JSON.stringify(storageData), () => {});
     Actions.main();
   })
   .catch(err => dispatch(showErr(err)));
@@ -32,7 +35,11 @@ export const loginAttempt = ({email, password}) => dispatch => {
 export const logout = () => dispatch => {
   dispatch(loading());
   firebase.auth().signOut()
-  .then(() => dispatch(loggingOut()));
+  .then(() => {
+    AsyncStorage.removeItem('TightSchedule');
+    dispatch(loggingOut());
+    Actions.auth();
+  });
 };
 
 export const editForm = change => dispatch => dispatch(loginFormChange(change));
