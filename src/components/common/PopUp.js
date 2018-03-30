@@ -10,8 +10,7 @@ const PopUp = ({children, visible, onAccept}) => {
       visible={visible}
       animationType="slide"
       onRequestClose={() => {}}
-      transparent
-    >
+      transparent>
     <View style={containterStyle}>
       <CardSection style={cardSectionStyle}>
         <Text style={textStyle}>

@@ -38,13 +38,12 @@ class SingleSchedule extends Component {
   render () {
     return (
       <View>
-        <Header title={this.props.schedule.title} />
+        <Header tName={this.props.schedule.title} />
         <Card>
           <ListView
             enableEmptySections
             dataSource = {this.dataSource}
-            renderRow = {this.renderTaskRow.bind(this)}
-            >
+            renderRow = {this.renderTaskRow.bind(this)}>
           </ListView>
         </Card>
       </View>

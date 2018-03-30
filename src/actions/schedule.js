@@ -1,5 +1,6 @@
 import firebase from 'firebase';
 import {GET_SCHEDULES, CREATE_SCHEDULE, DELETE_SCHEDULE, EDIT_SCHEDULE, CREATE_TEMPLATE} from './types';
+import {AsyncStorage} from 'react-native';
 
 export const getSchedules = schedules => ({type: GET_SCHEDULES, schedules});
 // export const createSchedule = () => ({type: CREATE_SCHEDULE});
@@ -11,19 +12,11 @@ export const fetchSchedules = () => dispatch => {
   const {currentUser} = firebase.auth();
   firebase.database().ref(`/users/${currentUser.uid}/schedules`)
   .on('value', snapshot => {
-    dispatch(getSchedules(snapshot.val()));
+    let schedules = snapshot.val();
+    AsyncStorage.mergeItem('TightSchedule', JSON.stringify({schedules}), () => {});
+    dispatch(getSchedules(schedules));
   });
 };
-
-// export const saveSchedule = schedule => dispatch => {
-//   console.log("this is the real test", schedule)
-//   const {currentUser} = firebase.auth();
-//   firebase.database().ref(`/users/${currentUser.uid}/schedules`)
-//   .push(schedule)
-//   .then(() => {
-//     dispatch(createSchedule());
-//   });
-// };
 
 export const removeSchedule = sId => dispatch => {
   const {currentUser} = firebase.auth();

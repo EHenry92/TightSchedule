@@ -1,4 +1,8 @@
 {
   "name": "TightSchedule",
-  "displayName": "TightSchedule"
+  "displayName": "TightSchedule",
+  "expo": {
+    "sdkVersion": "18.0.0"
+  }
 }
+

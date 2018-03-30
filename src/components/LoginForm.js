@@ -37,7 +37,7 @@ class LoginForm extends Component {
           />
         </CardSection>
         {
-          error &&
+          !!error &&
           <Text style={{color: 'red', fontSize: 20}}>
             {error}
           </Text>
