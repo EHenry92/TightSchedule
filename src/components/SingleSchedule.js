@@ -37,8 +37,6 @@ class SingleSchedule extends Component {
   }
   render () {
     return (
-      <View>
-        <Header tName={this.props.schedule.title} />
         <Card>
           <ListView
             enableEmptySections
@@ -46,7 +44,6 @@ class SingleSchedule extends Component {
             renderRow = {this.renderTaskRow.bind(this)}>
           </ListView>
         </Card>
-      </View>
     );
   }
 }

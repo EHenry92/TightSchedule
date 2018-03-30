@@ -59,7 +59,7 @@ class ScheduleList extends Component {
         renderRow = {this.renderScheduleRow.bind(this)}>
       </ListView>
       <CardSection>
-      <Button onPress = {() => this.showNotification.bind(this)}>
+      <Button onPress = {this.showNotification.bind(this)}>
           Press Me
         </Button>
       </CardSection>

@@ -22,13 +22,11 @@ const configure = () => {
 };
 
 const localNotification = ({bigText, subText, title, message}) => {
+  console.log("inlocal notificaio")
   PushNotification.localNotification({
     autoCancel: true,
-    largeIcon: "ic_launcher",
-    smallIcon: "ic_notification",
     bigText: bigText,
     subText: subText,
-    color: 'blue',
     vibrate: true,
     vibration: 300,
     title: title,
