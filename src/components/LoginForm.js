@@ -6,11 +6,12 @@ import {loginAttempt, editForm} from '../actions';
 
 class LoginForm extends Component {
   componentWillMount(){
-    // AsyncStorage.clear()
-    AsyncStorage.getItem('LOGIN', (err, result) => {
+    AsyncStorage.getItem('TightSchedule', (err, result) => {
       if (err) console.log(err);
-      const data = JSON.parse(result);
-      this.props.loginAttempt({email: data.email, password: data.password});
+      if (result) {
+        const {login} = JSON.parse(result);
+        this.props.loginAttempt({email: login.email, password: login.password});
+      }
     });
   }
   render (){
@@ -36,7 +37,7 @@ class LoginForm extends Component {
           />
         </CardSection>
         {
-          error &&
+          !!error &&
           <Text style={{color: 'red', fontSize: 20}}>
             {error}
           </Text>

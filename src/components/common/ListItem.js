@@ -13,7 +13,7 @@ const ListItem = ({rowData, onRowPress, rightData, leftAction = false, onActionP
           {
         leftAction &&
         <View style={{width: 25}}>
-          <Button disabled styleButton={[styles.sideButtonStyle, {backgroundColor: 'white'}]}>
+          <Button disabled styleButton={[styles.sideButtonStyle, {backgroundColor: 'white'}]}>.
           </Button>
         </View>
         }
@@ -31,7 +31,7 @@ const ListItem = ({rowData, onRowPress, rightData, leftAction = false, onActionP
           </Button>
         </View>
         }
-        <View style={styles.mainDataStyle} >
+        <View style={styles.mainDataStyle}>
           <TouchableWithoutFeedback onPress={onRowPress}>
             <View>
             <Text style = {styles.titleStyle}>

@@ -25,8 +25,7 @@ class TaskForm extends Component {
             <Picker
               style={{width: 100, height: 132}} itemStyle={{height: 132}}
               selectedValue={durationHr}
-              onValueChange={(itemValue) => formChange({durationHr: itemValue}, false)}
-              >
+              onValueChange={(itemValue) => formChange({durationHr: itemValue}, false)}>
               {
                 hrIntervals.map(amt =>
                   <Picker.Item key={amt} label={amt.toString()} value= {amt} />
@@ -63,7 +62,7 @@ class TaskForm extends Component {
             />
           </CardSection>
           <CardSection>
-            <Text style = {lableTextStyle}> Start Time: </Text>
+            <Text style = {lableTextStyle}>Start Time:</Text>
             <DatePicker
               style={{width: 200}}
               date={startTime}
@@ -84,12 +83,12 @@ class TaskForm extends Component {
             />
           </CardSection>
           <CardSection>
-            <Text style = {lableTextStyle}> Duration: </Text>
+            <Text style = {lableTextStyle}>Duration:</Text>
             <TouchableWithoutFeedback
               onPress = {() => {this.setState({pickDur: true});}}
               >
               <View>
-                <Text style={lableTextStyle}> {durationHr} hrs {durationMin} min </Text>
+                <Text style={lableTextStyle}>{durationHr} hrs {durationMin} min</Text>
               </View>
             </TouchableWithoutFeedback>
             <PopUp

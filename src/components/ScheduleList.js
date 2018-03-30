@@ -1,17 +1,25 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
-import {View, Text, ListView} from 'react-native';
+import {View, Text, ListView, AsyncStorage} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 import {Card, CardSection, InputField, Button, PopUp, ListItem} from './common';
 import {fetchSchedules, removeSchedule} from '../actions';
 import {pushNotifications} from '../services';
-
+import Logout from './Logout';
 
 class ScheduleList extends Component {
   componentWillMount() {
     this.props.fetchSchedules();
     this.createDataSource(this.props.schedules.sort(compareSchedule));
+  }
+  componentDidMount() {
+    AsyncStorage.getItem('TightSchedule', (err, result) => {
+      if (err) console.log(err);
+      if (result) {
+        console.log("result",result)
+      }
+    });
   }
   componentWillReceiveProps(nextProps) {
     this.createDataSource(nextProps.schedules.sort(compareSchedule));
@@ -43,12 +51,12 @@ class ScheduleList extends Component {
   }
   render () {
     return (
+  <View>
     <Card>
       <ListView
         enableEmptySections
         dataSource = {this.dataSource}
-        renderRow = {this.renderScheduleRow.bind(this)}
-      >
+        renderRow = {this.renderScheduleRow.bind(this)}>
       </ListView>
       <CardSection>
       <Button onPress = {() => this.showNotification.bind(this)}>
@@ -56,6 +64,8 @@ class ScheduleList extends Component {
         </Button>
       </CardSection>
     </Card>
+    <Logout/>
+  </View>
     );
   }
 }
