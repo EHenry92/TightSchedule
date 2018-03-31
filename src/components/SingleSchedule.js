@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {View, Text, ListView, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
-import { ListItem, Header, Card, Button, CardSection} from './common';
+import { ListItem, Header, Card, Button, CardSection, ImgButton} from './common';
 import {removeTask, fetchTasks, changeTask} from '../actions';
 import _ from 'lodash';
+import SortableList from 'react-native-sortable-list';
 
 class SingleSchedule extends Component {
   componentWillMount() {
@@ -15,13 +16,16 @@ class SingleSchedule extends Component {
     this.createDataSource(nextProps.tasks.sort(compareTasks));
   }
   createDataSource(tasks) {
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
-    this.dataSource = ds.cloneWithRows(tasks);
+    // const ds = new ListView.DataSource({
+    //   rowHasChanged: (r1, r2) => r1 !== r2
+    // });
+    // this.dataSource = ds.cloneWithRows(tasks);
+    this.dataSource = tasks
   }
+
   renderTaskRow (task) {
     const {removeTask, schedule, changeTask} = this.props;
+    const window = Dimensions.get('window');
     return (
       <ListItem
               rowData = {task.title}
@@ -33,17 +37,39 @@ class SingleSchedule extends Component {
               delText = "x"
               disabled = {task.complete || false}
             />
-            );
+    );
+  }
+  startSchedule() {
+    //Send push notification annoucing start of schedule and first task
+    console.log("schedule started")
+
   }
   render () {
+    console.log("the data sourde", this.dataSource)
     return (
+      <View>
+        <Header>
+          <ImgButton
+            style = {{width: 60, height: 60}}
+            onPress = {this.startSchedule.bind(this)}
+            />
+
+          <Text>
+            {this.props.schedule.title}
+          </Text>
+        </Header>
         <Card>
-          <ListView
+          {/* <ListView
             enableEmptySections
             dataSource = {this.dataSource}
             renderRow = {this.renderTaskRow.bind(this)}>
-          </ListView>
+          </ListView> */}
+          <SortableList
+          contentContainerStyle={{width: '100%'}}
+          data={this.dataSource}
+          renderRow={this.renderTaskRow.bind(this)} />
         </Card>
+      </View>
     );
   }
 }
@@ -71,4 +97,3 @@ function compareTasks(a, b) {
 //a < b --> -1
 //a > b --> 1
 //a == b --> 0
-

@@ -3,7 +3,6 @@ import {TASK_FORM_EDIT, TASK_FORM_CLEAR, TASK_FORM_LOADING} from '../actions/typ
 const defaultState = {
   title: '',
   description: '',
-  startTime: '',
   durationMin: 0,
   durationHr: 5,
   complete: false,
