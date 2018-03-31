@@ -21,12 +21,10 @@ const configure = () => {
   });
 };
 
-const localNotification = ({bigText, subText, title, message}) => {
-  console.log("inlocal notificaio")
+const localNotification = ({bigText, title, message}) => {
   PushNotification.localNotification({
     autoCancel: true,
     bigText: bigText,
-    subText: subText,
     vibrate: true,
     vibration: 300,
     title: title,

@@ -4,7 +4,6 @@ import {Picker, Text, View, TouchableWithoutFeedback} from 'react-native';
 import _ from 'lodash';
 import {Card, CardSection, InputField, Spinner, Button, PopUp} from './common';
 import {submitForm, formChange, saveTemplate} from '../actions';
-import DatePicker from 'react-native-datepicker';
 
 
 class TaskForm extends Component {
@@ -51,6 +50,7 @@ class TaskForm extends Component {
     render (){
       const {title, durationMin, durationHr, startTime, loading, submitForm, formChange, schedule} = this.props;
       const {lableTextStyle} = styles;
+      console.log("dfkds", this.props.schedule)
       return (
         <Card>
           <CardSection>
@@ -59,27 +59,6 @@ class TaskForm extends Component {
               onChangeText = {(text) => {formChange({title: text}, false);}}
               value = {title}
               palceHolder = "Task Name"
-            />
-          </CardSection>
-          <CardSection>
-            <Text style = {lableTextStyle}>Start Time:</Text>
-            <DatePicker
-              style={{width: 200}}
-              date={startTime}
-              mode="time"
-              format="HH:mm"
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              minuteInterval={10}
-              onDateChange={(time) => {formChange({startTime: time}, false);}}
-              customStyles={{
-                btnTextConfirm: {
-                  height: 20
-              },
-              btnTextCancel: {
-                  height: 20
-              }
-              }}
             />
           </CardSection>
           <CardSection>
@@ -104,7 +83,7 @@ class TaskForm extends Component {
               <Spinner size="large" />
               :
               <Button onPress = {() =>
-              submitForm({title, startTime, durationHr, durationMin}, false, schedule)}>
+              submitForm({title, durationHr, durationMin}, false, schedule)}>
                 Save
               </Button>
             }

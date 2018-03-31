@@ -6,3 +6,4 @@ export * from './InputField';
 export * from './Spinner';
 export * from './PopUp';
 export * from './ListItem';
+export * from './ImgButton';

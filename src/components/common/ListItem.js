@@ -4,9 +4,9 @@ import {CardSection} from './CardSection';
 import {Button} from './Button';
 import {Card} from './Card';
 
-const ListItem = ({rowData, onRowPress, rightData, leftAction = false, onActionPress, actionText, delText, onDelPress, disabled}) => {
+const ListItem = ({rowData,style, onRowPress, rightData, leftAction = false, onActionPress, actionText, delText, onDelPress, disabled}) => {
     return (
-      <View>
+      <View style ={style}>
       {
         disabled ?
           <CardSection style = {{ opacity: 0.4, minHeight: 40}}>
