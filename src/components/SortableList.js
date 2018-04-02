@@ -11,10 +11,10 @@ import {
 } from 'react-native';
 import SortableList from 'react-native-sortable-list';
 import {connect} from 'react-redux';
-import {fetchTasks} from '../actions';
+import {fetchTasks, getTaskCount} from '../actions';
 import _ from 'lodash';
 import Row from './SRow'
-
+import {Header} from './common';
 const window = Dimensions.get('window');
 
 
@@ -22,7 +22,10 @@ const window = Dimensions.get('window');
 class Basic extends Component {
   componentWillMount() {
     this.props.fetchTasks(this.props.schedule.uid);
+    this.props.getTaskCount(this.props.schedule.uid);
+
   }
+
   _renderRow = ({data, active}) => {
     const {schedule} = this.props;
     return <Row
@@ -33,16 +36,20 @@ class Basic extends Component {
       />
   }
   render() {
-    console.log("data", this.props.final)
+
     return (
       <View style={styles.container}>
-          {this.props.schedule.title}
         <SortableList
+          renderHeader = {() =>
+            <Header>
+              <Text style={{fontSize: 20}}>{this.props.schedule.title}</Text>
+            </Header>
+          }
           style={styles.list}
           contentContainerStyle={styles.contentContainer}
           data={this.props.final}
           renderRow={this._renderRow}
-          onChangeOrder = {(newOrder)=> {console.log(newOrder)}}
+          onChangeOrder = {newOrder=> {console.log(newOrder)}}
           />
       </View>
     );
@@ -93,13 +100,14 @@ const styles = StyleSheet.create({
 });
 
 const mapState = (state) => {
-  const tasks = _.map(state.tasks, (val, uid) => {
+  const tasks = _.map(state.tasks.tasks, (val, uid) => {
     return {...val, uid};
   });
   let final = {};
   for (let i = 0; i< tasks.length ; i++) {
-    final[i] = tasks[i];
+    let theTask = tasks[i];
+    final[theTask.pos] = theTask;
   }
   return {final};
 };
-export default connect(mapState, {fetchTasks})(Basic);
+export default connect(mapState, {fetchTasks, getTaskCount})(Basic);

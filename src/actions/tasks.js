@@ -1,10 +1,12 @@
 import firebase from 'firebase';
-import {GET_TASKS, DELETE_TASK, COMPLETE_TASK, EDIT_TASK} from './types';
+import {GET_TASKS, DELETE_TASK, COMPLETE_TASK, EDIT_TASK, GET_TASK_COUNT} from './types';
 
 export const delTask = () => ({type: DELETE_TASK});
 export const finishTask = () => ({type: COMPLETE_TASK});
 export const editTask = () => ({type: EDIT_TASK});
 export const getTasks = (tasks) => ({type: GET_TASKS, tasks});
+
+
 
 
 export const fetchTasks = (sId) => dispatch => {
@@ -14,6 +16,7 @@ export const fetchTasks = (sId) => dispatch => {
     dispatch(getTasks(snapshot.val()));
   });
 };
+
 
 export const removeTask = (sId, taskId) => dispatch => {
   const {currentUser} = firebase.auth();

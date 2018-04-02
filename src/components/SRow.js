@@ -61,7 +61,6 @@ class Row extends Component {
 
   render() {
    const {data, active, task, sId, removeTask, changeTask} = this.props;
-    console.log("the srow",this.props)
     return (
       <Animated.View style={[
         styles.row,
@@ -94,7 +93,7 @@ const styles = StyleSheet.create({
     height: 80,
     flex: 1,
     marginTop: 7,
-    marginBottom: 12,
+    marginBottom: 3,
     borderRadius: 4,
     ...Platform.select({
       ios: {

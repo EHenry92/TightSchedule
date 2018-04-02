@@ -13,14 +13,14 @@ class ScheduleList extends Component {
     this.props.fetchSchedules();
     this.createDataSource(this.props.schedules.sort(compareSchedule));
   }
-  componentDidMount() {
-    AsyncStorage.getItem('TightSchedule', (err, result) => {
-      if (err) console.log(err);
-      if (result) {
-        console.log("result",result)
-      }
-    });
-  }
+  // componentDidMount() {
+  //   AsyncStorage.getItem('TightSchedule', (err, result) => {
+  //     if (err) console.log(err);
+  //     if (result) {
+  //       console.log("result",result)
+  //     }
+  //   });
+  // }
   componentWillReceiveProps(nextProps) {
     this.createDataSource(nextProps.schedules.sort(compareSchedule));
   }

@@ -14,6 +14,7 @@ class TaskForm extends Component {
       };
       this.showPopUp = this.showPopUp.bind(this);
     }
+
     showPopUp() {
       const {durationMin, durationHr, formChange} = this.props;
       const minIntervals = _.range(5, 60, 5);
@@ -48,9 +49,8 @@ class TaskForm extends Component {
     }
 
     render (){
-      const {title, durationMin, durationHr, startTime, loading, submitForm, formChange, schedule} = this.props;
+      const {title, durationMin, durationHr, startTime, loading, submitForm, formChange, schedule, taskCount} = this.props;
       const {lableTextStyle} = styles;
-      console.log("dfkds", this.props.schedule)
       return (
         <Card>
           <CardSection>
@@ -83,7 +83,7 @@ class TaskForm extends Component {
               <Spinner size="large" />
               :
               <Button onPress = {() =>
-              submitForm({title, durationHr, durationMin}, false, schedule)}>
+              submitForm({title, durationHr, durationMin, pos: taskCount}, false, schedule)}>
                 Save
               </Button>
             }
@@ -103,8 +103,10 @@ const styles = {
   }
 };
 const mapState = (state) => {
+  console.log("the state", state.tasks.taskCount, state.tasks)
   const {title, description, duration, durationMin, durationHr, startTime, loading, error } = state.taskForm;
-  return {title, description, duration, durationMin, durationHr,  startTime, loading, error};
+  const taskCount = state.tasks.taskCount || 0;
+  return {title, description, duration, durationMin, durationHr,  startTime, loading, error,taskCount};
 };
 
 export default connect(mapState, {submitForm, formChange})(TaskForm);

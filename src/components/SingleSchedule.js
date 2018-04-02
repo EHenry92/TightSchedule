@@ -39,13 +39,12 @@ class SingleSchedule extends Component {
             />
     );
   }
-  startSchedule() {
-    //Send push notification annoucing start of schedule and first task
-    console.log("schedule started")
+  // startSchedule() {
+  //   //Send push notification annoucing start of schedule and first task
+  //   console.log("schedule started")
 
-  }
+  // }
   render () {
-    console.log("the data sourde", this.dataSource)
     return (
       <View>
         <Header>
