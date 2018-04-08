@@ -12,8 +12,8 @@ class Timer extends Component{
       pushNotifications.localNotification({
         // title: `${name}`,
         // message: `${curr} for ${curr.durationHr} hrs ${curr.durationMin} min`
-        title: 'Thi title',
-        message: 'tjos mesfd'
+        title: 'Title of schedule',
+        message: 'Time to start //first task'
       });
       //send end and next
       pushNotifications.scheduleNotification({

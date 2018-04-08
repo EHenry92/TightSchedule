@@ -1,7 +1,7 @@
 import PushNotification from 'react-native-push-notification';
 import {PushNotificationIOS} from 'react-native';
 import PushNotificationAndroid from 'react-native-push-notification';
-import EventEmitter from 'EventEmitter';
+import {DeviceEventEmitter} from 'react-native';
 
 const configure = () => {
   PushNotification.configure({
@@ -33,10 +33,10 @@ const localNotification = ({bigText, title, message}) => {
     message: message,
     playSound: true,
     soundName: 'default',
-    actions: '["Accept", "Reject"]'
+    actions: '["End", "Next"]'
   });
 };
-const scheduleNotification = ({bigText ,title, messge, date}) => {
+const scheduleNotification = ({bigText ,title, message, date}) => {
   PushNotification.localNotificationSchedule({
     message: message,
     date: date
@@ -45,31 +45,21 @@ const scheduleNotification = ({bigText ,title, messge, date}) => {
 
 
 const register = () => {}
-// (function() {
-//   // Register all the valid actions for notifications here and add the action handler for each action
-//   PushNotificationAndroid.registerNotificationActions(['End','Next','Pause','Resume']);
-//   EventEmitter.addListener('notificationActionReceived', function(action){
-//     console.log ('Notification action received: ' + action);
-//     const info = JSON.parse(action.dataJSON);
-//     if (info.action == 'End') {
-//       console.log("ending")
-
-//       stopSchedule();
-//     } else if (info.action == 'Next') {
-//       console.log("nexting")
-//       // set notification as complete, remove notification off of list
-//       //start next scejdule item
-//     } else if (info.action == 'Pause') {
-//       console.log("pausing")
-
-//       //send a resume notification
-
-//     } else if (info.action == 'Resume') {
-
-//       //resume notifications
-//     }
-//   });
-// })();
+(function() {
+  // Register all the valid actions for notifications here and add the action handler for each action
+  PushNotificationAndroid.registerNotificationActions(['End','Next','Pause','Resume']);
+  DeviceEventEmitter.addListener('notificationActionReceived', function(e){
+    console.log ('notificationActionReceived event received: ' + e);
+    const info = JSON.parse(e.dataJSON);
+    if (info.action == 'End') {
+      console.log("ending action")
+    } else if (info.action == 'Next') {
+      // Do work pertaining to Reject action here
+      console.log("nexting actions")
+    }
+    // Add all the required actions handlers
+  });
+})();
 
 export {
   configure,
