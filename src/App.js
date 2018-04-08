@@ -9,6 +9,9 @@ import Router from './Router';
 import reducers from './reducers';
 
 pushNotifications.configure();
+pushNotifications.register();
+
+
 
 class App extends Component {
   componentWillMount() {

@@ -7,19 +7,26 @@ import {
   Image,
   View,
   Dimensions,
-  Platform,
+  Button,
+  Platform
 } from 'react-native';
 import SortableList from 'react-native-sortable-list';
 import {connect} from 'react-redux';
-import {fetchTasks, getTaskCount} from '../actions';
+import {fetchTasks, getTaskCount, changeTask} from '../actions';
 import _ from 'lodash';
 import Row from './SRow'
+import Timer from './Timer'
 import {Header} from './common';
 const window = Dimensions.get('window');
 
 
 
+
 class Basic extends Component {
+  constructor () {
+    super();
+  this.state = {showSave: false, order:[]};
+  }
   componentWillMount() {
     this.props.fetchTasks(this.props.schedule.uid);
     this.props.getTaskCount(this.props.schedule.uid);
@@ -29,28 +36,51 @@ class Basic extends Component {
   _renderRow = ({data, active}) => {
     const {schedule} = this.props;
     return <Row
-      // data={data}
       task = {data}
       active={active}
       sId = {schedule.uid}
       />
   }
-  render() {
 
+  saveOrder() {
+    this.setState({showSave:false})
+    let {final, changeTask, schedule} = this.props;
+    let {order} = this.state
+    for (let pos= 0; pos< order.length; pos++) {
+      let oldPosition = parseInt(order[pos]);
+      if (pos !== oldPosition) {
+        this.props.changeTask(schedule.uid, final[oldPosition].uid, {pos});
+        this.props.changeTask(schedule.uid, final[pos].uid, {pos: oldPosition});
+      }
+    }
+  }
+  changePosition(newOrder) {
+    this.setState({order: newOrder, showSave: true});
+  }
+  render() {
     return (
       <View style={styles.container}>
         <SortableList
           renderHeader = {() =>
-            <Header>
-              <Text style={{fontSize: 20}}>{this.props.schedule.title}</Text>
-            </Header>
+            <View>
+              <Timer />
+              <Text style={{fontSize: 20, flex: 6, textAlign: 'center'}}>
+                {this.props.schedule.title}
+              </Text>
+            </View>
           }
           style={styles.list}
           contentContainerStyle={styles.contentContainer}
           data={this.props.final}
           renderRow={this._renderRow}
-          onChangeOrder = {newOrder=> {console.log(newOrder)}}
+          onChangeOrder = {this.changePosition.bind(this)}
           />
+      {this.state.showSave &&
+      <Button
+        style={{height: 60, width: 60}}
+        onPress={this.saveOrder.bind(this)}
+        title='SaveOrder' />
+      }
       </View>
     );
   }
@@ -108,6 +138,6 @@ const mapState = (state) => {
     let theTask = tasks[i];
     final[theTask.pos] = theTask;
   }
-  return {final};
+  return {final, tCount: tasks.length};
 };
-export default connect(mapState, {fetchTasks, getTaskCount})(Basic);
+export default connect(mapState, {fetchTasks, getTaskCount, changeTask})(Basic);

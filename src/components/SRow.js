@@ -10,7 +10,7 @@ import {
   Platform,
 } from 'react-native';
 import {ListItem }from './common';
-import {removeTask, changeTask} from '../actions';
+import {removeTask, completeTask} from '../actions';
 import {connect} from 'react-redux';
 
 class Row extends Component {
@@ -60,7 +60,7 @@ class Row extends Component {
   }
 
   render() {
-   const {data, active, task, sId, removeTask, changeTask} = this.props;
+   const {data, active, task, sId, removeTask, completeTask} = this.props;
     return (
       <Animated.View style={[
         styles.row,
@@ -69,20 +69,20 @@ class Row extends Component {
         <ListItem
               style = {{flex: 1}}
               rowData = {task.title}
-              rightData = {task.startTime}
+              rightData = {`${task.durationHr}hrs ${task.durationMin}min`}
               onRowPress = {() => {console.log("pressing row")}}
-              onActionPress = {() => {changeTask(schedule.uid, task.uid, {complete: !task.complete || true})}}
+              onActionPress = {() => {completeTask(sId, task)}}
               leftAction = {true}
               onDelPress = {() => {removeTask(sId, task.uid);}}
               delText = "x"
               disabled = {task.complete || false}
             />
-      </Animated.View>
+       </Animated.View>
     );
   }
 }
 
-export default connect(null, {changeTask, removeTask})(Row);
+export default connect(null, {completeTask, removeTask})(Row);
 
 const styles = StyleSheet.create({
   row: {

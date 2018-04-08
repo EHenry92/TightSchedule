@@ -103,7 +103,6 @@ const styles = {
   }
 };
 const mapState = (state) => {
-  console.log("the state", state.tasks.taskCount, state.tasks)
   const {title, description, duration, durationMin, durationHr, startTime, loading, error } = state.taskForm;
   const taskCount = state.tasks.taskCount || 0;
   return {title, description, duration, durationMin, durationHr,  startTime, loading, error,taskCount};

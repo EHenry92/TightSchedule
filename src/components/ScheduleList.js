@@ -45,7 +45,7 @@ class ScheduleList extends Component {
     pushNotifications.localNotification({
       bigText: "This is the big text",
       title: "This is the title",
-      message: "This is the message"
+      message: "This is the message right here"
     });
   }
   render () {

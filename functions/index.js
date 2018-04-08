@@ -20,8 +20,8 @@ exports.taskCountChange = functions.database.ref('/users/{uId}/schedules/{sId}/t
   let increment;
   if (event.data.exists() && !event.data.previous.exists()) {
     increment = 1;
-  } else if (!event.data.exists() && event.data.previous.exists()) {
-    increment = -1;
+  // } else if (!event.data.exists() && event.data.previous.exists()) {
+  //   increment = -1;
   } else {
     return null;
   }

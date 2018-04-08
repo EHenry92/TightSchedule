@@ -33,3 +33,9 @@ export const TASK_FORM_EDIT = 'TASK_FORM_EDIT';
 export const TASK_FORM_CLEAR = 'TASK_FORM_CLEAR';
 export const TASK_FORM_LOADING = 'TASK_FORM_LOADING';
 export const GET_TASK_COUNT = 'GET_TASK_COUNT';
+
+
+//Timer Actions
+export const START_SCHEDULE = 'START_SCHEDULE';
+export const END_SCHEDULE = 'END_SCHEDULE';
+export const NEXT_TASK = 'NEXT_TASK';
