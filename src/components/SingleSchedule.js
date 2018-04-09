@@ -6,7 +6,6 @@ import {pushNotifications} from '../services';
 import {fetchTasks, getTaskCount, changeTask} from '../actions';
 import _ from 'lodash';
 import Row from './SRow'
-import Timer from './Timer'
 import {Header} from './common';
 const window = Dimensions.get('window');
 

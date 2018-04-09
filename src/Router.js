@@ -4,7 +4,6 @@ import ScheduleList from './components/ScheduleList';
 import ScheduleForm from './components/ScheduleForm';
 import TaskForm from './components/TaskForm';
 import SingleSchedule from './components/SingleSchedule';
-import SingleSchedule from './components/SingleSchedule.js';
 import {Scene, Router, Actions} from 'react-native-router-flux';
 
 const RouterComponent = () => {
