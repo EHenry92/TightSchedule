@@ -24,7 +24,6 @@ const styles = {
     shadowOpacity: 0.2,
     elevation: 2,
     flexDirection: 'row'
-
   }
 };
 

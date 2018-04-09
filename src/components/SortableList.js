@@ -72,9 +72,9 @@ class Basic extends Component {
       <View style={styles.container}>
         <SortableList
           renderHeader = {() =>
-            <View>
+            <Header>
               <TouchableHighlight
-                style = {{flex: 1, padding: 7}}
+                style = {{padding: 7}}
                 onPress={this.startSchedule.bind(this)}>
                 <Text>
                   Start
@@ -83,7 +83,7 @@ class Basic extends Component {
               <Text style={{fontSize: 20, flex: 6, textAlign: 'center'}}>
                 {this.props.schedule.title}
               </Text>
-            </View>
+            </Header>
           }
           style={styles.list}
           contentContainerStyle={styles.contentContainer}
