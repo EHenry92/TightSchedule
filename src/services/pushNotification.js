@@ -64,11 +64,12 @@ const register = () => {}
             console.log(err)
           }
           else if(result) {
-              let {tasks, ptr, schedule} = JSON.parse(result);
-              let cur = tasks[ptr], maxPtr = schedule.taskCount;
-              let minTime = cur.durationHr * 60 + cur.durationMin;
+            let {tasks, ptr, schedule} = JSON.parse(result);
+            const maxPtr = schedule.taskCount;
 
             if(ptr < schedule.taskCount && ptr >= 0) {
+              let cur = tasks[ptr];
+              let minTime = cur.durationHr * 60 + cur.durationMin;
               localNotification({
                 title:`${schedule.title}`,
                 message: `Time to start ${cur.title}`,
@@ -81,6 +82,7 @@ const register = () => {}
                 message: `Time to end ${cur.title}`,
                 bigText: `You  did ${cur.title} for ${cur.durationHr}hrs ${cur.durationMin}min`,
                 date: new Date(Date.now() + (minTime * 60 * 1000))
+                //60
               });
               AsyncStorage.setItem('TightSchedule-schedule',
                 JSON.stringify({schedule, tasks, ptr: ptr + 1}),
