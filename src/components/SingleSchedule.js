@@ -73,13 +73,14 @@ class Basic extends Component {
           renderHeader = {() =>
             <Header>
               <TouchableHighlight
-                style = {{padding: 7}}
+                style = {{paddingLeft:7, paddingBottom: 10, flex: 2}}
                 onPress={this.startSchedule.bind(this)}>
-                <Text>
-                  Start
-                </Text>
+                <Image
+                  style={{width: 50, height: 50}}
+                  source={require('./imgs/startBtn.png')}
+                />
               </TouchableHighlight>
-              <Text style={{fontSize: 20, flex: 6, textAlign: 'center'}}>
+              <Text style={{fontSize: 35,flex: 8}}>
                 {this.props.schedule.title}
               </Text>
             </Header>
