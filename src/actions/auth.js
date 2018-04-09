@@ -1,4 +1,4 @@
-import { LOGIN_USER,LOGOUT_USER,LOGIN_ERROR,LOADING, LOGIN_FORM_EDIT} from '../actions/types';
+import { LOGIN_USER,LOGOUT_USER,LOGIN_ERROR,LOADING, LOGIN_FORM_EDIT} from './types';
 import {Actions} from 'react-native-router-flux';
 import firebase, { storage } from 'firebase';
 import {AsyncStorage} from 'react-native';
@@ -12,7 +12,7 @@ export const loggingOut = () => ({type: LOGOUT_USER});
 
 const finalizeLogin = (dispatch, storageData) => {
   dispatch(loggingIn());
-  AsyncStorage.setItem('TightSchedule', JSON.stringify(storageData), () => {});
+  AsyncStorage.setItem('TightSchedule-Login', JSON.stringify(storageData), () => {});
   Actions.main();
 };
 
@@ -34,7 +34,7 @@ export const logout = () => dispatch => {
   dispatch(loading());
   firebase.auth().signOut()
   .then(() => {
-    AsyncStorage.removeItem('TightSchedule');
+    AsyncStorage.removeItem('TightSchedule-Login');
     dispatch(loggingOut());
     Actions.auth();
   });

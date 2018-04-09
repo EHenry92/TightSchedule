@@ -1,17 +1,8 @@
 import React, { Component } from 'react';
-import {
-  Animated,
-  Easing,
-  StyleSheet,
-  Text,
-  Image,
-  View,
-  Dimensions,
-  Button,
-  Platform
-} from 'react-native';
+import {Animated, Easing, StyleSheet, Text, Image, View, Dimensions, Button, Platform, TouchableHighlight, AsyncStorage} from 'react-native';
 import SortableList from 'react-native-sortable-list';
 import {connect} from 'react-redux';
+import {pushNotifications} from '../services';
 import {fetchTasks, getTaskCount, changeTask} from '../actions';
 import _ from 'lodash';
 import Row from './SRow'
@@ -25,15 +16,14 @@ const window = Dimensions.get('window');
 class Basic extends Component {
   constructor () {
     super();
-  this.state = {showSave: false, order:[]};
+    this.state = {showSave: false, order:[]};
   }
   componentWillMount() {
     this.props.fetchTasks(this.props.schedule.uid);
     this.props.getTaskCount(this.props.schedule.uid);
-
   }
 
-  _renderRow = ({data, active}) => {
+  renderRow = ({data, active}) => {
     const {schedule} = this.props;
     return <Row
       task = {data}
@@ -54,16 +44,41 @@ class Basic extends Component {
       }
     }
   }
+
   changePosition(newOrder) {
-    this.setState({order: newOrder, showSave: true});
+    const order = newOrder;
+    this.setState({order, showSave: true});
   }
+
+  startSchedule() {
+    const {schedule, final} = this.props;
+    //store schedule and tasks in local storage for continued access
+    AsyncStorage.setItem('TightSchedule-schedule',
+      JSON.stringify({schedule:schedule, tasks: final, ptr: 0}),
+      () => {}
+    );
+    pushNotifications.localNotification({
+      title: `${schedule.title}`,
+      message: `Ready to start ${schedule.title} Schedule ?`,
+      bigText: 'Click Start to begin and Cancel to stop schedule.',
+      actions: '["Start", "Cancel"]'
+    });
+    //Set data in local notification
+}
+
   render() {
     return (
       <View style={styles.container}>
         <SortableList
           renderHeader = {() =>
             <View>
-              <Timer />
+              <TouchableHighlight
+                style = {{flex: 1, padding: 7}}
+                onPress={this.startSchedule.bind(this)}>
+                <Text>
+                  Start
+                </Text>
+              </TouchableHighlight>
               <Text style={{fontSize: 20, flex: 6, textAlign: 'center'}}>
                 {this.props.schedule.title}
               </Text>
@@ -72,7 +87,7 @@ class Basic extends Component {
           style={styles.list}
           contentContainerStyle={styles.contentContainer}
           data={this.props.final}
-          renderRow={this._renderRow}
+          renderRow={this.renderRow}
           onChangeOrder = {this.changePosition.bind(this)}
           />
       {this.state.showSave &&
@@ -138,6 +153,7 @@ const mapState = (state) => {
     let theTask = tasks[i];
     final[theTask.pos] = theTask;
   }
+
   return {final, tCount: tasks.length};
 };
 export default connect(mapState, {fetchTasks, getTaskCount, changeTask})(Basic);

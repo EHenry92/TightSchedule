@@ -6,9 +6,10 @@ import {loginAttempt, editForm} from '../actions';
 
 class LoginForm extends Component {
   componentWillMount(){
-    AsyncStorage.getItem('TightSchedule', (err, result) => {
+    AsyncStorage.removeItem('TightSchedule');
+    AsyncStorage.getItem('TightSchedule-Login', (err, result) => {
       if (err) console.log(err);
-      if (result) {
+      else if (result) {
         const {login} = JSON.parse(result);
         this.props.loginAttempt({email: login.email, password: login.password});
       }

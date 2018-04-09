@@ -1,7 +1,7 @@
 import PushNotification from 'react-native-push-notification';
 import {PushNotificationIOS} from 'react-native';
 import PushNotificationAndroid from 'react-native-push-notification';
-import {DeviceEventEmitter} from 'react-native';
+import {DeviceEventEmitter, AsyncStorage} from 'react-native';
 
 const configure = () => {
   PushNotification.configure({
@@ -23,23 +23,25 @@ const configure = () => {
   });
 };
 
-const localNotification = ({bigText, title, message}) => {
+const localNotification = ({bigText, title, message, actions}) => {
   PushNotification.localNotification({
     autoCancel: true,
-    bigText: bigText,
+    bigText,
     vibrate: true,
     vibration: 300,
-    title: title,
-    message: message,
+    title,
+    message,
     playSound: true,
     soundName: 'default',
-    actions: '["End", "Next"]'
+    actions
   });
 };
 const scheduleNotification = ({bigText ,title, message, date}) => {
   PushNotification.localNotificationSchedule({
+    title: title,
     message: message,
-    date: date
+    date: date,
+    actions: '["Next", "End"]'
   });
 };
 
@@ -47,17 +49,44 @@ const scheduleNotification = ({bigText ,title, message, date}) => {
 const register = () => {}
 (function() {
   // Register all the valid actions for notifications here and add the action handler for each action
-  PushNotificationAndroid.registerNotificationActions(['End','Next','Pause','Resume']);
+  PushNotificationAndroid.registerNotificationActions(['End','Next',"Start", "Cancel"]);
   DeviceEventEmitter.addListener('notificationActionReceived', function(e){
     console.log ('notificationActionReceived event received: ' + e);
     const info = JSON.parse(e.dataJSON);
-    if (info.action == 'End') {
+    if (info.action == 'End' || info.action == 'Cancel') {
       console.log("ending action")
-    } else if (info.action == 'Next') {
-      // Do work pertaining to Reject action here
-      console.log("nexting actions")
+      AsyncStorage.removeItem('TightSchedule-schedule');
     }
-    // Add all the required actions handlers
+    else if (info.action == 'Next' || info.action == 'Start') {
+      console.log("nexting actions")
+      AsyncStorage.getItem('TightSchedule-schedule',
+        (err, result) => {
+          if(err){
+            console.log(err)
+          }
+          else if(result) {
+              let {tasks, ptr, schedule} = JSON.parse(result);
+              let cur = tasks[ptr];
+              localNotification({
+                message: `Time to start ${cur.title}`,
+                bigText: `${cur.title} for ${cur.durationHr}hrs ${cur.durationMin}min`
+              })
+
+              let minTime = cur.durationHr * 60 + cur.durationMin;
+              scheduleNotification({
+                message: `Time to end ${cur.title}`,
+                bigText: `You  did ${cur.title} for ${cur.durationHr}hrs ${cur.durationMin}min`,
+                date: new Date(Date.now() + (minTime * 60 * 1000))
+              });
+              AsyncStorage.setItem('TightSchedule-schedule',
+                JSON.stringify({schedule, tasks, ptr: ptr + 1}),
+                  () => {}
+              );
+                // mark that task as complete
+          }
+        });
+
+      }
   });
 })();
 

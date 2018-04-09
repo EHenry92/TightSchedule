@@ -13,9 +13,7 @@ const PopUp = ({children, visible, onAccept}) => {
       transparent>
     <View style={containterStyle}>
       <CardSection style={cardSectionStyle}>
-        <Text style={textStyle}>
           {children}
-        </Text>
       </CardSection>
       <CardSection>
         <Button onPress={onAccept}>
