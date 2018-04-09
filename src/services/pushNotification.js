@@ -2,6 +2,7 @@ import PushNotification from 'react-native-push-notification';
 import {PushNotificationIOS} from 'react-native';
 import PushNotificationAndroid from 'react-native-push-notification';
 import {DeviceEventEmitter, AsyncStorage} from 'react-native';
+import {markCmp} from '../actions'
 
 const configure = () => {
   PushNotification.configure({
@@ -82,13 +83,13 @@ const register = () => {}
                 message: `Time to end ${cur.title}`,
                 bigText: `You  did ${cur.title} for ${cur.durationHr}hrs ${cur.durationMin}min`,
                 date: new Date(Date.now() + (minTime * 60 * 1000))
-                //60
               });
               AsyncStorage.setItem('TightSchedule-schedule',
                 JSON.stringify({schedule, tasks, ptr: ptr + 1}),
                   () => {}
               );
               // mark that task as complete
+              markCmp(schedule.uid, cur)
             }
             else {
               //if schedule is complete
