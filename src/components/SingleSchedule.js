@@ -34,12 +34,12 @@ class Basic extends Component {
   saveOrder() {
     this.setState({showSave:false})
     let {final, changeTask, schedule} = this.props;
-    let {order} = this.state
+    let {order} = this.state;
     for (let pos= 0; pos< order.length; pos++) {
-      let oldPosition = parseInt(order[pos]);
-      if (pos !== oldPosition) {
-        this.props.changeTask(schedule.uid, final[oldPosition].uid, {pos});
-        this.props.changeTask(schedule.uid, final[pos].uid, {pos: oldPosition});
+      const oldPosition = parseInt(order[pos]);
+      const newPosition = pos;
+      if (newPosition !== oldPosition) {
+        this.props.changeTask(schedule.uid, final[oldPosition].uid, {pos: newPosition});
       }
     }
   }
