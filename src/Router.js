@@ -4,7 +4,7 @@ import ScheduleList from './components/ScheduleList';
 import ScheduleForm from './components/ScheduleForm';
 import TaskForm from './components/TaskForm';
 import SingleSchedule from './components/SingleSchedule';
-import SortableList from './components/SortableList.js';
+import SingleSchedule from './components/SingleSchedule.js';
 import {Scene, Router, Actions} from 'react-native-router-flux';
 
 const RouterComponent = () => {
@@ -34,7 +34,7 @@ const RouterComponent = () => {
             />
           <Scene
             key="singleSchedule"
-            component={SortableList}
+            component={SingleSchedule}
             title="Schedule Details"
             rightTitle = "Add Task"
             onRight = {(evt) => {
