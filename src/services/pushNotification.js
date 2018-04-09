@@ -23,11 +23,11 @@ const configure = () => {
   });
 };
 
-const localNotification = ({bigText, title, message, actions}) => {
+const localNotification = ({bigText, title, message, actions, vibrate}) => {
   PushNotification.localNotification({
     autoCancel: true,
     bigText,
-    vibrate: true,
+    vibrate,
     vibration: 300,
     title,
     message,
@@ -58,7 +58,6 @@ const register = () => {}
       AsyncStorage.removeItem('TightSchedule-schedule');
     }
     else if (info.action == 'Next' || info.action == 'Start') {
-      console.log("nexting actions")
       AsyncStorage.getItem('TightSchedule-schedule',
         (err, result) => {
           if(err){
@@ -66,14 +65,19 @@ const register = () => {}
           }
           else if(result) {
               let {tasks, ptr, schedule} = JSON.parse(result);
-              let cur = tasks[ptr];
+              let cur = tasks[ptr], maxPtr = schedule.taskCount;
+              let minTime = cur.durationHr * 60 + cur.durationMin;
+
+            if(ptr < schedule.taskCount && ptr >= 0) {
               localNotification({
+                title:`${schedule.title}`,
                 message: `Time to start ${cur.title}`,
-                bigText: `${cur.title} for ${cur.durationHr}hrs ${cur.durationMin}min`
+                bigText: `${cur.title} for ${cur.durationHr}hrs ${cur.durationMin}min`,
+                vibrate: false
               })
 
-              let minTime = cur.durationHr * 60 + cur.durationMin;
               scheduleNotification({
+                title:`${schedule.title}`,
                 message: `Time to end ${cur.title}`,
                 bigText: `You  did ${cur.title} for ${cur.durationHr}hrs ${cur.durationMin}min`,
                 date: new Date(Date.now() + (minTime * 60 * 1000))
@@ -82,7 +86,16 @@ const register = () => {}
                 JSON.stringify({schedule, tasks, ptr: ptr + 1}),
                   () => {}
               );
-                // mark that task as complete
+              // mark that task as complete
+            }
+            else {
+              //if schedule is complete
+              localNotification({
+                title:`${schedule.title}`,
+                message: `You've completed ${schedule.title}`,
+                vibrate: false
+              })
+            }
           }
         });
 

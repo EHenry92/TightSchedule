@@ -61,7 +61,8 @@ class Basic extends Component {
       title: `${schedule.title}`,
       message: `Ready to start ${schedule.title} Schedule ?`,
       bigText: 'Click Start to begin and Cancel to stop schedule.',
-      actions: '["Start", "Cancel"]'
+      actions: '["Start", "Cancel"]',
+      vibrate: true
     });
     //Set data in local notification
 }
