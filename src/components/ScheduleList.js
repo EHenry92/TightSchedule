@@ -13,14 +13,7 @@ class ScheduleList extends Component {
     this.props.fetchSchedules();
     this.createDataSource(this.props.schedules.sort(compareSchedule));
   }
-  // componentDidMount() {
-  //   AsyncStorage.getItem('TightSchedule', (err, result) => {
-  //     if (err) console.log(err);
-  //     if (result) {
-  //       console.log("result",result)
-  //     }
-  //   });
-  // }
+
   componentWillReceiveProps(nextProps) {
     this.createDataSource(nextProps.schedules.sort(compareSchedule));
   }
@@ -69,7 +62,6 @@ const mapState = (state) => {
     return {...val, uid}
   });
   return {schedules};
-  // return {schedules: state.schedules}
 };
 
 export default connect(mapState, {fetchSchedules, removeSchedule})(ScheduleList);

@@ -14,7 +14,7 @@ const RouterComponent = () => {
           <Scene
             key= "login"
             component={LoginForm}
-            title="Please Login or Signup"
+            title="Tight Schedule"
             initial
             />
         </Scene>

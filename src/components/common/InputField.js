@@ -23,6 +23,7 @@ const styles = {
     fontSize: 18,
     paddingLeft: 20,
     flex: 1
+
   },
   inputStyle: {
     color: '#000',
@@ -37,6 +38,7 @@ const styles = {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center'
+    // backgroundColor: 'rgba(52, 52, 52, 0.1)'
   }
 };
 

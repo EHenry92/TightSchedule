@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Text, AsyncStorage} from 'react-native';
-import {Card, CardSection, Button, InputField, Spinner } from './common';
+import {Text, AsyncStorage, View, Image} from 'react-native';
+import {Card, CardSection, Button, InputField, Spinner, Header} from './common';
 import {loginAttempt, editForm} from '../actions';
 
 class LoginForm extends Component {
   componentWillMount(){
-    AsyncStorage.removeItem('TightSchedule');
     AsyncStorage.getItem('TightSchedule-Login', (err, result) => {
       if (err) console.log(err);
       else if (result) {
@@ -18,7 +17,20 @@ class LoginForm extends Component {
   render (){
     const {email, password, loading,
           error, editForm, loginAttempt} = this.props;
+    const {containerStyle, imageStyle, imgCardStyle, titleStyle, titleContainerStyle} = styles;
     return (
+    <View style={containerStyle}>
+      <Card style={imgCardStyle}>
+      <Image
+          style={imageStyle}
+          source={require('./imgs/logo.png')}
+        />
+        <View style={titleContainerStyle}>
+        <Text style={titleStyle}>
+        Login/ Signup
+      </Text>
+        </View>
+      </Card>
       <Card>
         <CardSection>
           <InputField
@@ -54,7 +66,7 @@ class LoginForm extends Component {
          }
         </CardSection>
       </Card>
-
+    </View>
     );
   }
 }
@@ -64,3 +76,36 @@ const mapState = ({auth}) => {
   return {email, password, loading, error};
 };
 export default connect(mapState, {loginAttempt, editForm})(LoginForm);
+
+
+const styles = {
+  containerStyle: {
+    flex:1
+  },
+  imageStyle : {
+    width: 200,
+    height:200,
+    borderWidth: 2,
+    borderColor: 'black',
+    borderRadius: 30,
+    backgroundColor: 'white',
+    alignSelf: 'center',
+    padding: 5
+  },
+  imgCardStyle: {
+    // backgroundColor:'#38647c'
+  },
+  titleStyle: {
+    fontSize: 30
+  },
+  titleContainerStyle:{
+    backgroundColor: 'white',
+    alignItems: 'center',
+    height: 60,
+    paddingTop: 15,
+    shadowColor: 'black',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.2,
+    elevation: 2
+  }
+}
