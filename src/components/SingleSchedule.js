@@ -7,6 +7,7 @@ import {fetchTasks, getTaskCount, changeTask} from '../actions';
 import _ from 'lodash';
 import Row from './SRow'
 import {Header} from './common';
+import colors from '../style/colors';
 const window = Dimensions.get('window');
 
 
@@ -80,7 +81,7 @@ class Basic extends Component {
                   source={require('./imgs/startBtn.png')}
                 />
               </TouchableHighlight>
-              <Text style={{fontSize: 35,flex: 8}}>
+              <Text style={{fontSize: 25,flex: 8}}>
                 {this.props.schedule.title}
               </Text>
             </Header>
@@ -95,7 +96,7 @@ class Basic extends Component {
       <Button
         style={{height: 60, width: 60}}
         onPress={this.saveOrder.bind(this)}
-        title='SaveOrder' />
+        title='Save Order' />
       }
       </View>
     );
@@ -110,7 +111,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#eee',
+    backgroundColor: colors.highlightColor,
 
     ...Platform.select({
       ios: {
@@ -122,7 +123,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     paddingVertical: 20,
-    color: '#999999',
+    color: colors.textColor,
   },
 
   list: {

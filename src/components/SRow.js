@@ -12,6 +12,7 @@ import {
 import {ListItem }from './common';
 import {removeTask, completeTask} from '../actions';
 import {connect} from 'react-redux';
+import colors from '../style/colors';
 
 class Row extends Component {
 
@@ -88,7 +89,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: colors.mainBackgroundColor,
     padding: 16,
     height: 80,
     flex: 1,
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     ...Platform.select({
       ios: {
         width: window.width - 30 * 2,
-        shadowColor: 'rgba(0,0,0,0.2)',
+        shadowColor: colors.shadowColor,
         shadowOpacity: 1,
         shadowOffset: {height: 2, width: 2},
         shadowRadius: 2,
@@ -121,6 +122,6 @@ const styles = StyleSheet.create({
 
   text: {
     fontSize: 24,
-    color: '#222222',
+    color: colors.textColor
   },
 });

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import {View} from 'react-native';
+import colors from '../../style/colors';
+
 
 const Card = (props) => {
   return (
@@ -13,17 +15,14 @@ const styles = {
   containerStyle: {
     borderWidth: 1,
     borderRadius: 2,
-    borderColor: '#ddd',
+    borderColor: colors.outlineColor,
     borderBottomWidth: 0,
-    shadowColor: '#000',
+    shadowColor: colors.shadowColor,
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.1,
     shadowRadius: 2,
-    elevation: 1
-    ,
-    // backgroundColor: '#38647c',
-
-    backgroundColor: 'white'
+    elevation: 1,
+    backgroundColor: colors.mainBackgroundColor
   }
 };
 

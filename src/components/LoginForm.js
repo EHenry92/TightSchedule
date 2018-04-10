@@ -3,6 +3,8 @@ import {connect} from 'react-redux';
 import {Text, AsyncStorage, View, Image} from 'react-native';
 import {Card, CardSection, Button, InputField, Spinner, Header} from './common';
 import {loginAttempt, editForm} from '../actions';
+import colors from '../style/colors';
+import {unBordered} from '../style';
 
 class LoginForm extends Component {
   componentWillMount(){
@@ -17,7 +19,7 @@ class LoginForm extends Component {
   render (){
     const {email, password, loading,
           error, editForm, loginAttempt} = this.props;
-    const {containerStyle, imageStyle, imgCardStyle, titleStyle, titleContainerStyle} = styles;
+    const {containerStyle, imageStyle, imgCardStyle, titleStyle, titleContainerStyle, buttonView} = styles;
     return (
     <View style={containerStyle}>
       <Card style={imgCardStyle}>
@@ -31,7 +33,7 @@ class LoginForm extends Component {
       </Text>
         </View>
       </Card>
-      <Card>
+      <Card style={{flex:1}}>
         <CardSection>
           <InputField
             label = "Email"
@@ -55,16 +57,18 @@ class LoginForm extends Component {
             {error}
           </Text>
         }
-        <CardSection>
+        <View style= {unBordered}>
          {
            loading ?
           <Spinner size="large" />
            :
-          <Button onPress= {() => loginAttempt({email, password})}>
+          <Button
+            onPress= {() => loginAttempt({email, password})}
+            >
             Enter
           </Button>
          }
-        </CardSection>
+        </View>
       </Card>
     </View>
     );
@@ -86,24 +90,29 @@ const styles = {
     width: 200,
     height:200,
     borderWidth: 2,
-    borderColor: 'black',
+    borderColor: colors.outlineColor,
     borderRadius: 30,
-    backgroundColor: 'white',
+    backgroundColor: colors.highlightColor,
     alignSelf: 'center',
     padding: 5
   },
   imgCardStyle: {
-    // backgroundColor:'#38647c'
+    paddingTop: 10,
+    flex:1,
+    shadowColor: colors.shadowColor,
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 2
   },
   titleStyle: {
     fontSize: 30
   },
   titleContainerStyle:{
-    backgroundColor: 'white',
+    backgroundColor: colors.mainBackgroundColor,
     alignItems: 'center',
     height: 60,
     paddingTop: 15,
-    shadowColor: 'black',
+    shadowColor: colors.shadowColor,
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.2,
     elevation: 2

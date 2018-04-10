@@ -1,5 +1,7 @@
 import React from 'react';
 import {TextInput, View, Text} from 'react-native';
+import colors from '../../style/colors';
+
 
 const InputField = ({label, onChangeText, value, placeholder, secureTextEntry}) => {
   const {labelStyle, inputStyle, containerStyle} = styles;
@@ -26,7 +28,7 @@ const styles = {
 
   },
   inputStyle: {
-    color: '#000',
+    color: colors.textColor,
     paddingLeft: 5,
     paddingRight: 5,
     fontSize: 18,

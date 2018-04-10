@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
+import {View} from 'react-native';
 import {connect} from 'react-redux';
 import {Card, CardSection, InputField, Spinner, Button} from './common';
 import {submitForm, formChange, saveTemplate} from '../actions';
 import DatePicker from 'react-native-datepicker';
+import {screenView} from '../style';
 
 
 const ScheduleForm = (props) => {
@@ -12,6 +14,7 @@ const ScheduleForm = (props) => {
     const {title, date, loading, error, submitForm, formChange, saveTemplate} = props;
 
     return (
+    <View style={screenView} >
       <Card>
         <CardSection>
           <InputField
@@ -64,6 +67,7 @@ const ScheduleForm = (props) => {
           }
         </CardSection>
       </Card>
+    </View>
     );
 };
 

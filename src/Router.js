@@ -5,10 +5,11 @@ import ScheduleForm from './components/ScheduleForm';
 import TaskForm from './components/TaskForm';
 import SingleSchedule from './components/SingleSchedule';
 import {Scene, Router, Actions} from 'react-native-router-flux';
+import colors from './style/colors';
 
 const RouterComponent = () => {
   return (
-    <Router>
+    <Router navigationBarStyle={styles.navBar} >
       <Scene key="root" hideNavBar>
         <Scene key="auth">
           <Scene
@@ -51,3 +52,9 @@ const RouterComponent = () => {
   );
 };
 export default RouterComponent;
+
+const styles = {
+  navBar: {
+    backgroundColor: colors.outlineColor
+  }
+}

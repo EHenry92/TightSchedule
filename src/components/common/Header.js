@@ -1,5 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
+import colors from '../../style/colors';
+
 
 
 
@@ -14,12 +16,11 @@ const Header = (props) => {
 
 const styles = {
   viewStyle: {
-    backgroundColor: 'white',
-    // justifyContent: 'center',
+    backgroundColor: colors.mainBackgroundColor,
     alignItems: 'center',
     height: 60,
     paddingTop: 15,
-    shadowColor: 'black',
+    shadowColor: colors.shadowColor,
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.2,
     elevation: 2,

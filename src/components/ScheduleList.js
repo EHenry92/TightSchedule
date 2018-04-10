@@ -4,9 +4,10 @@ import {View, Text, ListView, AsyncStorage} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 import {Card, CardSection, InputField, Button, PopUp, ListItem} from './common';
-import {fetchSchedules, removeSchedule} from '../actions';
+import {fetchSchedules, removeSchedule, logout} from '../actions';
 import {pushNotifications} from '../services';
-import Logout from './Logout';
+import { unBordered } from '../style';
+// import Logout from './Logout';
 
 class ScheduleList extends Component {
   componentWillMount() {
@@ -43,15 +44,19 @@ class ScheduleList extends Component {
   }
   render () {
     return (
-  <View>
-    <Card>
+  <View style={{flex: 1}}>
+    <Card style={{flex: 1}}>
       <ListView
         enableEmptySections
         dataSource = {this.dataSource}
         renderRow = {this.renderScheduleRow.bind(this)}>
       </ListView>
     </Card>
-    <Logout/>
+    <View style={[unBordered, {bottom: 0, position: 'absolute'}]}>
+      <Button onPress={() => this.props.logout()}>
+        Logout
+      </Button>
+    </View>
   </View>
     );
   }
@@ -64,7 +69,7 @@ const mapState = (state) => {
   return {schedules};
 };
 
-export default connect(mapState, {fetchSchedules, removeSchedule})(ScheduleList);
+export default connect(mapState, {fetchSchedules, removeSchedule, logout})(ScheduleList);
 
 function compareSchedule(a, b) {
   if (a.date && !b.date ) {return -1;}
