@@ -4,7 +4,7 @@ import {Text, AsyncStorage, View, Image} from 'react-native';
 import {Card, CardSection, Button, InputField, Spinner, Header} from './common';
 import {loginAttempt, editForm} from '../actions';
 import colors from '../style/colors';
-import {unBordered} from '../style';
+import {unBordered, screenView} from '../style';
 
 class LoginForm extends Component {
   componentWillMount(){
@@ -21,54 +21,54 @@ class LoginForm extends Component {
           error, editForm, loginAttempt} = this.props;
     const {containerStyle, imageStyle, imgCardStyle, titleStyle, titleContainerStyle, buttonView} = styles;
     return (
-    <View style={containerStyle}>
+    <View style={screenView}>
       <Card style={imgCardStyle}>
-      <Image
-          style={imageStyle}
-          source={require('./imgs/logo.png')}
-        />
-        <View style={titleContainerStyle}>
-        <Text style={titleStyle}>
-        Login/ Signup
-      </Text>
-        </View>
+        <Image
+            style={imageStyle}
+            source={require('./imgs/logo.png')}
+          />
       </Card>
-      <Card style={{flex:1}}>
-        <CardSection>
-          <InputField
-            label = "Email"
-            onChangeText = {(text) => editForm({email: text})}
-            value = {email}
-            placeholder = "example@email.com"
-          />
-        </CardSection>
-        <CardSection>
-        <InputField
-            label = "Password"
-            onChangeText = {(text) => editForm({password: text})}
-            value = {password}
-            placeholder = "password"
-            secureTextEntry
-          />
-        </CardSection>
-        {
-          !!error &&
-          <Text style={{color: 'red', fontSize: 20}}>
-            {error}
+      <Card style={{flex:2}}>
+        <View style={titleContainerStyle}>
+          <Text style={titleStyle}>
+          Login/ Signup
           </Text>
-        }
-        <View style= {unBordered}>
-         {
-           loading ?
-          <Spinner size="large" />
-           :
-          <Button
-            onPress= {() => loginAttempt({email, password})}
-            >
-            Enter
-          </Button>
-         }
         </View>
+          <CardSection>
+            <InputField
+              label = "Email"
+              onChangeText = {(text) => editForm({email: text})}
+              value = {email}
+              placeholder = "example@email.com"
+            />
+          </CardSection>
+          <CardSection>
+          <InputField
+              label = "Password"
+              onChangeText = {(text) => editForm({password: text})}
+              value = {password}
+              placeholder = "password"
+              secureTextEntry
+            />
+          </CardSection>
+          {
+            !!error &&
+            <Text style={{color: 'red', fontSize: 20}}>
+              {error}
+            </Text>
+          }
+          <View style= {unBordered}>
+          {
+            loading ?
+            <Spinner size="large" />
+            :
+            <Button
+              onPress= {() => loginAttempt({email, password})}
+              >
+              Enter
+            </Button>
+          }
+          </View>
       </Card>
     </View>
     );
@@ -83,26 +83,21 @@ export default connect(mapState, {loginAttempt, editForm})(LoginForm);
 
 
 const styles = {
-  containerStyle: {
-    flex:1
-  },
   imageStyle : {
-    width: 200,
-    height:200,
+    width: 180,
+    height:180,
     borderWidth: 2,
-    borderColor: colors.outlineColor,
+    borderColor: colors.navy,
     borderRadius: 30,
-    backgroundColor: colors.highlightColor,
     alignSelf: 'center',
     padding: 5
   },
   imgCardStyle: {
     paddingTop: 10,
+    paddingBottom: 10,
     flex:1,
-    shadowColor: colors.shadowColor,
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.1,
-    shadowRadius: 2
+    backgroundColor: colors.highlightColor,
+
   },
   titleStyle: {
     fontSize: 30
@@ -112,9 +107,9 @@ const styles = {
     alignItems: 'center',
     height: 60,
     paddingTop: 15,
-    shadowColor: colors.shadowColor,
-    shadowOffset: {width: 0, height: 2},
-    shadowOpacity: 0.2,
+    // shadowColor: colors.shadowColor,
+    // shadowOffset: {width: 0, height: 2},
+    // shadowOpacity: 0.2,
     elevation: 2
   }
 }

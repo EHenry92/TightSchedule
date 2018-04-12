@@ -8,6 +8,7 @@ import {fetchSchedules, removeSchedule, logout} from '../actions';
 import {pushNotifications} from '../services';
 import { unBordered } from '../style';
 // import Logout from './Logout';
+import {screenView} from '../style';
 
 class ScheduleList extends Component {
   componentWillMount() {
@@ -26,32 +27,27 @@ class ScheduleList extends Component {
   }
   renderScheduleRow (schedule) {
     return <ListItem
+            style={{marginBottom: 10}}
             rowData = {schedule.title}
             rightData = {schedule.date}
             onRowPress = {() => {
               Actions.singleSchedule({schedule})
               }}
             onDelPress = {() => {this.props.removeSchedule(schedule.uid)}}
-            delText = 'x'
+            delText = 'X'
           />
   }
-  showNotification () {
-    pushNotifications.localNotification({
-      bigText: "This is the big text",
-      title: "This is the title",
-      message: "This is the message right here"
-    });
-  }
+
   render () {
     return (
-  <View style={{flex: 1}}>
-    <Card style={{flex: 1}}>
+  <View style={screenView}>
+    {/* <Card> */}
       <ListView
         enableEmptySections
         dataSource = {this.dataSource}
         renderRow = {this.renderScheduleRow.bind(this)}>
       </ListView>
-    </Card>
+    {/* </Card> */}
     <View style={[unBordered, {bottom: 0, position: 'absolute'}]}>
       <Button onPress={() => this.props.logout()}>
         Logout

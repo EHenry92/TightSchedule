@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.mainBackgroundColor,
+    backgroundColor: colors.outlineColor,
     padding: 16,
     height: 80,
     flex: 1,
