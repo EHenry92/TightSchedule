@@ -4,7 +4,7 @@ import {Text, AsyncStorage, View, Image} from 'react-native';
 import {Card, CardSection, Button, InputField, Spinner, Header} from './common';
 import {loginAttempt, editForm} from '../actions';
 import colors from '../style/colors';
-import {unBordered, screenView} from '../style';
+import {unBordered, screenView, textureStyle} from '../style';
 
 class LoginForm extends Component {
   componentWillMount(){
@@ -22,6 +22,10 @@ class LoginForm extends Component {
     const {containerStyle, imageStyle, imgCardStyle, titleStyle, titleContainerStyle, buttonView} = styles;
     return (
     <View style={screenView}>
+    <Image
+        resizeMode="cover"
+        source={require('./imgs/concrete-texture.jpg')}
+        style={textureStyle}/>
       <Card style={imgCardStyle}>
         <Image
             style={imageStyle}
@@ -96,8 +100,7 @@ const styles = {
     paddingTop: 10,
     paddingBottom: 10,
     flex:1,
-    backgroundColor: colors.highlightColor,
-
+    backgroundColor: colors.highlightColorTransparent,
   },
   titleStyle: {
     fontSize: 30
@@ -107,9 +110,8 @@ const styles = {
     alignItems: 'center',
     height: 60,
     paddingTop: 15,
-    // shadowColor: colors.shadowColor,
-    // shadowOffset: {width: 0, height: 2},
-    // shadowOpacity: 0.2,
-    elevation: 2
+    elevation: 2,
+    borderColor: colors.outlineColor,
+    borderBottomWidth: 4
   }
 }

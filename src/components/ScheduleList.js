@@ -1,14 +1,13 @@
 import _ from 'lodash';
 import React, {Component} from 'react';
-import {View, Text, ListView, AsyncStorage} from 'react-native';
+import {View, Text, ListView, AsyncStorage, Image} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 import {Card, CardSection, InputField, Button, PopUp, ListItem} from './common';
 import {fetchSchedules, removeSchedule, logout} from '../actions';
 import {pushNotifications} from '../services';
-import { unBordered } from '../style';
+import { unBordered, screenView,textureStyle } from '../style';
 // import Logout from './Logout';
-import {screenView} from '../style';
 
 class ScheduleList extends Component {
   componentWillMount() {
@@ -41,13 +40,16 @@ class ScheduleList extends Component {
   render () {
     return (
   <View style={screenView}>
-    {/* <Card> */}
+  <Image
+    source={require('./imgs/concrete-texture.jpg')}
+    resizeMode="cover"
+    style={textureStyle}/>
+
       <ListView
         enableEmptySections
         dataSource = {this.dataSource}
         renderRow = {this.renderScheduleRow.bind(this)}>
       </ListView>
-    {/* </Card> */}
     <View style={[unBordered, {bottom: 0, position: 'absolute'}]}>
       <Button onPress={() => this.props.logout()}>
         Logout

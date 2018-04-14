@@ -8,6 +8,7 @@ import _ from 'lodash';
 import Row from './SRow'
 import {Header} from './common';
 import colors from '../style/colors';
+import {textureStyle} from '../style';
 const window = Dimensions.get('window');
 
 
@@ -70,6 +71,12 @@ class Basic extends Component {
   render() {
     return (
       <View style={styles.container}>
+      <Image
+        source={require('./imgs/concrete-texture.jpg')}
+        style={textureStyle}
+        resizeMode="cover"
+      />
+
         <SortableList
           renderHeader = {() =>
             <Header>
@@ -109,13 +116,10 @@ class Basic extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: colors.highlightColor,
-
     ...Platform.select({
       ios: {
-        paddingTop: 20,
+        // paddingTop: 20,
       },
     }),
   },

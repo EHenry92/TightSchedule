@@ -6,9 +6,10 @@ const colors = {
     grey: '#b1b5b4',
     mainBackgroundColor:'white',
     outlineColor:'#89cac4',
-    highlightColor: '#f3e6d3',
+    highlightColor: 'rgb(243,230,211)',
     shadowColor: 'rgba(0,0,0,0.2)',
-    textColor: '#222222'
+    textColor: '#222222',
+    highlightColorTransparent: 'rgba(243,230,211,0.2)'
 }
 
 export default colors;

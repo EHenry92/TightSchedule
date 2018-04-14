@@ -4,12 +4,11 @@ import {
   Easing,
   StyleSheet,
   Text,
-  Image,
   View,
   Dimensions,
   Platform,
 } from 'react-native';
-import {ListItem }from './common';
+import {ListItem}from './common';
 import {removeTask, completeTask} from '../actions';
 import {connect} from 'react-redux';
 import colors from '../style/colors';
