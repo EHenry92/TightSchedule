@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Picker, Text, View, TouchableWithoutFeedback} from 'react-native';
 import _ from 'lodash';
-import {Card, CardSection, InputField, Spinner, Button, PopUp} from './common';
+import {Card, CardSection, InputField, Spinner, Button, PopUp, Header} from './common';
 import {submitForm, formChange, saveTemplate} from '../actions';
 
 
@@ -23,6 +23,11 @@ class TaskForm extends Component {
       const {lableTextStyle, pickerContainerStyle} = styles;
       return (
         <Card>
+          <Header>
+            <Text>
+              {schedule.title}
+            </Text>
+          </Header>
           <CardSection>
             <InputField
               label = "Title"
