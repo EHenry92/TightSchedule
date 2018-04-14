@@ -65,7 +65,6 @@ class Basic extends Component {
       actions: '["Start", "Cancel"]',
       vibrate: true
     });
-    //Set data in local notification
 }
 
   render() {
@@ -76,7 +75,6 @@ class Basic extends Component {
         style={textureStyle}
         resizeMode="cover"
       />
-
         <SortableList
           renderHeader = {() =>
             <Header>
@@ -108,8 +106,6 @@ class Basic extends Component {
       </View>
     );
   }
-
-
 }
 
 

@@ -7,7 +7,7 @@ import {Card} from './Card';
 const ListItem = ({rowData,style, onRowPress, rightData, leftAction = false, onActionPress, actionText, delText, onDelPress, disabled}) => {
     return (
       <View style ={style}>
-      {
+      {/* {
         disabled ?
           <CardSection style = {{ opacity: 0.4, minHeight: 40}}>
             {
@@ -20,58 +20,68 @@ const ListItem = ({rowData,style, onRowPress, rightData, leftAction = false, onA
               {rowData}
             </Text>
           </CardSection>
-        :
+        : */}
           <CardSection>
             {
             leftAction &&
-            <View style={{width: 25}}>
+            <View style={styles.sideButtonContianerStyle}>
               <Button styleButton={styles.sideButtonStyle} onPress = {onActionPress}>
                 {actionText}
               </Button>
             </View>
             }
-            <View style={styles.mainDataStyle}>
-              <TouchableWithoutFeedback onPress={onRowPress}>
-                <View>
+            <TWF viewStyle={styles.mainDataStyle} onPress={onRowPress}>
                 <Text style = {styles.titleStyle}>
                   {rowData}
                 </Text>
-                </View>
-              </TouchableWithoutFeedback>
-            </View>
-            <View style = {styles.rightDataStyle}>
-              <TouchableWithoutFeedback onPress={onDelPress}>
-                <View>
-                  <Text style={{textAlign: 'right'}}>
-                    {delText}
-                  </Text>
-                </View>
-              </TouchableWithoutFeedback>
+                <Text style={styles.subTextStyle}>
+                  {rightData}
+                </Text>
+            </TWF>
+            <TWF viewStyle = {styles.rightDataStyle} onPress={onDelPress}>
               <Text>
-                {rightData}
+                {delText}
               </Text>
-            </View>
+            </TWF>
           </CardSection>
-        }
+        {/* } */}
       </View>
     );
 };
 
 const styles = {
+  sideButtonContianerStyle: {
+    width: 25,
+    paddingTop: 10
+  },
   sideButtonStyle: {
     width: 20,
     height: 20
   },
   titleStyle: {
     fontSize: 20,
-    paddingLeft: 15
+    // justifyContnet: 'space-around'
   },
   rightDataStyle: {
     alignSelf: 'flex-end'
   },
   mainDataStyle: {
-    flex: 5
+    flex: 5,
+    paddingLeft: 15
+  },
+  subTextStyle: {
   }
 };
 
 export {ListItem};
+
+
+const TWF = ({viewStyle, children, onPress}) => (
+  <View style = {viewStyle}>
+  <TouchableWithoutFeedback onPress={onPress}>
+    <View>
+      {children}
+    </View>
+  </TouchableWithoutFeedback>
+</View>
+);

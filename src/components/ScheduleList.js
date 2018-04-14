@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import {View, Text, ListView, AsyncStorage, Image} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
-import {Card, CardSection, InputField, Button, PopUp, ListItem} from './common';
+import {Card, CardSection, InputField, Button, PopUp, ListItem, Header} from './common';
 import {fetchSchedules, removeSchedule, logout} from '../actions';
 import {pushNotifications} from '../services';
 import { unBordered, screenView,textureStyle } from '../style';
@@ -44,7 +44,6 @@ class ScheduleList extends Component {
     source={require('./imgs/concrete-texture.jpg')}
     resizeMode="cover"
     style={textureStyle}/>
-
       <ListView
         enableEmptySections
         dataSource = {this.dataSource}

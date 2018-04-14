@@ -74,7 +74,7 @@ class Row extends Component {
               onActionPress = {() => {completeTask(sId, task)}}
               leftAction = {true}
               onDelPress = {() => {removeTask(sId, task.uid);}}
-              delText = "x"
+              delText = "X"
               disabled = {task.complete || false}
             />
        </Animated.View>
@@ -87,9 +87,9 @@ export default connect(null, {completeTask, removeTask})(Row);
 const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
-    alignItems: 'center',
+    // alignItems: 'center',
     backgroundColor: colors.outlineColor,
-    padding: 16,
+    // padding: 16,
     height: 80,
     flex: 1,
     marginTop: 7,

@@ -8,7 +8,7 @@ import colors from '../../style/colors';
 const Header = (props) => {
   const {viewStyle} = styles;
   return (
-    <View style={viewStyle}>
+    <View style={[viewStyle, props.style]}>
       {props.children}
     </View>
   );
@@ -24,7 +24,8 @@ const styles = {
     shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.2,
     elevation: 2,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginTop: 10
   }
 };
 
