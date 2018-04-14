@@ -15,6 +15,7 @@ pushNotifications.register();
 
 class App extends Component {
   componentWillMount() {
+    console.ignoredYellowBox = [ 'Setting a timer' ];
     firebase.initializeApp(firebaseData);
   }
   render () {
