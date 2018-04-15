@@ -43,14 +43,28 @@ export const saveTemplate = schedule => dispatch => {
     title: schedule.title + ' Template',
     tasks: []
   }
-  const tasks = _.map({...schedule.completedTasks,...schedule.tasks}, (val, uid) => {
-    return {...val};
+  let noPos = _.map({...schedule.completedTasks,...schedule.tasks}, (val, uid) => {
+    return {
+      title: val.title,
+      durationHr: val.durationHr,
+      durationMin: val.durationMin,
+      pos: val.pos
+    };
   });
-  console.log("tasks", tasks)
 
-  // firebase.database().ref(`/users/${currentUser.uid}/scheduleTemplates`)
-  // .push(template)
-  // .then(() => {
+  for(let i=0, counter = 0; i<noPos.length; i++) {
+    if(noPos[i].pos == -1) {
+      template.tasks[i]={...noPos[i], pos: counter};
+      counter ++;
+    }
+    else {
+      template.tasks[i]={...noPos[i], pos: counter + noPos[i].pos};
+    }
+  }
+
+  firebase.database().ref(`/users/${currentUser.uid}/scheduleTemplates`)
+  .push(template)
+  .then(() => {
     dispatch(createTemplate());
-  // });
+  });
 };

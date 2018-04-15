@@ -14,14 +14,12 @@ admin.initializeApp(functions.config().firebase);
 
 // Keeps track of the length of the 'likes' child list in a separate property.
 exports.taskCountChange = functions.database.ref('/users/{uId}/schedules/{sId}/tasks/{tId}').onWrite((event) => {
-  const collectionRef = event.data.ref.parent;
-  const countRef = collectionRef.parent.child('taskCount');
+  const scheduleRef = event.data.ref.parent;
+  const countRef = scheduleRef.parent.child('taskCount');
 
   let increment;
   if (event.data.exists() && !event.data.previous.exists()) {
     increment = 1;
-  // } else if (!event.data.exists() && event.data.previous.exists()) {
-  //   increment = -1;
   } else {
     return null;
   }

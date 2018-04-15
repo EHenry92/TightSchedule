@@ -37,9 +37,9 @@ export const removeTask = (sId, taskId) => dispatch => {
 
 export const markCmp = (sId, task) => {
   const {currentUser} = firebase.auth();
-  remTask(sId, task.uid)
+  remTask(sId, task.uid);
   return firebase.database().ref(`/users/${currentUser.uid}/schedules/${sId}/completedTasks`)
-  .push(task)
+  .push({title: task.title, durationMin: task.durationMin, durationHr: task.durationHr, pos: -1})
 };
 
 export const completeTask = (sId, task) => dispatch => {
