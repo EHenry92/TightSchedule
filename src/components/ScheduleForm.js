@@ -62,7 +62,7 @@ const ScheduleForm = (props) => {
             :
             <Button onPress = {() =>
             submitForm({title, date})}>
-              Save
+              Add Schedule
             </Button>
           }
         </CardSection>

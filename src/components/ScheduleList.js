@@ -7,7 +7,6 @@ import {Card, CardSection, InputField, Button, PopUp, ListItem, Header} from './
 import {fetchSchedules, removeSchedule, logout} from '../actions';
 import {pushNotifications} from '../services';
 import { unBordered, screenView,textureStyle } from '../style';
-// import Logout from './Logout';
 
 class ScheduleList extends Component {
   componentWillMount() {
@@ -34,6 +33,14 @@ class ScheduleList extends Component {
               }}
             onDelPress = {() => {this.props.removeSchedule(schedule.uid)}}
             delText = 'X'
+            leftAction = 'true'
+            onActionPress = {() => {
+              console.log('saving template')
+            }}
+            leftActionChild = {
+              <View />
+
+            }
           />
   }
 
