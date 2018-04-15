@@ -4,24 +4,29 @@ import {View, Text, ListView, AsyncStorage, Image} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 import {Card, CardSection, InputField, Button, PopUp, ListItem, Header} from './common';
-import {fetchSchedules, removeSchedule, logout, saveTemplate} from '../actions';
+import {fetchSchedules, removeSchedule, logout, saveTemplate, removeTemplate} from '../actions';
 import {pushNotifications} from '../services';
 import { unBordered, screenView,textureStyle } from '../style';
 
 class ScheduleList extends Component {
   componentWillMount() {
     this.props.fetchSchedules();
-    this.createDataSource(this.props.schedules.sort(compareSchedule));
+    this.createDataSource(this.props.schedules.sort(compareSchedule), this.props.templates);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.createDataSource(nextProps.schedules.sort(compareSchedule));
+    this.createDataSource(nextProps.schedules.sort(compareSchedule), nextProps.templates);
   }
-  createDataSource(schedules) {
+  createDataSource(schedules, templates) {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
     this.dataSource = ds.cloneWithRows(schedules)
+
+    const ts = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+    this.tempSource = ts.cloneWithRows(templates)
   }
   renderScheduleRow (schedule) {
     return <ListItem
@@ -41,6 +46,15 @@ class ScheduleList extends Component {
             }
           />
   }
+  renderTemplateRow (template) {
+    return <ListItem
+            style={{marginBottom: 2}}
+            rowData = {template.title}
+            rightData = {template.date}
+            onDelPress = {() => {this.props.removeTemplate(template.uid)}}
+            delText = 'X'
+          />
+  }
 
   render () {
     return (
@@ -49,12 +63,27 @@ class ScheduleList extends Component {
     source={require('./imgs/concrete-texture.jpg')}
     resizeMode="cover"
     style={textureStyle}/>
+
+    <Card style={{flex: 3, backgroundColor: 'rgba(0,0,0,0)'}}>
       <ListView
         enableEmptySections
         dataSource = {this.dataSource}
         renderRow = {this.renderScheduleRow.bind(this)}>
       </ListView>
-    <View style={[unBordered, {bottom: 0, position: 'absolute'}]}>
+      </Card>
+      <Card style={{flex: 1, backgroundColor: 'rgba(0,0,0,0)'}}>
+      <ListView
+        enableEmptySections
+        renderHeader = {() => (
+          <Text> Templates</Text>
+        )}
+        stickyHeaderIndices={[0]}
+        dataSource = {this.tempSource}
+        renderRow = {this.renderTemplateRow.bind(this)}>
+      </ListView>
+    </Card>
+
+    <View style={[unBordered, {bottom: 0}]}>
       <Button onPress={() => this.props.logout()}>
         Logout
       </Button>
@@ -65,13 +94,16 @@ class ScheduleList extends Component {
 }
 
 const mapState = (state) => {
-  const schedules = _.map(state.schedules, (val, uid) => {
+  const schedules = _.map(state.schedules.list, (val, uid) => {
     return {...val, uid}
   });
-  return {schedules};
+  const templates = _.map(state.schedules.temps, (val, uid) => {
+    return {...val, uid}
+  });
+  return {schedules, templates};
 };
 
-export default connect(mapState, {fetchSchedules, removeSchedule, logout, saveTemplate})(ScheduleList);
+export default connect(mapState, {fetchSchedules, removeSchedule, logout, saveTemplate, removeTemplate})(ScheduleList);
 
 function compareSchedule(a, b) {
   if (a.date && !b.date ) {return -1;}

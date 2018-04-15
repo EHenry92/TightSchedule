@@ -1,9 +1,11 @@
 import firebase from 'firebase';
-import {GET_SCHEDULES, CREATE_SCHEDULE, DELETE_SCHEDULE, EDIT_SCHEDULE, CREATE_TEMPLATE} from './types';
+import {GET_SCHEDULES, CREATE_SCHEDULE, DELETE_SCHEDULE, EDIT_SCHEDULE, CREATE_TEMPLATE, GET_TEMPLATES} from './types';
 import {AsyncStorage} from 'react-native';
 import _ from 'lodash';
 
 export const getSchedules = schedules => ({type: GET_SCHEDULES, schedules});
+export const getTemplates = templates => ({type: GET_TEMPLATES, templates});
+
 // export const createSchedule = () => ({type: CREATE_SCHEDULE});
 export const deleteSchedule = () => ({type: DELETE_SCHEDULE});
 export const editSchedule = () => ({type: EDIT_SCHEDULE});
@@ -17,11 +19,25 @@ export const fetchSchedules = () => dispatch => {
     AsyncStorage.mergeItem('TightSchedule', JSON.stringify({schedules}), () => {});
     dispatch(getSchedules(schedules));
   });
+  firebase.database().ref(`/users/${currentUser.uid}/scheduleTemplates`)
+  .on('value', snapshot => {
+    let templates = snapshot.val();
+    dispatch(getTemplates(templates));
+  });
 };
 
 export const removeSchedule = sId => dispatch => {
   const {currentUser} = firebase.auth();
   firebase.database().ref(`/users/${currentUser.uid}/schedules/${sId}`)
+  .remove()
+  .then(() => {
+    dispatch(deleteSchedule());
+  });
+};
+
+export const removeTemplate = tId => dispatch => {
+  const {currentUser} = firebase.auth();
+  firebase.database().ref(`/users/${currentUser.uid}/scheduleTemplates/${tId}`)
   .remove()
   .then(() => {
     dispatch(deleteSchedule());
