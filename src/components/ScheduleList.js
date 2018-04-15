@@ -4,7 +4,7 @@ import {View, Text, ListView, AsyncStorage, Image} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 import {Card, CardSection, InputField, Button, PopUp, ListItem, Header} from './common';
-import {fetchSchedules, removeSchedule, logout} from '../actions';
+import {fetchSchedules, removeSchedule, logout, saveTemplate} from '../actions';
 import {pushNotifications} from '../services';
 import { unBordered, screenView,textureStyle } from '../style';
 
@@ -34,9 +34,7 @@ class ScheduleList extends Component {
             onDelPress = {() => {this.props.removeSchedule(schedule.uid)}}
             delText = 'X'
             leftAction = 'true'
-            onActionPress = {() => {
-              console.log('saving template')
-            }}
+            onActionPress = {() => {this.props.saveTemplate(schedule)}}
             leftActionChild = {
               <View />
 
@@ -73,7 +71,7 @@ const mapState = (state) => {
   return {schedules};
 };
 
-export default connect(mapState, {fetchSchedules, removeSchedule, logout})(ScheduleList);
+export default connect(mapState, {fetchSchedules, removeSchedule, logout, saveTemplate})(ScheduleList);
 
 function compareSchedule(a, b) {
   if (a.date && !b.date ) {return -1;}
