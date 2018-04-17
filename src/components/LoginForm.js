@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Text, AsyncStorage, View, Image} from 'react-native';
-import {Card, CardSection, Button, InputField, Spinner, Header} from './common';
+import {Card, CardSection, Button, InputField, Spinner} from './common';
 import {loginAttempt, editForm} from '../actions';
 import colors from '../style/colors';
 import {unBordered, screenView, textureStyle} from '../style';

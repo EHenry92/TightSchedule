@@ -5,7 +5,6 @@ import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 import {Card, CardSection, InputField, Button, PopUp, ListItem, Header} from './common';
 import {fetchSchedules, removeSchedule, logout, saveTemplate, removeTemplate} from '../actions';
-import {pushNotifications} from '../services';
 import { unBordered, screenView,textureStyle } from '../style';
 
 class ScheduleList extends Component {
@@ -55,8 +54,16 @@ class ScheduleList extends Component {
             delText = 'X'
           />
   }
+  renderHeaderRow(text) {
+    return(
+      <Header viewStyle={styles.listHeaderStyle}>
+        <Text>{text}</Text>
+      </Header>
+      )
+  }
 
   render () {
+    const {schCardStyle, tmpCardStyle,logoutBtnStyle} = styles;
     return (
   <View style={screenView}>
   <Image
@@ -64,32 +71,54 @@ class ScheduleList extends Component {
     resizeMode="cover"
     style={textureStyle}/>
 
-    <Card style={{flex: 3, backgroundColor: 'rgba(0,0,0,0)'}}>
+    <Card style={schCardStyle}>
       <ListView
         enableEmptySections
+        stickyHeaderIndices={[0]}
+        renderHeader = {()=>this.renderHeaderRow('Schedules')}
         dataSource = {this.dataSource}
         renderRow = {this.renderScheduleRow.bind(this)}>
       </ListView>
       </Card>
-      <Card style={{flex: 1, backgroundColor: 'rgba(0,0,0,0)'}}>
+      <Card style={tmpCardStyle}>
       <ListView
         enableEmptySections
-        renderHeader = {() => (
-          <Text> Templates</Text>
-        )}
+        renderHeader = {() => this.renderHeaderRow('Templates')}
         stickyHeaderIndices={[0]}
         dataSource = {this.tempSource}
         renderRow = {this.renderTemplateRow.bind(this)}>
       </ListView>
     </Card>
 
-    <View style={[unBordered, {bottom: 0}]}>
+    <View style={logoutBtnStyle}>
       <Button onPress={() => this.props.logout()}>
         Logout
       </Button>
     </View>
   </View>
     );
+  }
+}
+
+const styles = {
+  schCardStyle: {
+    flex: 3,
+    backgroundColor: 'rgba(0,0,0,0)'
+  },
+  tmpCardStyle: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0)'
+  },
+  listHeaderStyle: {
+    marginTop: 0,
+    paddingTop:0,
+    height: 20,
+    backgroundColor: 'rgba(25,25,112,0.2)',
+    justifyContent: 'center'
+  },
+  logoutBtnStyle: {
+    ...unBordered,
+    bottom: 0
   }
 }
 

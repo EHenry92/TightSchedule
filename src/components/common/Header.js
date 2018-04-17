@@ -6,16 +6,17 @@ import colors from '../../style/colors';
 
 
 const Header = (props) => {
-  const {viewStyle} = styles;
+  const {containerStyle} = styles;
+  const {children, viewStyle} = props;
   return (
-    <View style={[viewStyle, props.style]}>
-      {props.children}
+    <View style={[containerStyle, viewStyle]}>
+      {children}
     </View>
   );
 };
 
 const styles = {
-  viewStyle: {
+  containerStyle: {
     backgroundColor: colors.mainBackgroundColor,
     alignItems: 'center',
     height: 60,

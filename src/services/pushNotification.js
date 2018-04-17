@@ -1,7 +1,6 @@
 import PushNotification from 'react-native-push-notification';
-import {PushNotificationIOS} from 'react-native';
 import PushNotificationAndroid from 'react-native-push-notification';
-import {DeviceEventEmitter, AsyncStorage} from 'react-native';
+import {PushNotificationIOS, DeviceEventEmitter, AsyncStorage} from 'react-native';
 import {markCmp} from '../actions'
 
 const configure = () => {

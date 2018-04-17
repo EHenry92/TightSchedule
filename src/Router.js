@@ -23,7 +23,7 @@ const RouterComponent = () => {
           <Scene
             key="scheduleList"
             component={ScheduleList}
-            title="Schedule List"
+            title="Tight Schedule"
             rightTitle = "+New"
             onRight={() => Actions.scheduleForm()}
             />
