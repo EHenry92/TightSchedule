@@ -56,7 +56,7 @@ export const changeSchedule = (sId, changes) => dispatch => {
 export const saveTemplate = schedule => dispatch => {
   const {currentUser} = firebase.auth();
   let template = {
-    title: schedule.title + ' Template',
+    title: schedule.title,
     tasks: []
   }
   let noPos = _.map({...schedule.completedTasks,...schedule.tasks}, (val, uid) => {

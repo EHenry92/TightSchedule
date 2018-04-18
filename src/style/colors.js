@@ -5,11 +5,13 @@ const colors = {
     lightB: '#cefaff',
     grey: '#b1b5b4',
     mainBackgroundColor:'white',
-    outlineColor:'#89cac4',
+    outlineColor:'rgb(137,202,196)',
     highlightColor: 'rgb(243,230,211)',
-    shadowColor: 'rgba(0,0,0,0.2)',
+    shadowColor: 'rgba(0,0,112,0.2)',
     textColor: '#222222',
-    highlightColorTransparent: 'rgba(243,230,211,0.2)'
+    highlightColorTransparent: 'rgba(243,230,211,0.2)',
+    transparent: 'rgba(0,0,0,0)',
+
 }
 
 export default colors;

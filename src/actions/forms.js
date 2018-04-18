@@ -42,7 +42,7 @@ export const submitForm = (data, scheduleForm = true, schedule) => dispatch => {
     dispatch(scheduleFormLoad());
     firebase.database().ref(`/users/${currentUser.uid}/schedules`)
     .push(data)
-    .then((test, other )=> {
+    .then(() => {
       dispatch(createSchedule());
       dispatch(scheduleFormClear());
       Actions.pop();
@@ -59,3 +59,14 @@ export const submitForm = (data, scheduleForm = true, schedule) => dispatch => {
     });
   }
 };
+
+export const templateToSchedule = template => dispatch => {
+  const {currentUser} = firebase.auth();
+  const d = new Date();
+  template.date = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
+  firebase.database().ref(`/users/${currentUser.uid}/schedules`)
+  .push(template)
+  .then(()=> {
+    dispatch(createSchedule());
+  });
+}

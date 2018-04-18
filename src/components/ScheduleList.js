@@ -4,8 +4,9 @@ import {View, Text, ListView, AsyncStorage, Image} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 import {Card, CardSection, InputField, Button, PopUp, ListItem, Header} from './common';
-import {fetchSchedules, removeSchedule, logout, saveTemplate, removeTemplate} from '../actions';
+import {fetchSchedules, removeSchedule, logout, saveTemplate, removeTemplate, templateToSchedule} from '../actions';
 import { unBordered, screenView,textureStyle } from '../style';
+import colors from '../style/colors';
 
 class ScheduleList extends Component {
   componentWillMount() {
@@ -52,6 +53,8 @@ class ScheduleList extends Component {
             rightData = {template.date}
             onDelPress = {() => {this.props.removeTemplate(template.uid)}}
             delText = 'X'
+            leftAction = 'true'
+            onActionPress = {() => {this.props.templateToSchedule(template)}}
           />
   }
   renderHeaderRow(text) {
@@ -63,7 +66,7 @@ class ScheduleList extends Component {
   }
 
   render () {
-    const {schCardStyle, tmpCardStyle,logoutBtnStyle} = styles;
+    const {schCardStyle, tmpCardStyle,logoutBtnStyle, logoutContainerStyle} = styles;
     return (
   <View style={screenView}>
   <Image
@@ -90,8 +93,10 @@ class ScheduleList extends Component {
       </ListView>
     </Card>
 
-    <View style={logoutBtnStyle}>
-      <Button onPress={() => this.props.logout()}>
+    <View style={logoutContainerStyle}>
+      <Button
+        styleButton={logoutBtnStyle}
+        onPress={() => this.props.logout()}>
         Logout
       </Button>
     </View>
@@ -102,23 +107,29 @@ class ScheduleList extends Component {
 
 const styles = {
   schCardStyle: {
-    flex: 3,
-    backgroundColor: 'rgba(0,0,0,0)'
+    flex: 4,
+    backgroundColor: colors.transparent
   },
   tmpCardStyle: {
     flex: 1,
-    backgroundColor: 'rgba(0,0,0,0)'
+    backgroundColor: 'rgba(0,33,115,0.2)',
+    height: 30
   },
   listHeaderStyle: {
     marginTop: 0,
     paddingTop:0,
-    height: 20,
-    backgroundColor: 'rgba(25,25,112,0.2)',
+    height: 25,
+    backgroundColor: 'rgba(0,33,115,0.2)',
     justifyContent: 'center'
   },
-  logoutBtnStyle: {
+  logoutContainerStyle: {
     ...unBordered,
-    bottom: 0
+    bottom: 0,
+    backgroundColor: colors.outlineColor,
+    // padding: 0,
+    margin: 0
+  },
+  logoutBtnStyle: {
   }
 }
 
@@ -132,7 +143,7 @@ const mapState = (state) => {
   return {schedules, templates};
 };
 
-export default connect(mapState, {fetchSchedules, removeSchedule, logout, saveTemplate, removeTemplate})(ScheduleList);
+export default connect(mapState, {fetchSchedules, removeSchedule, logout, saveTemplate, removeTemplate, templateToSchedule})(ScheduleList);
 
 function compareSchedule(a, b) {
   if (a.date && !b.date ) {return -1;}
