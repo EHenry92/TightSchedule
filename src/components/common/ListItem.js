@@ -6,13 +6,13 @@ import {Card} from './Card';
 import colors from '../../style/colors';
 
 
-const ListItem = ({rowData,style, onRowPress, rightData, leftAction = false, onActionPress, leftActionChild, delText, onDelPress, disabled}) => {
+const ListItem = ({rowData,style, onRowPress, rightData, leftAction = false, onActionPress, leftActionChild, delText, onDelPress, disabled, leftActionStyle}) => {
     return (
       <View style ={style}>
           <CardSection>
             {
             leftAction &&
-            <View style={styles.sideButtonContianerStyle}>
+            <View style={[styles.sideButtonContianerStyle, leftActionStyle]}>
               <TouchableOpacity
                 style = {styles.sideButtonStyle}
                 onPress={onActionPress}
@@ -41,17 +41,17 @@ const ListItem = ({rowData,style, onRowPress, rightData, leftAction = false, onA
 
 const styles = {
   sideButtonContianerStyle: {
-    width: 25,
-    paddingTop: 10
-  },
-  sideButtonStyle: {
-    width: 20,
-    height: 20,
-    alignSelf: 'stretch',
+    // width: 25,
+    // paddingTop: 10
     backgroundColor: colors.coral,
     borderRadius: 5,
     borderWidth: 1,
     borderColor: colors.outlineColor,
+  },
+  sideButtonStyle: {
+    // width: 20,
+    // height: 20,
+    alignSelf: 'stretch',
     marginLeft: 5,
     marginRight: 5
   },

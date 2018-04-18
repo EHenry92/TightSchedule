@@ -41,9 +41,12 @@ class ScheduleList extends Component {
             leftAction = 'true'
             onActionPress = {() => {this.props.saveTemplate(schedule)}}
             leftActionChild = {
-              <View />
-
+            <Image
+              style={{width: 40, height: 40}}
+              source={require('./imgs/schedule.png')}
+            />
             }
+            leftActionStyle = {{backgroundColor: colors.transparent, borderWidth: 0}}
           />
   }
   renderTemplateRow (template) {
@@ -55,6 +58,13 @@ class ScheduleList extends Component {
             delText = 'X'
             leftAction = 'true'
             onActionPress = {() => {this.props.templateToSchedule(template)}}
+            leftActionChild = {
+              <Image
+                style={{width: 40, height: 40}}
+                source={require('./imgs/blankschedule.png')}
+              />
+              }
+            leftActionStyle = {{backgroundColor: colors.transparent, borderWidth: 0}}
           />
   }
   renderHeaderRow(text) {
