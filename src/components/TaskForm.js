@@ -20,11 +20,11 @@ class TaskForm extends Component {
     render (){
       const {title, durationMin, durationHr, startTime, loading, submitForm, formChange, schedule, taskCount} = this.props;
 
-      const {lableTextStyle, pickerContainerStyle} = styles;
+      const {lableTextStyle, pickerContainerStyle, headerStyle} = styles;
       return (
         <Card>
-          <Header>
-            <Text>
+          <Header viewStyle={headerStyle}>
+            <Text style={lableTextStyle}>
               {schedule.title}
             </Text>
           </Header>
@@ -97,6 +97,9 @@ const styles = {
     flexDirection: 'row',
     alignItems: 'center',
     marginLeft: 40
+  },
+  headerStyle: {
+    flexDirection: 'column'
   }
 };
 const mapState = (state) => {
