@@ -124,16 +124,20 @@ class Basic extends Component {
           renderRow={this.renderRow}
           onChangeOrder = {this.changePosition.bind(this)}
           />
-        <Card style={{flex: 1}}>
+        {/* <Card style={{flex: 1}}> */}
           <ListView
             enableEmptySections
+            style = {{flex: 1, borderWidth: 2, borderColor: 'black'}}
             stickyHeaderIndices={[0]}
-            renderHeader = {()=> <Text>Title</Text>}
+            renderHeader = {()=>
+              <View style={{alignItems: 'center'}}>
+                <Text>Completed Tasks</Text>
+              </View>}
             dataSource = {this.dataSource}
             renderRow = {this.renderCompleteRow.bind(this)}
             >
           </ListView>
-          </Card>
+          {/* </Card> */}
 
       {this.state.showSave &&
       <Button
