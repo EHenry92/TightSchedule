@@ -22,7 +22,7 @@ export const DELETE_TASK = 'DELETE_TASK ';
 export const COMPLETE_TASK = 'COMPLETE_TASK';
 export const EDIT_TASK = 'EDIT_TASK';
 export const GET_TASKS = 'GET_TASKS';
-
+export const GET_COMPLETE_TASKS = 'GET_COMPLETE_TASKS';
 
 //ScheduleForm Actions
 export const SCHEDULE_FORM_EDIT = 'SCHEDULE_FORM_EDIT';

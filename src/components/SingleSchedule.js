@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import {Animated, Easing, StyleSheet, Text, Image, View, Dimensions, Button, Platform, TouchableHighlight, AsyncStorage} from 'react-native';
+import {Animated, Easing, StyleSheet, Text, Image, View, Dimensions, Button, Platform, TouchableHighlight, AsyncStorage, ListView} from 'react-native';
 import SortableList from 'react-native-sortable-list';
 import {connect} from 'react-redux';
 import {pushNotifications} from '../services';
 import {fetchTasks, getTaskCount, changeTask} from '../actions';
 import _ from 'lodash';
 import Row from './SRow'
-import {Header} from './common';
+import {Header, Card, ListItem} from './common';
 import colors from '../style/colors';
 import {textureStyle} from '../style';
 const window = Dimensions.get('window');
@@ -22,6 +22,32 @@ class Basic extends Component {
   componentWillMount() {
     this.props.fetchTasks(this.props.schedule.uid);
     this.props.getTaskCount(this.props.schedule.uid);
+    this.createDataSource(this.props.complete);
+  }
+  componentWillReceiveProps(nextProps) {
+    this.createDataSource(nextProps.complete);
+
+  }
+  createDataSource(tasks) {
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2
+    });
+    this.dataSource = ds.cloneWithRows(tasks)
+  }
+  renderCompleteRow (task) {
+    return <ListItem
+    style={{marginBottom: 2}}
+    rowData = {task.title}
+    leftAction = 'true'
+    onActionPress = {() => {}}
+    leftActionChild = {
+    <Image
+      style={{width: 40, height: 40}}
+      source={require('./imgs/tt2.png')}
+    />
+    }
+    leftActionStyle = {{backgroundColor: colors.transparent, borderWidth: 0}}
+  />
   }
 
   renderRow = ({data, active}) => {
@@ -68,6 +94,7 @@ class Basic extends Component {
 }
 
   render() {
+    console.log("complete", this.props.complete, this.props.final)
     return (
       <View style={styles.container}>
       <Image
@@ -97,6 +124,17 @@ class Basic extends Component {
           renderRow={this.renderRow}
           onChangeOrder = {this.changePosition.bind(this)}
           />
+        <Card style={{flex: 1}}>
+          <ListView
+            enableEmptySections
+            stickyHeaderIndices={[0]}
+            renderHeader = {()=> <Text>Title</Text>}
+            dataSource = {this.dataSource}
+            renderRow = {this.renderCompleteRow.bind(this)}
+            >
+          </ListView>
+          </Card>
+
       {this.state.showSave &&
       <Button
         style={{height: 60, width: 60}}
@@ -127,7 +165,7 @@ const styles = StyleSheet.create({
   },
 
   list: {
-    flex: 1,
+    flex: 5,
   },
 
   contentContainer: {
@@ -155,7 +193,10 @@ const mapState = (state) => {
     let theTask = tasks[i];
     final[theTask.pos] = theTask;
   }
+  const complete = _.map(state.tasks.complete, (val, uid) => {
+    return {...val, uid};
+  });
 
-  return {final, tCount: tasks.length};
+  return {final, tCount: tasks.length, complete};
 };
 export default connect(mapState, {fetchTasks, getTaskCount, changeTask})(Basic);

@@ -11,7 +11,7 @@ class TaskForm extends Component {
       super();
       this.state = {
         pickDur: false,
-        minIntervals : _.range(5, 60, 5),
+        minIntervals : _.range(0, 60, 1),
         hrIntervals : _.range(0, 24, 1)
       };
     }
