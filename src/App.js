@@ -15,7 +15,7 @@ pushNotifications.register();
 
 class App extends Component {
   componentWillMount() {
-    console.ignoredYellowBox = [ 'Setting a timer' ];
+    console.ignoredYellowBox = [ 'Setting a timer', 'Warning: isMounted(...) is deprecated' ];
     firebase.initializeApp(firebaseData);
   }
   render () {
