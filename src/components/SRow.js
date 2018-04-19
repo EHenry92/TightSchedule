@@ -7,6 +7,7 @@ import {
   View,
   Dimensions,
   Platform,
+  Image
 } from 'react-native';
 import {ListItem}from './common';
 import {removeTask, completeTask} from '../actions';
@@ -75,7 +76,14 @@ class Row extends Component {
               leftAction = {true}
               onDelPress = {() => {removeTask(sId, task.uid);}}
               delText = "X"
-              disabled = {task.complete || false}
+              leftActionChild = {
+                <Image
+                  style={{width: 40, height: 40}}
+                  source={require('./imgs/tt.png')}
+                />
+                }
+                leftActionStyle = {{backgroundColor: colors.transparent, borderWidth: 0}}
+
             />
        </Animated.View>
     );
