@@ -69,6 +69,8 @@ const register = () => {}
 
             if(ptr < schedule.taskCount && ptr >= 0) {
               let cur = tasks[ptr];
+              console.log("curr", cur)
+
               let minTime = cur.durationHr * 60 + cur.durationMin;
               localNotification({
                 title:`${schedule.title}`,

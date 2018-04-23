@@ -1,15 +1,14 @@
 import firebase from 'firebase';
-import {GET_SCHEDULES, CREATE_SCHEDULE, DELETE_SCHEDULE, EDIT_SCHEDULE, CREATE_TEMPLATE, GET_TEMPLATES} from './types';
+import {GET_SCHEDULES, CREATE_SCHEDULE, DELETE_SCHEDULE, EDIT_SCHEDULE, CREATE_TEMPLATE, GET_TEMPLATES,CLEAR_SCHEDULES} from './types';
 import {AsyncStorage} from 'react-native';
 import _ from 'lodash';
 
 export const getSchedules = schedules => ({type: GET_SCHEDULES, schedules});
 export const getTemplates = templates => ({type: GET_TEMPLATES, templates});
-
-// export const createSchedule = () => ({type: CREATE_SCHEDULE});
 export const deleteSchedule = () => ({type: DELETE_SCHEDULE});
 export const editSchedule = () => ({type: EDIT_SCHEDULE});
 export const createTemplate = () => ({type: CREATE_TEMPLATE});
+export const clearSchedules = () => ({type: CLEAR_SCHEDULES})
 
 export const fetchSchedules = () => dispatch => {
   const {currentUser} = firebase.auth();
@@ -24,6 +23,14 @@ export const fetchSchedules = () => dispatch => {
     let templates = snapshot.val();
     dispatch(getTemplates(templates));
   });
+};
+
+
+export const stopScheduleListner = () => dispatch => {
+  const {currentUser} = firebase.auth();
+  firebase.database().ref(`/users/${currentUser.uid}/schedules`).off();
+  firebase.database().ref(`/users/${currentUser.uid}/scheduleTemplates`).off();
+  dispatch(clearSchedules());
 };
 
 export const removeSchedule = sId => dispatch => {

@@ -4,7 +4,7 @@ import {View, Text, ListView, AsyncStorage, Image} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 import {Card, CardSection, InputField, Button, PopUp, ListItem, Header} from './common';
-import {fetchSchedules, removeSchedule, logout, saveTemplate, removeTemplate, templateToSchedule} from '../actions';
+import {fetchSchedules, removeSchedule, logout, saveTemplate, removeTemplate, templateToSchedule, stopScheduleListner} from '../actions';
 import { unBordered, screenView,textureStyle } from '../style';
 import colors from '../style/colors';
 
@@ -17,6 +17,21 @@ class ScheduleList extends Component {
   componentWillReceiveProps(nextProps) {
     this.createDataSource(nextProps.schedules.sort(compareSchedule), nextProps.templates);
   }
+
+  componentWillUnmount() {
+    this.props.stopScheduleListner();
+  }
+  // sendRemot() {
+  //   https://gcm-http.googleapis.com/gcm/send
+  //   Content-Type:application/json
+  //   Authorization:key=AIzaSyZ-1u...0GBYzPu7Udno5aA
+  //   {
+  //     "to": "/topics/foo-bar",
+  //     "data": {
+  //       "message": "This is a GCM Topic Message!",
+  //      }
+  //   }
+  // }
   createDataSource(schedules, templates) {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
@@ -106,7 +121,10 @@ class ScheduleList extends Component {
     <View style={logoutContainerStyle}>
       <Button
         styleButton={logoutBtnStyle}
-        onPress={() => this.props.logout()}>
+        onPress={() =>
+        this.props.logout()
+        // this.sendRemot()
+        }>
         Logout
       </Button>
     </View>
@@ -153,7 +171,15 @@ const mapState = (state) => {
   return {schedules, templates};
 };
 
-export default connect(mapState, {fetchSchedules, removeSchedule, logout, saveTemplate, removeTemplate, templateToSchedule})(ScheduleList);
+export default connect(mapState, {
+    fetchSchedules,
+    removeSchedule,
+    logout,
+    saveTemplate,
+    removeTemplate,
+    templateToSchedule,
+    stopScheduleListner
+  })(ScheduleList);
 
 function compareSchedule(a, b) {
   if (a.date && !b.date ) {return -1;}

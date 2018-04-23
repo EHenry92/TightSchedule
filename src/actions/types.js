@@ -15,6 +15,7 @@ export const EDIT_SCHEDULE = 'EDIT_SCHEDULE';
 export const GET_TEMPLATES = 'GET_TEMPLATES';
 export const CREATE_TEMPLATE = 'SAVE_TEMPLATE';
 export const DELETE_TEMPLATE = 'DELETE_TEMPLATE';
+export const CLEAR_SCHEDULES = 'CLEAR_SCHEDULES';
 
 //Task Actions
 export const ADD_TASK = 'ADD_TASK';
@@ -23,6 +24,7 @@ export const COMPLETE_TASK = 'COMPLETE_TASK';
 export const EDIT_TASK = 'EDIT_TASK';
 export const GET_TASKS = 'GET_TASKS';
 export const GET_COMPLETE_TASKS = 'GET_COMPLETE_TASKS';
+export const CLEAR_TASKS = 'CLEAR_TASKS';
 
 //ScheduleForm Actions
 export const SCHEDULE_FORM_EDIT = 'SCHEDULE_FORM_EDIT';

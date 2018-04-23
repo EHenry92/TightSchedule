@@ -94,7 +94,6 @@ class Basic extends Component {
 }
 
   render() {
-    console.log("complete", this.props.complete, this.props.final)
     return (
       <View style={styles.container}>
       <Image

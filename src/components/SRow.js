@@ -71,7 +71,7 @@ class Row extends Component {
               style = {{flex: 1}}
               rowData = {task.title}
               rightData = {`${task.durationHr}hrs ${task.durationMin}min`}
-              onRowPress = {() => {console.log("pressing row")}}
+              onRowPress = {() => {}}
               onActionPress = {() => {completeTask(sId, task)}}
               leftAction = {true}
               onDelPress = {() => {removeTask(sId, task.uid);}}
