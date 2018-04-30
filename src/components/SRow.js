@@ -70,7 +70,7 @@ class Row extends Component {
         <ListItem
               style = {{flex: 1}}
               rowData = {task.title}
-              rightData = {`${task.durationHr}hrs ${task.durationMin}min`}
+              rightData = {displayTime(task.durationHr, task.durationMin)}
               onRowPress = {() => {}}
               onActionPress = {() => {completeTask(sId, task)}}
               leftAction = {true}
@@ -132,3 +132,19 @@ const styles = StyleSheet.create({
     color: colors.textColor
   },
 });
+
+
+const displayTime = (hours,min) => {
+  if(hours == 0 && min == 0) {
+    return '';
+  }
+  else if(hours > 0 && min > 0) {
+    return `${hours}hrs ${min}min`;
+  }
+  else if(hours > 0) {
+    return `${hours}hrs          `;
+  }
+  else if( min > 0) {
+    return `            ${min}min`;
+  }
+}
