@@ -53,6 +53,9 @@ export const submitForm = (data, scheduleForm = true, schedule) => dispatch => {
     firebase.database().ref(`/users/${currentUser.uid}/schedules/${schedule.uid}/tasks`)
     .push({...data, ...{complete: false}})
     .then(() => {
+      firebase.database().ref(`/users/${currentUser.uid}/schedules/${schedule.uid}/taskCount`).off();
+    })
+    .then (() => {
       dispatch(addTask());
       dispatch(taskFormClear());
       Actions.pop();

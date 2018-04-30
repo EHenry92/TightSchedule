@@ -1,6 +1,6 @@
 import { LOGIN_USER,LOGOUT_USER,LOGIN_ERROR,LOADING, LOGIN_FORM_EDIT} from './types';
 import {Actions} from 'react-native-router-flux';
-import firebase, { storage } from 'firebase';
+import firebase from 'firebase';
 import {AsyncStorage} from 'react-native';
 
 

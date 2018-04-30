@@ -51,12 +51,6 @@ export const markCmp = (sId, task) => {
 };
 
 export const completeTask = (sId, task) => dispatch => {
-  // const {currentUser} = firebase.auth();
-  // remTask(sId, task.uid)
-  // .then(
-  //   firebase.database().ref(`/users/${currentUser.uid}/schedules/${sId}/completedTasks`)
-  //   .push(task)
-  // )
   markCmp(sId, task)
   .then(() => {
     dispatch(finishTask());
