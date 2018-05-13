@@ -6,7 +6,7 @@ import {Card} from './Card';
 import colors from '../../style/colors';
 
 
-const ListItem = ({rowData,style, onRowPress, rightData, leftAction = false, onActionPress, leftActionChild, delText, onDelPress, disabled, leftActionStyle}) => {
+const ListItem = ({rowData,style, onRowPress, rightData, leftAction = false, onActionPress, leftActionChild, delText, onDelPress, disabled, leftActionStyle, textStyle}) => {
     return (
       <View style ={style}>
           <CardSection>
@@ -22,10 +22,10 @@ const ListItem = ({rowData,style, onRowPress, rightData, leftAction = false, onA
             </View>
             }
             <TWF viewStyle={styles.mainDataStyle} onPress={onRowPress}>
-                <Text style = {styles.titleStyle}>
+                <Text style = {[styles.titleStyle, textStyle]}>
                   {rowData}
                 </Text>
-                <Text style={styles.subTextStyle}>
+                <Text style={[styles.subTextStyle, textStyle]}>
                   {rightData}
                 </Text>
             </TWF>
@@ -41,23 +41,18 @@ const ListItem = ({rowData,style, onRowPress, rightData, leftAction = false, onA
 
 const styles = {
   sideButtonContianerStyle: {
-    // width: 25,
-    // paddingTop: 10
     backgroundColor: colors.coral,
     borderRadius: 5,
     borderWidth: 1,
     borderColor: colors.outlineColor,
   },
   sideButtonStyle: {
-    // width: 20,
-    // height: 20,
     alignSelf: 'stretch',
     marginLeft: 5,
     marginRight: 5
   },
   titleStyle: {
-    fontSize: 20,
-    // justifyContnet: 'space-around'
+    fontSize: 20
   },
   rightDataStyle: {
     alignSelf: 'flex-end'

@@ -40,6 +40,7 @@ class Basic extends Component {
     rowData = {task.title}
     leftAction = 'true'
     onActionPress = {() => {}}
+    textStyle = {{textDecorationLine: 'line-through'}}
     leftActionChild = {
     <Image
       style={{width: 40, height: 40}}
