@@ -8,7 +8,12 @@ const ListComp = (WrappedComponent,listData, sortFunction) =>
       this.createDataSource(this.props.listData.sort(sortFunction));
     }
     componentWillReceiveProps(nextProps) {
+      if (sortFunction)  {
       this.createDataSource(nextProps.listData.sort(sortFunction));
+      }
+      else {
+        this.createDataSource(nextProps.listData);
+      }
     }
 
     createDataSource(data) {
