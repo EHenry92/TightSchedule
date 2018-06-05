@@ -21,17 +21,7 @@ class ScheduleList extends Component {
   componentWillUnmount() {
     this.props.stopScheduleListner();
   }
-  // sendRemot() {
-  //   https://gcm-http.googleapis.com/gcm/send
-  //   Content-Type:application/json
-  //   Authorization:key=AIzaSyZ-1u...0GBYzPu7Udno5aA
-  //   {
-  //     "to": "/topics/foo-bar",
-  //     "data": {
-  //       "message": "This is a GCM Topic Message!",
-  //      }
-  //   }
-  // }
+
   createDataSource(schedules, templates) {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
@@ -190,3 +180,123 @@ function compareSchedule(a, b) {
   if (b.title < a.title) {return 1;}
   return 0;
 }
+
+
+
+
+
+
+// class ScheduleList extends Component {
+//   componentWillMount() {
+//     this.props.fetchSchedules();
+//     this.createDataSource(this.props.schedules.sort(compareSchedule), this.props.templates);
+//   }
+
+//   componentWillReceiveProps(nextProps) {
+//     this.createDataSource(nextProps.schedules.sort(compareSchedule), nextProps.templates);
+//   }
+
+//   componentWillUnmount() {
+//     this.props.stopScheduleListner();
+//   }
+
+//   createDataSource(schedules, templates) {
+//     const ds = new ListView.DataSource({
+//       rowHasChanged: (r1, r2) => r1 !== r2
+//     });
+//     this.dataSource = ds.cloneWithRows(schedules)
+
+//     const ts = new ListView.DataSource({
+//       rowHasChanged: (r1, r2) => r1 !== r2
+//     });
+//     this.tempSource = ts.cloneWithRows(templates)
+//   }
+//   renderScheduleRow (schedule) {
+//     return <ListItem
+//             style={{marginBottom: 10}}
+//             rowData = {schedule.title}
+//             rightData = {schedule.date}
+//             onRowPress = {() => {
+//               Actions.singleSchedule({schedule})
+//               }}
+//             onDelPress = {() => {this.props.removeSchedule(schedule.uid)}}
+//             delText = 'X'
+//             leftAction = 'true'
+//             onActionPress = {() => {this.props.saveTemplate(schedule)}}
+//             leftActionChild = {
+//             <Image
+//               style={{width: 40, height: 40}}
+//               source={require('./imgs/schedule.png')}
+//             />
+//             }
+//             leftActionStyle = {{backgroundColor: colors.transparent, borderWidth: 0}}
+//           />
+//   }
+//   renderTemplateRow (template) {
+//     return <ListItem
+//             style={{marginBottom: 2}}
+//             rowData = {template.title}
+//             rightData = {template.date}
+//             onDelPress = {() => {this.props.removeTemplate(template.uid)}}
+//             delText = 'X'
+//             leftAction = 'true'
+//             onActionPress = {() => {this.props.templateToSchedule(template)}}
+//             leftActionChild = {
+//               <Image
+//                 style={{width: 40, height: 40}}
+//                 source={require('./imgs/blankschedule.png')}
+//               />
+//               }
+//             leftActionStyle = {{backgroundColor: colors.transparent, borderWidth: 0}}
+//           />
+//   }
+//   renderHeaderRow(text) {
+//     return(
+//       <Header viewStyle={styles.listHeaderStyle}>
+//         <Text>{text}</Text>
+//       </Header>
+//       )
+//   }
+
+//   render () {
+//     const {schCardStyle, tmpCardStyle,logoutBtnStyle, logoutContainerStyle} = styles;
+//     return (
+//   <View style={screenView}>
+//   <Image
+//     source={require('./imgs/concrete-texture.jpg')}
+//     resizeMode="cover"
+//     style={textureStyle}/>
+
+//     <Card style={schCardStyle}>
+//       <ListView
+//         enableEmptySections
+//         stickyHeaderIndices={[0]}
+//         renderHeader = {()=>this.renderHeaderRow('Schedules')}
+//         dataSource = {this.dataSource}
+//         renderRow = {this.renderScheduleRow.bind(this)}>
+//       </ListView>
+//       </Card>
+//       <Card style={tmpCardStyle}>
+//       <ListView
+//         enableEmptySections
+//         renderHeader = {() => this.renderHeaderRow('Templates')}
+//         stickyHeaderIndices={[0]}
+//         dataSource = {this.tempSource}
+//         renderRow = {this.renderTemplateRow.bind(this)}>
+//       </ListView>
+//     </Card>
+
+//     <View style={logoutContainerStyle}>
+//       <Button
+//         styleButton={logoutBtnStyle}
+//         onPress={() =>
+//         this.props.logout()
+//         // this.sendRemot()
+//         }>
+//         Logout
+//       </Button>
+//     </View>
+//   </View>
+//     );
+//   }
+// }

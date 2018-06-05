@@ -6,6 +6,7 @@ import TaskForm from './components/TaskForm';
 import SingleSchedule from './components/SingleSchedule';
 import {Scene, Router, Actions} from 'react-native-router-flux';
 import colors from './style/colors';
+import WrappedSL from './components/WrappedSL';
 
 const RouterComponent = () => {
   return (
@@ -22,7 +23,8 @@ const RouterComponent = () => {
         <Scene key="main">
           <Scene
             key="scheduleList"
-            component={ScheduleList}
+            // component={ScheduleList}
+            component={WrappedSL}
             title="Tight Schedule"
             rightTitle = "+New"
             onRight={() => Actions.scheduleForm()}
