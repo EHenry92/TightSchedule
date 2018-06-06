@@ -21,17 +21,7 @@ class ScheduleList extends Component {
   componentWillUnmount() {
     this.props.stopScheduleListner();
   }
-  // sendRemot() {
-  //   https://gcm-http.googleapis.com/gcm/send
-  //   Content-Type:application/json
-  //   Authorization:key=AIzaSyZ-1u...0GBYzPu7Udno5aA
-  //   {
-  //     "to": "/topics/foo-bar",
-  //     "data": {
-  //       "message": "This is a GCM Topic Message!",
-  //      }
-  //   }
-  // }
+
   createDataSource(schedules, templates) {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
