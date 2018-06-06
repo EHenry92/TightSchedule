@@ -9,7 +9,9 @@ import Row from './SRow'
 import {Header, Card, ListItem} from './common';
 import colors from '../style/colors';
 import {textureStyle} from '../style';
+// import CompletedTasks from './CompletedTasks';
 const window = Dimensions.get('window');
+
 
 
 
@@ -22,42 +24,6 @@ class Basic extends Component {
   componentWillMount() {
     this.props.fetchTasks(this.props.schedule.uid);
     this.props.getTaskCount(this.props.schedule.uid);
-    this.createDataSource(this.props.complete);
-  }
-  componentWillReceiveProps(nextProps) {
-    this.createDataSource(nextProps.complete);
-
-  }
-  createDataSource(tasks) {
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
-    this.dataSource = ds.cloneWithRows(tasks)
-  }
-  renderCompleteRow (task) {
-    return <ListItem
-    style={{marginBottom: 2}}
-    rowData = {task.title}
-    leftAction = 'true'
-    onActionPress = {() => {}}
-    textStyle = {{textDecorationLine: 'line-through'}}
-    leftActionChild = {
-    <Image
-      style={{width: 40, height: 40}}
-      source={require('./imgs/tt2.png')}
-    />
-    }
-    leftActionStyle = {{backgroundColor: colors.transparent, borderWidth: 0}}
-  />
-  }
-
-  renderRow = ({data, active}) => {
-    const {schedule} = this.props;
-    return <Row
-      task = {data}
-      active={active}
-      sId = {schedule.uid}
-      />
   }
 
   saveOrder() {
@@ -124,6 +90,7 @@ class Basic extends Component {
           renderRow={this.renderRow}
           onChangeOrder = {this.changePosition.bind(this)}
           />
+          {/* <CompletedTasks /> */}
           <ListView
             enableEmptySections
             style = {{flex: 1, borderWidth: 2, borderColor: 'black'}}
@@ -168,21 +135,17 @@ const styles = StyleSheet.create({
   list: {
     flex: 5,
   },
-
   contentContainer: {
     width: window.width,
-
     ...Platform.select({
       ios: {
         paddingHorizontal: 30,
       },
-
       android: {
         paddingHorizontal: 0,
       }
     })
   }
-
 });
 
 const mapState = (state) => {
@@ -202,137 +165,3 @@ const mapState = (state) => {
 };
 export default connect(mapState, {fetchTasks, getTaskCount, changeTask})(Basic);
 
-
-
-// class Basic extends Component {
-//   constructor () {
-//     super();
-//     this.state = {showSave: false, order:[]};
-//   }
-//   componentWillMount() {
-//     this.props.fetchTasks(this.props.schedule.uid);
-//     this.props.getTaskCount(this.props.schedule.uid);
-//     this.createDataSource(this.props.complete);
-//   }
-//   componentWillReceiveProps(nextProps) {
-//     this.createDataSource(nextProps.complete);
-
-//   }
-//   createDataSource(tasks) {
-//     const ds = new ListView.DataSource({
-//       rowHasChanged: (r1, r2) => r1 !== r2
-//     });
-//     this.dataSource = ds.cloneWithRows(tasks)
-//   }
-//   renderCompleteRow (task) {
-//     return <ListItem
-//     style={{marginBottom: 2}}
-//     rowData = {task.title}
-//     leftAction = 'true'
-//     onActionPress = {() => {}}
-//     textStyle = {{textDecorationLine: 'line-through'}}
-//     leftActionChild = {
-//     <Image
-//       style={{width: 40, height: 40}}
-//       source={require('./imgs/tt2.png')}
-//     />
-//     }
-//     leftActionStyle = {{backgroundColor: colors.transparent, borderWidth: 0}}
-//   />
-//   }
-
-//   renderRow = ({data, active}) => {
-//     const {schedule} = this.props;
-//     return <Row
-//       task = {data}
-//       active={active}
-//       sId = {schedule.uid}
-//       />
-//   }
-
-//   saveOrder() {
-//     this.setState({showSave:false})
-//     let {final, changeTask, schedule} = this.props;
-//     let {order} = this.state;
-//     for (let pos= 0; pos< order.length; pos++) {
-//       const oldPosition = parseInt(order[pos]);
-//       const newPosition = pos;
-//       if (newPosition !== oldPosition) {
-//         this.props.changeTask(schedule.uid, final[oldPosition].uid, {pos: newPosition});
-//       }
-//     }
-//   }
-
-//   changePosition(newOrder) {
-//     const order = newOrder;
-//     this.setState({order, showSave: true});
-//   }
-
-//   startSchedule() {
-//     const {schedule, final} = this.props;
-//     //store schedule and tasks in local storage for continued access
-//     AsyncStorage.setItem('TightSchedule-schedule',
-//       JSON.stringify({schedule:schedule, tasks: final, ptr: 0}),
-//       () => {}
-//     );
-//     pushNotifications.localNotification({
-//       title: `${schedule.title}`,
-//       message: `Ready to start ${schedule.title} Schedule ?`,
-//       bigText: 'Click Start to begin and Cancel to stop schedule.',
-//       actions: '["Start", "Cancel"]',
-//       vibrate: true
-//     });
-// }
-
-//   render() {
-//     return (
-//       <View style={styles.container}>
-//       <Image
-//         source={require('./imgs/concrete-texture.jpg')}
-//         style={textureStyle}
-//         resizeMode="cover"
-//       />
-//         <SortableList
-//           renderHeader = {() =>
-//             <Header>
-//               <TouchableHighlight
-//                 style = {{paddingLeft:7, paddingBottom: 10, flex: 2}}
-//                 onPress={this.startSchedule.bind(this)}>
-//                 <Image
-//                   style={{width: 50, height: 50}}
-//                   source={require('./imgs/startBtn.png')}
-//                 />
-//               </TouchableHighlight>
-//               <Text style={{fontSize: 25,flex: 8}}>
-//                 {this.props.schedule.title}
-//               </Text>
-//             </Header>
-//           }
-//           style={styles.list}
-//           contentContainerStyle={styles.contentContainer}
-//           data={this.props.final}
-//           renderRow={this.renderRow}
-//           onChangeOrder = {this.changePosition.bind(this)}
-//           />
-//           <ListView
-//             enableEmptySections
-//             style = {{flex: 1, borderWidth: 2, borderColor: 'black'}}
-//             // stickyHeaderIndices={[0]}
-//             // renderHeader = {()=>
-//             //   <View style={{alignItems: 'center'}}>
-//             //     <Text>Completed Tasks</Text>
-//             //   </View>}
-//             dataSource = {this.dataSource}
-//             renderRow = {this.renderCompleteRow.bind(this)}
-//             >
-//           </ListView>
-//       {this.state.showSave &&
-//       <Button
-//         style={{height: 60, width: 60}}
-//         onPress={this.saveOrder.bind(this)}
-//         title='Save Order' />
-//       }
-//       </View>
-//     );
-//   }
-// }

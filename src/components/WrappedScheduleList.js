@@ -10,7 +10,7 @@ import ListComp from './ListComp';
 
 class ScheduleList extends Component {
     renderRow (inputData) {
-      const titleSchedule = 'Schedule';
+      const titleSchedule = 'Schedules';
       const {listTitle} = this.props;
       return (
       <ListItem
@@ -111,10 +111,10 @@ const mapStateS = ({schedules}) => {
   return {listData: list};
 };
 export const SchedulesWithList = connect(mapStateS, {
-    removeTemplate,
-    templateToSchedule,
-  })(ListComp('Schedules',BasicList, compareSchedule));
+    removeSchedule, saveTemplate
+  })(ListComp('Schedules',ScheduleList, compareSchedule));
 
 export const TemplateList = connect(mapStateT, {
-  removeSchedule, saveTemplate
-  })(ListComp('Templates',BasicList, compareSchedule));
+  removeTemplate,
+  templateToSchedule,
+  })(ListComp('Templates',ScheduleList, compareSchedule));
