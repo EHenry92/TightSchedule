@@ -11,7 +11,6 @@ import ListComp from './ListComp';
 
 class CompletedTasks extends Component {
   renderRow (task) {
-    console.log("task", task)
     return <ListItem
     style={{marginBottom: 2}}
     rowData = {task.title}

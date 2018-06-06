@@ -69,7 +69,6 @@ class Basic extends Component {
 }
 
   render() {
-    console.log("thieis the kjewalrw", this.props)
     return (
       <View style={styles.container}>
       <Image

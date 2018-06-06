@@ -38,7 +38,7 @@ const RouterComponent = () => {
             title="Tight Schedule"
             rightTitle = "+Task"
             onRight = {(evt) => {
-              Actions.taskForm({schedule: evt.schedule});}}
+              Actions.taskForm({schedule: evt.inputData});}}
             />
           <Scene
             key="taskForm"
