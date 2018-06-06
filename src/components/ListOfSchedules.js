@@ -7,8 +7,7 @@ import {Card, CardSection, InputField, Button, PopUp, ListItem, Header} from './
 import {fetchSchedules, removeSchedule, logout, saveTemplate, removeTemplate, templateToSchedule, stopScheduleListner} from '../actions';
 import {unBordered, screenView,textureStyle } from '../style';
 import colors from '../style/colors';
-import WrappedSL from './WrappedSL';
-import WrappedTL from './WrappedTL';
+import {SchedulesWithList, TemplateList} from './WrappedScheduleList';
 
 class ScheduleList extends Component {
   componentWillMount() {
@@ -28,8 +27,8 @@ class ScheduleList extends Component {
     resizeMode="cover"
     style={textureStyle}/>
 
-    <WrappedSL />
-    <WrappedTL />
+    <SchedulesWithList />
+    <TemplateList />
 
     <View style={logoutContainerStyle}>
       <Button

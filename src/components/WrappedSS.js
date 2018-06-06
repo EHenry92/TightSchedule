@@ -9,9 +9,7 @@ import Row from './SRow'
 import {Header, Card, ListItem} from './common';
 import colors from '../style/colors';
 import {textureStyle} from '../style';
-import CompletedTasks from './WrappedCompletedTasks';
 const window = Dimensions.get('window');
-
 
 
 
@@ -22,27 +20,50 @@ class Basic extends Component {
     this.state = {showSave: false, order:[]};
   }
   componentWillMount() {
-    this.props.fetchTasks(this.props.inputData.uid);
-    this.props.getTaskCount(this.props.inputData.uid);
+    this.props.fetchTasks(this.props.schedule.uid);
+    this.props.getTaskCount(this.props.schedule.uid);
+    this.createDataSource(this.props.complete);
   }
+  componentWillReceiveProps(nextProps) {
+    this.createDataSource(nextProps.complete);
+
+  }
+
+  renderCompleteRow (task) {
+    return <ListItem
+    style={{marginBottom: 2}}
+    rowData = {task.title}
+    leftAction = 'true'
+    onActionPress = {() => {}}
+    textStyle = {{textDecorationLine: 'line-through'}}
+    leftActionChild = {
+    <Image
+      style={{width: 40, height: 40}}
+      source={require('./imgs/tt2.png')}
+    />
+    }
+    leftActionStyle = {{backgroundColor: colors.transparent, borderWidth: 0}}
+  />
+  }
+
   renderRow = ({data, active}) => {
-    const {inputData} = this.props;
+    const {schedule} = this.props;
     return <Row
       task = {data}
       active={active}
-      sId = {inputData.uid}
+      sId = {schedule.uid}
       />
   }
 
   saveOrder() {
     this.setState({showSave:false})
-    let {final, changeTask, inputData} = this.props;
+    let {final, changeTask, schedule} = this.props;
     let {order} = this.state;
     for (let pos= 0; pos< order.length; pos++) {
       const oldPosition = parseInt(order[pos]);
       const newPosition = pos;
       if (newPosition !== oldPosition) {
-        this.props.changeTask(inputData.uid, final[oldPosition].uid, {pos: newPosition});
+        this.props.changeTask(schedule.uid, final[oldPosition].uid, {pos: newPosition});
       }
     }
   }
@@ -53,15 +74,15 @@ class Basic extends Component {
   }
 
   startSchedule() {
-    const {inputData, final} = this.props;
+    const {schedule, final} = this.props;
     //store schedule and tasks in local storage for continued access
     AsyncStorage.setItem('TightSchedule-schedule',
-      JSON.stringify({schedule:inputData, tasks: final, ptr: 0}),
+      JSON.stringify({schedule:schedule, tasks: final, ptr: 0}),
       () => {}
     );
     pushNotifications.localNotification({
-      title: `${inputData.title}`,
-      message: `Ready to start ${inputData.title} Schedule ?`,
+      title: `${schedule.title}`,
+      message: `Ready to start ${schedule.title} Schedule ?`,
       bigText: 'Click Start to begin and Cancel to stop schedule.',
       actions: '["Start", "Cancel"]',
       vibrate: true
@@ -88,7 +109,7 @@ class Basic extends Component {
                 />
               </TouchableHighlight>
               <Text style={{fontSize: 25,flex: 8}}>
-                {this.props.inputData.title}
+                {this.props.schedule.title}
               </Text>
             </Header>
           }
@@ -98,7 +119,18 @@ class Basic extends Component {
           renderRow={this.renderRow}
           onChangeOrder = {this.changePosition.bind(this)}
           />
-          <CompletedTasks />
+          <ListView
+            enableEmptySections
+            style = {{flex: 1, borderWidth: 2, borderColor: 'black'}}
+            // stickyHeaderIndices={[0]}
+            // renderHeader = {()=>
+            //   <View style={{alignItems: 'center'}}>
+            //     <Text>Completed Tasks</Text>
+            //   </View>}
+            dataSource = {this.dataSource}
+            renderRow = {this.renderCompleteRow.bind(this)}
+            >
+          </ListView>
       {this.state.showSave &&
       <Button
         style={{height: 60, width: 60}}
@@ -131,28 +163,37 @@ const styles = StyleSheet.create({
   list: {
     flex: 5,
   },
+
   contentContainer: {
     width: window.width,
+
     ...Platform.select({
       ios: {
         paddingHorizontal: 30,
       },
+
       android: {
         paddingHorizontal: 0,
       }
     })
   }
+
 });
 
-const mapState = ({tasks}) => {
-  const taskList = _.map(tasks.tasks, (val, uid) => {
+const mapState = (state) => {
+  const tasks = _.map(state.tasks.tasks, (val, uid) => {
     return {...val, uid};
   });
   let final = {};
-  for (let i = 0; i< taskList.length ; i++) {
-    let theTask = taskList[i];
+  for (let i = 0; i< tasks.length ; i++) {
+    let theTask = tasks[i];
     final[theTask.pos] = theTask;
   }
-  return {final, tCount: taskList.length};
+  const complete = _.map(state.tasks.complete, (val, uid) => {
+    return {...val, uid};
+  });
+
+  return {final, tCount: tasks.length, complete};
 };
 export default connect(mapState, {fetchTasks, getTaskCount, changeTask})(Basic);
+

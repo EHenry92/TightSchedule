@@ -16,7 +16,6 @@ class TaskForm extends Component {
       };
     }
 
-
     render (){
       const {title, durationMin, durationHr, startTime, loading, submitForm, formChange, schedule, taskCount} = this.props;
 
@@ -103,6 +102,7 @@ const styles = {
   }
 };
 const mapState = (state) => {
+  console.log("this is from the state", state)
   const {title, description, duration, durationMin, durationHr, startTime, loading, error } = state.taskForm;
   const taskCount = state.tasks.taskCount || 0;
   return {title, description, duration, durationMin, durationHr,  startTime, loading, error,taskCount};

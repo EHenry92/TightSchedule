@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, ListView} from 'react-native';
 import {Header, ListItem} from './common';
 
-const ListComp = (WrappedComponent, sortFunction) =>
+const ListComp = (listTitle, WrappedComponent, sortFunction) =>
   class extends Component {
     componentWillMount() {
       this.createDataSource(this.props.listData.sort(sortFunction));
@@ -22,15 +22,16 @@ const ListComp = (WrappedComponent, sortFunction) =>
       });
       this.dataSource = ds.cloneWithRows(data)
     }
+
     renderRow(info) {
     return <ListItem
               style={{marginBottom: 2}}
-              rowData={info.title}
+              rowData={info.listTitle}
             />
     }
     render () {
       return (
-       <WrappedComponent {...this.props} data={this.dataSource}/>
+       <WrappedComponent {...this.props} data={this.dataSource} listTitle={listTitle}/>
       )
     }
 
