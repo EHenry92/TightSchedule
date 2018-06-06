@@ -9,22 +9,24 @@ import ListComp from './ListComp';
 
 class TemplateleList extends Component {
   renderRow (template) {
-    return <ListItem
-            style={{marginBottom: 2}}
-            rowData = {template.title}
-            rightData = {template.date}
-            onDelPress = {() => {this.props.removeTemplate(template.uid)}}
-            delText = 'X'
-            leftAction = 'true'
-            onActionPress = {() => {this.props.templateToSchedule(template)}}
-            leftActionChild = {
-              <Image
-                style={{width: 40, height: 40}}
-                source={require('./imgs/blankschedule.png')}
-              />
-              }
-            leftActionStyle = {{backgroundColor: colors.transparent, borderWidth: 0}}
+    return (
+      <ListItem
+        style={{marginBottom: 2}}
+        rowData = {template.title}
+        rightData = {template.date}
+        onDelPress = {() => {this.props.removeTemplate(template.uid)}}
+        delText = 'X'
+        leftAction = 'true'
+        onActionPress = {() => {this.props.templateToSchedule(template)}}
+        leftActionChild = {
+          <Image
+            style={{width: 40, height: 40}}
+            source={require('./imgs/blankschedule.png')}
           />
+          }
+        leftActionStyle = {{backgroundColor: colors.transparent, borderWidth: 0}}
+      />
+        );
   }
 
   render () {
@@ -64,7 +66,7 @@ const styles = {
   }
 }
 
-const mapState = (schedules) => {
+const mapState = ({schedules}) => {
   const templates = _.map(schedules.temps, (val, uid) => {
     return {...val, uid}
   });

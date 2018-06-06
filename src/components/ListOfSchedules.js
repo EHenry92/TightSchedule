@@ -28,8 +28,8 @@ class ScheduleList extends Component {
     resizeMode="cover"
     style={textureStyle}/>
 
-    <WrappedSL/>
-    {/* <WrappedTL {...this.props}/> */}
+    <WrappedSL />
+    <WrappedTL />
 
     <View style={logoutContainerStyle}>
       <Button
