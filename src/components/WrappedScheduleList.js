@@ -8,7 +8,7 @@ import {fetchSchedules, removeSchedule, logout, saveTemplate, removeTemplate, te
 import colors from '../style/colors';
 import ListComp from './ListComp';
 
-class BasicList extends Component {
+class ScheduleList extends Component {
     renderRow (inputData) {
       const titleSchedule = 'Schedule';
       const {listTitle} = this.props;
