@@ -10,7 +10,7 @@ import ListComp from './ListComp';
 
 class ScheduleList extends Component {
   renderRow (schedule) {
-    return
+    return (
       <ListItem
         style={{marginBottom: 10}}
         rowData = {schedule.title}
@@ -30,6 +30,7 @@ class ScheduleList extends Component {
         }
         leftActionStyle = {{backgroundColor: colors.transparent, borderWidth: 0}}
       />
+    )
   }
 
   render () {
@@ -40,7 +41,7 @@ class ScheduleList extends Component {
         stickyHeaderIndices={[0]}
         renderHeader = {()=>
           <Header viewStyle={styles.listHeaderStyle}>
-            <Text>Schedules</Text>
+            <Text>{'Schedules'}</Text>
           </Header>
         }
         dataSource = {this.props.data}
@@ -68,11 +69,11 @@ const styles = {
   }
 }
 
-const mapState = (schedules) => {
-  const schedules = _.map(schedules.list, (val, uid) => {
+const mapState = ({schedules}) => {
+  const list = _.map(schedules.list, (val, uid) => {
     return {...val, uid}
   });;
-  return {listData: schedules};
+  return {listData: list};
 };
 
 export default connect(mapState, {removeSchedule, saveTemplate})(withList);

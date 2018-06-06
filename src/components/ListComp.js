@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, ListView} from 'react-native';
 import {Header, ListItem} from './common';
 
-const ListComp = (WrappedComponent,listData, sortFunction) =>
+const ListComp = (WrappedComponent, sortFunction) =>
   class extends Component {
     componentWillMount() {
       this.createDataSource(this.props.listData.sort(sortFunction));

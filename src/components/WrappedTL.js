@@ -38,7 +38,7 @@ class TemplateleList extends Component {
           </Header>
         }
         stickyHeaderIndices={[0]}
-        dataSource = {this.tempSource}
+        dataSource = {this.props.data}
         renderRow = {this.renderRow.bind(this)}>
       </ListView>
     </Card>
