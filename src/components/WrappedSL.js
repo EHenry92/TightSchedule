@@ -7,6 +7,7 @@ import {Card, ListItem, Header} from './common';
 import {removeSchedule, saveTemplate} from '../actions';
 import colors from '../style/colors';
 import ListComp from './ListComp';
+import BasicWrappedList from './BasicWrappedList';
 
 class ScheduleList extends Component {
   renderRow (schedule) {
@@ -36,36 +37,23 @@ class ScheduleList extends Component {
   render () {
     return (
     <Card style={styles.schCardStyle}>
-      <ListView
-        enableEmptySections
-        stickyHeaderIndices={[0]}
-        renderHeader = {()=>
-          <Header viewStyle={styles.listHeaderStyle}>
-            <Text>{'Schedules'}</Text>
-          </Header>
-        }
-        dataSource = {this.props.data}
-        renderRow = {this.renderRow.bind(this)}>
-      </ListView>
+      <BasicWrappedList
+        listTitle = 'Schedules'
+        containerStyle = {styles.schCardStyle}
+        renderRow = {this.renderRow.bind(this)}
+      />
       </Card>
 
     );
   }
 }
-const withList = ListComp(ScheduleList, compareSchedule);
+const withList = ListComp('Schedules',ScheduleList, compareSchedule);
 
 
 const styles = {
   schCardStyle: {
     flex: 4,
     backgroundColor: colors.transparent
-  },
-  listHeaderStyle: {
-    marginTop: 0,
-    paddingTop:0,
-    height: 25,
-    backgroundColor: 'rgba(0,33,115,0.2)',
-    justifyContent: 'center'
   }
 }
 

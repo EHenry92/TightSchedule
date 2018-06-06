@@ -4,7 +4,8 @@ import {Text, ListView, Image} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import {connect} from 'react-redux';
 import {Card, ListItem, Header} from './common';
-import {fetchSchedules, removeSchedule, logout, saveTemplate, removeTemplate, templateToSchedule, stopScheduleListner} from '../actions';import colors from '../style/colors';
+import {fetchSchedules, removeSchedule, logout, saveTemplate, removeTemplate, templateToSchedule, stopScheduleListner} from '../actions';
+import colors from '../style/colors';
 import ListComp from './ListComp';
 
 class TemplateleList extends Component {
@@ -49,7 +50,7 @@ class TemplateleList extends Component {
   }
 }
 
-const withList = ListComp(TemplateleList)
+const withList = ListComp('Templates',TemplateleList)
 
 const styles = {
   tmpCardStyle: {
