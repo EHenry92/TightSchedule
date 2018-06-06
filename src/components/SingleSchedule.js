@@ -148,8 +148,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapState = (state) => {
-  const tasks = _.map(state.tasks.tasks, (val, uid) => {
+const mapState = ({tasks}) => {
+  const tasks = _.map(tasks.tasks, (val, uid) => {
     return {...val, uid};
   });
   let final = {};
@@ -157,7 +157,7 @@ const mapState = (state) => {
     let theTask = tasks[i];
     final[theTask.pos] = theTask;
   }
-  const complete = _.map(state.tasks.complete, (val, uid) => {
+  const complete = _.map(tasks.complete, (val, uid) => {
     return {...val, uid};
   });
 

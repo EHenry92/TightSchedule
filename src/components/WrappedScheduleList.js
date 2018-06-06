@@ -23,25 +23,19 @@ class ScheduleList extends Component {
           }}
         onDelPress = {() => {
           listTitle == titleSchedule ?
-            this.props.removeSchedule(inputData.uid)
-            :
-            this.props.removeTemplate(inputData.uid)
+            this.props.removeSchedule(inputData.uid) : this.props.removeTemplate(inputData.uid)
           }}
         delText = 'X'
         leftAction = 'true'
         onActionPress = {() => {
             listTitle == titleSchedule ?
-              this.props.saveTemplate(inputData)
-              :
-              this.props.templateToSchedule(inputData)
+              this.props.saveTemplate(inputData) : this.props.templateToSchedule(inputData)
             }}
         leftActionChild = {
         <Image
           style={{width: 40, height: 40}}
           source={listTitle== titleSchedule ?
-            require('./imgs/schedule.png')
-            :
-            require('./imgs/blankschedule.png') }
+            require('./imgs/schedule.png') : require('./imgs/blankschedule.png') }
         />
         }
         leftActionStyle = {{backgroundColor: colors.transparent, borderWidth: 0}}
@@ -115,6 +109,5 @@ export const SchedulesWithList = connect(mapStateS, {
   })(ListComp('Schedules',ScheduleList, compareSchedule));
 
 export const TemplateList = connect(mapStateT, {
-  removeTemplate,
-  templateToSchedule,
+  removeTemplate, templateToSchedule
   })(ListComp('Templates',ScheduleList, compareSchedule));
