@@ -1,6 +1,5 @@
 import React from 'react';
 import LoginForm from './components/LoginForm';
-import ScheduleList from './components/ScheduleList';
 import ScheduleForm from './components/ScheduleForm';
 import TaskForm from './components/TaskForm';
 import SingleSchedule from './components/SingleSchedule';
@@ -23,7 +22,6 @@ const RouterComponent = () => {
         <Scene key="main">
           <Scene
             key="scheduleList"
-            // component={ScheduleList}
             component={ListOfSchedules}
             title="Tight Schedule"
             rightTitle = "+New"
