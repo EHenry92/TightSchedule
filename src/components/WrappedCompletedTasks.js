@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ListView} from 'react-native';
+import {ListView, Image} from 'react-native';
 import {connect} from 'react-redux';
 import {fetchTasks, getTaskCount, changeTask} from '../actions';
 import _ from 'lodash';
@@ -11,6 +11,7 @@ import ListComp from './ListComp';
 
 class CompletedTasks extends Component {
   renderRow (task) {
+    console.log("task", task)
     return <ListItem
     style={{marginBottom: 2}}
     rowData = {task.title}
@@ -38,7 +39,7 @@ class CompletedTasks extends Component {
             //     <Text>Completed Tasks</Text>
             //   </View>}
             dataSource = {this.props.data}
-            renderRow = {this.rendereRow.bind(this)}
+            renderRow = {this.renderRow.bind(this)}
             >
           </ListView>
     );
@@ -50,7 +51,7 @@ const mapState = (state) => {
   const complete = _.map(state.tasks.complete, (val, uid) => {
     return {...val, uid};
   });
-  return {complete};
+  return {listData: complete};
 };
-export default connect(mapState, {fetchTasks, getTaskCount, changeTask})(ListComp(null,CompletedTasks, null));
+export default connect(mapState, {fetchTasks, getTaskCount, changeTask})(ListComp(null,CompletedTasks));
 

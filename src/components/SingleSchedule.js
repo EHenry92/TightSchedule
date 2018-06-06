@@ -9,7 +9,7 @@ import Row from './SRow'
 import {Header, Card, ListItem} from './common';
 import colors from '../style/colors';
 import {textureStyle} from '../style';
-// import CompletedTasks from './CompletedTasks';
+import CompletedTasks from './WrappedCompletedTasks';
 const window = Dimensions.get('window');
 
 
@@ -22,19 +22,27 @@ class Basic extends Component {
     this.state = {showSave: false, order:[]};
   }
   componentWillMount() {
-    this.props.fetchTasks(this.props.schedule.uid);
-    this.props.getTaskCount(this.props.schedule.uid);
+    this.props.fetchTasks(this.props.inputData.uid);
+    this.props.getTaskCount(this.props.inputData.uid);
+  }
+  renderRow = ({data, active}) => {
+    const {inputData} = this.props;
+    return <Row
+      task = {data}
+      active={active}
+      sId = {inputData.uid}
+      />
   }
 
   saveOrder() {
     this.setState({showSave:false})
-    let {final, changeTask, schedule} = this.props;
+    let {final, changeTask, inputData} = this.props;
     let {order} = this.state;
     for (let pos= 0; pos< order.length; pos++) {
       const oldPosition = parseInt(order[pos]);
       const newPosition = pos;
       if (newPosition !== oldPosition) {
-        this.props.changeTask(schedule.uid, final[oldPosition].uid, {pos: newPosition});
+        this.props.changeTask(inputData.uid, final[oldPosition].uid, {pos: newPosition});
       }
     }
   }
@@ -45,15 +53,15 @@ class Basic extends Component {
   }
 
   startSchedule() {
-    const {schedule, final} = this.props;
+    const {inputData, final} = this.props;
     //store schedule and tasks in local storage for continued access
     AsyncStorage.setItem('TightSchedule-schedule',
-      JSON.stringify({schedule:schedule, tasks: final, ptr: 0}),
+      JSON.stringify({schedule:inputData, tasks: final, ptr: 0}),
       () => {}
     );
     pushNotifications.localNotification({
-      title: `${schedule.title}`,
-      message: `Ready to start ${schedule.title} Schedule ?`,
+      title: `${inputData.title}`,
+      message: `Ready to start ${inputData.title} Schedule ?`,
       bigText: 'Click Start to begin and Cancel to stop schedule.',
       actions: '["Start", "Cancel"]',
       vibrate: true
@@ -61,6 +69,7 @@ class Basic extends Component {
 }
 
   render() {
+    console.log("thieis the kjewalrw", this.props)
     return (
       <View style={styles.container}>
       <Image
@@ -80,7 +89,7 @@ class Basic extends Component {
                 />
               </TouchableHighlight>
               <Text style={{fontSize: 25,flex: 8}}>
-                {this.props.schedule.title}
+                {this.props.inputData.title}
               </Text>
             </Header>
           }
@@ -90,19 +99,7 @@ class Basic extends Component {
           renderRow={this.renderRow}
           onChangeOrder = {this.changePosition.bind(this)}
           />
-          {/* <CompletedTasks /> */}
-          <ListView
-            enableEmptySections
-            style = {{flex: 1, borderWidth: 2, borderColor: 'black'}}
-            // stickyHeaderIndices={[0]}
-            // renderHeader = {()=>
-            //   <View style={{alignItems: 'center'}}>
-            //     <Text>Completed Tasks</Text>
-            //   </View>}
-            dataSource = {this.dataSource}
-            renderRow = {this.renderCompleteRow.bind(this)}
-            >
-          </ListView>
+          <CompletedTasks />
       {this.state.showSave &&
       <Button
         style={{height: 60, width: 60}}
@@ -149,19 +146,14 @@ const styles = StyleSheet.create({
 });
 
 const mapState = ({tasks}) => {
-  const tasks = _.map(tasks.tasks, (val, uid) => {
+  const taskList = _.map(tasks.tasks, (val, uid) => {
     return {...val, uid};
   });
   let final = {};
-  for (let i = 0; i< tasks.length ; i++) {
-    let theTask = tasks[i];
+  for (let i = 0; i< taskList.length ; i++) {
+    let theTask = taskList[i];
     final[theTask.pos] = theTask;
   }
-  const complete = _.map(tasks.complete, (val, uid) => {
-    return {...val, uid};
-  });
-
-  return {final, tCount: tasks.length, complete};
+  return {final, tCount: taskList.length};
 };
 export default connect(mapState, {fetchTasks, getTaskCount, changeTask})(Basic);
-
