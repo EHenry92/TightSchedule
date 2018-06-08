@@ -3,9 +3,8 @@ import {ListView, Image} from 'react-native';
 import {connect} from 'react-redux';
 import {fetchTasks, getTaskCount, changeTask} from '../actions';
 import _ from 'lodash';
-import {Header, Card, ListItem} from './common';
+import {ListItem} from './common';
 import colors from '../style/colors';
-import {textureStyle} from '../style';
 import ListWrapper from './ListWrapper';
 
 

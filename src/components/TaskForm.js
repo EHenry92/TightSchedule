@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {Picker, Text, View, TouchableWithoutFeedback} from 'react-native';
+import {Picker, Text, View} from 'react-native';
 import _ from 'lodash';
 import {Card, CardSection, InputField, Spinner, Button, PopUp, Header} from './common';
 import {submitForm, formChange, saveTemplate} from '../actions';
