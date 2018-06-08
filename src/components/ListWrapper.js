@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, ListView} from 'react-native';
 import {Header, ListItem} from './common';
 
-const ListComp = (listTitle, WrappedComponent, sortFunction) =>
+const ListWrapper = (listTitle, WrappedComponent, sortFunction) =>
   class extends Component {
     componentWillMount() {
       this.createDataSource(this.props.listData.sort(sortFunction));
@@ -48,4 +48,4 @@ const styles = {
 
 }
 
-export default ListComp;
+export default ListWrapper;

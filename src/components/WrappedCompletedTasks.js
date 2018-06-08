@@ -6,7 +6,7 @@ import _ from 'lodash';
 import {Header, Card, ListItem} from './common';
 import colors from '../style/colors';
 import {textureStyle} from '../style';
-import ListComp from './ListComp';
+import ListWrapper from './ListWrapper';
 
 
 class CompletedTasks extends Component {
@@ -52,5 +52,5 @@ const mapState = (state) => {
   });
   return {listData: complete};
 };
-export default connect(mapState, {fetchTasks, getTaskCount, changeTask})(ListComp(null,CompletedTasks));
+export default connect(mapState, {fetchTasks, getTaskCount, changeTask})(ListWrapper(null,CompletedTasks));
 

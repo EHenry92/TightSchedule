@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import {Card, ListItem, Header} from './common';
 import {fetchSchedules, removeSchedule, logout, saveTemplate, removeTemplate, templateToSchedule, stopScheduleListner} from '../actions';
 import colors from '../style/colors';
-import ListComp from './ListComp';
+import ListWrapper from './ListWrapper';
 
 class ScheduleList extends Component {
     renderRow (inputData) {
@@ -106,8 +106,8 @@ const mapStateS = ({schedules}) => {
 };
 export const SchedulesWithList = connect(mapStateS, {
     removeSchedule, saveTemplate
-  })(ListComp('Schedules',ScheduleList, compareSchedule));
+  })(ListWrapper('Schedules',ScheduleList, compareSchedule));
 
 export const TemplateList = connect(mapStateT, {
   removeTemplate, templateToSchedule
-  })(ListComp('Templates',ScheduleList, compareSchedule));
+  })(ListWrapper('Templates',ScheduleList, compareSchedule));
