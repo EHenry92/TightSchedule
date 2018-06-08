@@ -36,6 +36,7 @@ const localNotification = ({bigText, title, message, actions, vibrate}) => {
     actions
   });
 };
+
 const scheduleNotification = ({bigText ,title, message, date}) => {
   PushNotification.localNotificationSchedule({
     title: title,
@@ -44,7 +45,6 @@ const scheduleNotification = ({bigText ,title, message, date}) => {
     actions: '["Next", "End"]'
   });
 };
-
 
 const register = () => {}
 (function() {
@@ -107,11 +107,27 @@ const register = () => {}
   });
 })();
 
+const startSchedule = (inputData, final) => {
+  //store schedule and tasks in local storage for continued access
+  AsyncStorage.setItem('TightSchedule-schedule',
+    JSON.stringify({schedule:inputData, tasks: final, ptr: 0}),
+    () => {}
+  );
+  localNotification({
+    title: `${inputData.title}`,
+    message: `Ready to start ${inputData.title} Schedule ?`,
+    bigText: 'Click Start to begin and Cancel to stop schedule.',
+    actions: '["Start", "Cancel"]',
+    vibrate: true
+  });
+}
+
 export {
   configure,
   localNotification,
   scheduleNotification,
-  register
+  register,
+  startSchedule
 };
 
 

@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
-import {Animated, Easing, StyleSheet, Text, Image, View, Dimensions, Button, Platform, TouchableHighlight, AsyncStorage, ListView} from 'react-native';
+import {StyleSheet, Text, Image, View, Dimensions, Button, Platform, TouchableHighlight} from 'react-native';
 import SortableList from 'react-native-sortable-list';
 import {connect} from 'react-redux';
 import {pushNotifications} from '../services';
 import {fetchTasks, getTaskCount, changeTask} from '../actions';
 import _ from 'lodash';
 import Row from './SRow'
-import {Header, Card, ListItem} from './common';
+import {Header} from './common';
 import colors from '../style/colors';
 import {textureStyle} from '../style';
-import CompletedTasks from './WrappedCompletedTasks';
+import CompletedTaskList from './WrappedCompletedTasks';
 const window = Dimensions.get('window');
 
 
@@ -52,21 +52,6 @@ class Basic extends Component {
     this.setState({order, showSave: true});
   }
 
-  startSchedule() {
-    const {inputData, final} = this.props;
-    //store schedule and tasks in local storage for continued access
-    AsyncStorage.setItem('TightSchedule-schedule',
-      JSON.stringify({schedule:inputData, tasks: final, ptr: 0}),
-      () => {}
-    );
-    pushNotifications.localNotification({
-      title: `${inputData.title}`,
-      message: `Ready to start ${inputData.title} Schedule ?`,
-      bigText: 'Click Start to begin and Cancel to stop schedule.',
-      actions: '["Start", "Cancel"]',
-      vibrate: true
-    });
-}
 
   render() {
     return (
@@ -81,7 +66,10 @@ class Basic extends Component {
             <Header>
               <TouchableHighlight
                 style = {{paddingLeft:7, paddingBottom: 10, flex: 2}}
-                onPress={this.startSchedule.bind(this)}>
+                onPress={() => {
+                  const {inputData, final} = this.props;
+                  pushNotifications.startSchedule(inputData, final)
+                }}>
                 <Image
                   style={{width: 50, height: 50}}
                   source={require('./imgs/startBtn.png')}
@@ -98,7 +86,7 @@ class Basic extends Component {
           renderRow={this.renderRow}
           onChangeOrder = {this.changePosition.bind(this)}
           />
-          <CompletedTasks />
+          <CompletedTaskList />
       {this.state.showSave &&
       <Button
         style={{height: 60, width: 60}}
