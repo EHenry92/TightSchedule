@@ -86,7 +86,7 @@ class Basic extends Component {
           renderRow={this.renderRow}
           onChangeOrder = {this.changePosition.bind(this)}
           />
-          <CompletedTaskList />
+        <CompletedTaskList />
       {this.state.showSave &&
       <Button
         style={{height: 60, width: 60}}
