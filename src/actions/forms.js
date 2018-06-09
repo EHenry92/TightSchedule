@@ -64,7 +64,9 @@ import {
   export const templateToSchedule = template => dispatch => {
     const {currentUser} = firebase.auth();
     const d = new Date();
-    template.date = d.getFullYear() + '-' + d.getMonth() + '-' + d.getDate();
+    const month = d.getMonth() + 1;
+    const year = d.getFullYear() % 100;
+    template.date = month + '/' + d.getDate() + '/' + year;
     firebase.database().ref(`/users/${currentUser.uid}/schedules`)
     .push(template)
     .then(()=> {
