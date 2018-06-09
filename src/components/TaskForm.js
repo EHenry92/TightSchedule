@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Picker, Text, View} from 'react-native';
 import _ from 'lodash';
-import {Card, CardSection, InputField, Spinner, Button, PopUp, Header} from './common';
-import {submitForm, formChange, saveTemplate} from '../actions';
+import {Card, CardSection, InputField, Spinner, Button,Header} from './common';
+import {submitForm, formChange} from '../actions';
 
 
 class TaskForm extends Component {
@@ -17,7 +17,7 @@ class TaskForm extends Component {
     }
 
     render (){
-      const {title, durationMin, durationHr, startTime, loading, submitForm, formChange, schedule, taskCount} = this.props;
+      const {title, durationMin, durationHr,loading, submitForm, formChange, schedule, taskCount} = this.props;
 
       const {lableTextStyle, pickerContainerStyle, headerStyle} = styles;
       return (
