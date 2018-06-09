@@ -1,8 +1,6 @@
 import React from 'react';
-import {Text, TouchableWithoutFeedback, View,TouchableOpacity} from 'react-native';
+import {Text, TouchableWithoutFeedback, View,TouchableOpacity, Image} from 'react-native';
 import {CardSection} from './CardSection';
-import {Button} from './Button';
-import {Card} from './Card';
 import colors from '../../style/colors';
 
 
@@ -30,9 +28,9 @@ const ListItem = ({rowData,style, onRowPress, rightData, leftAction = false, onA
                 </Text>
             </TWF>
             <TWF viewStyle = {styles.rightDataStyle} onPress={onDelPress}>
-              <Text>
-                {delText}
-              </Text>
+              <Image
+                source={require('../imgs/del.png')}
+              />
             </TWF>
           </CardSection>
       </View>
