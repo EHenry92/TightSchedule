@@ -27,6 +27,7 @@ export const stopTaskListener = () => dispatch => {
   const {currentUser} = firebase.auth();
   firebase.database().ref(`/users/${currentUser.uid}/schedules/${sId}/tasks`).off();
   firebase.database().ref(`/users/${currentUser.uid}/schedules/${sId}/completedTasks`).off();
+  firebase.database().ref(`/users/${currentUser.uid}/schedules/${sId}/taskCount`).off();
   dispatch(clearTasks());
 }
 

@@ -24,7 +24,6 @@ import {
   };
 
   export const formClear = (scheduleForm = true) => dispatch => {
-    scheduleForm && firebase.database().ref(`/users/${currentUser.uid}/schedules/${scheduleId}/taskCount`).off();
     scheduleForm ? dispatch(scheduleFormClear()) : dispatch(taskFormClear());
   };
 
