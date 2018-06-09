@@ -52,9 +52,14 @@ export const submitForm = (data, scheduleForm = true, schedule) => dispatch => {
     dispatch(taskFormLoad())
     firebase.database().ref(`/users/${currentUser.uid}/schedules/${schedule.uid}/tasks`)
     .push({...data, ...{complete: false}})
-    .then(() => {
-      firebase.database().ref(`/users/${currentUser.uid}/schedules/${schedule.uid}/taskCount`).off();
-    })
+    // .then(() => {
+    //   firebase.database().ref(`/users/${currentUser.uid}/schedules/${schedule.uid}/taskCount`)
+    //   .once('value')
+    //   // .off();
+    // })
+    // .then(val => {
+    //   console.log("this is the val", val)
+    // })
     .then (() => {
       dispatch(addTask());
       dispatch(taskFormClear());
