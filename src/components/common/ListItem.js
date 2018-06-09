@@ -4,7 +4,7 @@ import {CardSection} from './CardSection';
 import colors from '../../style/colors';
 
 
-const ListItem = ({rowData,style, onRowPress, rightData, leftAction = false, onActionPress, leftActionChild, delText, onDelPress, disabled, leftActionStyle, textStyle}) => {
+const ListItem = ({rowData,style, onRowPress, rightData, leftAction = false, onActionPress, leftActionChild, onDelPress, disabled, leftActionStyle, textStyle}) => {
     return (
       <View style ={style}>
           <CardSection>
@@ -27,11 +27,14 @@ const ListItem = ({rowData,style, onRowPress, rightData, leftAction = false, onA
                   {rightData}
                 </Text>
             </TWF>
+          {
+            onDelPress &&
             <TWF viewStyle = {styles.rightDataStyle} onPress={onDelPress}>
               <Image
                 source={require('../imgs/del.png')}
               />
             </TWF>
+          }
           </CardSection>
       </View>
     );
