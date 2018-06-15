@@ -10,7 +10,7 @@ import colors from '../style/colors';
 import {SchedulesWithList, TemplateList} from './WrappedScheduleList';
 
 class ScheduleList extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchSchedules();
   }
 

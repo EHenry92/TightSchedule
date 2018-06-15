@@ -4,7 +4,7 @@ import {Header, ListItem} from './common';
 
 const ListWrapper = (listTitle, WrappedComponent, sortFunction) =>
   class extends Component {
-    componentWillMount() {
+    componentDidMount() {
       this.createDataSource(this.props.listData.sort(sortFunction));
     }
     componentWillReceiveProps(nextProps) {

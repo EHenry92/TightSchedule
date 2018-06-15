@@ -18,7 +18,7 @@ const window = Dimensions.get('window');
 
 class Basic extends Component {
   state = {showSave: false, order:[]};
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchTasks(this.props.inputData.uid);
     this.props.getTaskCount(this.props.inputData.uid);
   }

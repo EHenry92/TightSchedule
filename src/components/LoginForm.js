@@ -7,7 +7,7 @@ import colors from '../style/colors';
 import {unBordered, screenView, textureStyle} from '../style';
 
 class LoginForm extends Component {
-  componentWillMount(){
+  componentDidMount(){
     AsyncStorage.getItem('TightSchedule-Login', (err, result) => {
       if (err) console.log(err);
       else if (result) {
