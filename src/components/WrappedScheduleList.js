@@ -9,7 +9,7 @@ import colors from '../style/colors';
 import ListWrapper from './ListWrapper';
 
 class ScheduleList extends Component {
-    renderRow (inputData) {
+    renderRow = (inputData) =>  {
       const titleSchedule = 'Schedules';
       const {listTitle} = this.props;
       return (
@@ -56,7 +56,7 @@ class ScheduleList extends Component {
                 </Header>
             )}
             dataSource = {this.props.data}
-            renderRow = {this.renderRow.bind(this)}>
+            renderRow = {this.renderRow}>
           </ListView>
         </Card>
     );}

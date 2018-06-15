@@ -17,10 +17,7 @@ const window = Dimensions.get('window');
 
 
 class Basic extends Component {
-  constructor () {
-    super();
-    this.state = {showSave: false, order:[]};
-  }
+  state = {showSave: false, order:[]};
   componentWillMount() {
     this.props.fetchTasks(this.props.inputData.uid);
     this.props.getTaskCount(this.props.inputData.uid);
@@ -34,7 +31,7 @@ class Basic extends Component {
       />
   }
 
-  saveOrder() {
+  saveOrder = () => {
     this.setState({showSave:false})
     let {final, changeTask, inputData} = this.props;
     let {order} = this.state;
@@ -47,14 +44,12 @@ class Basic extends Component {
     }
   }
 
-  changePosition(newOrder) {
+  changePosition = (newOrder)  => {
     const order = newOrder;
     this.setState({order, showSave: true});
   }
 
-
-  render() {
-    return (
+  render = () => (
       <View style={styles.container}>
       <Image
         source={require('./imgs/concrete-texture.jpg')}
@@ -84,18 +79,17 @@ class Basic extends Component {
           contentContainerStyle={styles.contentContainer}
           data={this.props.final}
           renderRow={this.renderRow}
-          onChangeOrder = {this.changePosition.bind(this)}
+          onChangeOrder = {this.changePosition}
           />
         <CompletedTaskList />
       {this.state.showSave &&
       <Button
         style={{height: 60, width: 60}}
-        onPress={this.saveOrder.bind(this)}
+        onPress={this.saveOrder}
         title='Save Order' />
       }
       </View>
     );
-  }
 }
 
 

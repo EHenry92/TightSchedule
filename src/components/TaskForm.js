@@ -7,16 +7,13 @@ import {submitForm, formChange, saveTemplate} from '../actions';
 
 
 class TaskForm extends Component {
-    constructor () {
-      super();
-      this.state = {
+      state = {
         pickDur: false,
         minIntervals : _.range(0, 60, 1),
         hrIntervals : _.range(0, 24, 1)
       };
-    }
 
-    render (){
+    render = () => {
       const {title, durationMin, durationHr, startTime, loading, submitForm, formChange, schedule, taskCount} = this.props;
 
       const {lableTextStyle, pickerContainerStyle, headerStyle} = styles;

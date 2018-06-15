@@ -9,7 +9,7 @@ import ListWrapper from './ListWrapper';
 
 
 class CompletedTasks extends Component {
-  renderRow (task) {
+  renderRow = (task) =>  {
     return <ListItem
     style={{marginBottom: 2}}
     rowData = {task.title}
@@ -37,7 +37,7 @@ class CompletedTasks extends Component {
             //     <Text>Completed Tasks</Text>
             //   </View>}
             dataSource = {this.props.data}
-            renderRow = {this.renderRow.bind(this)}
+            renderRow = {this.renderRow}
             >
           </ListView>
     );

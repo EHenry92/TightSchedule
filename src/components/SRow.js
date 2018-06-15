@@ -12,40 +12,36 @@ import {connect} from 'react-redux';
 import colors from '../style/colors';
 
 class Row extends Component {
-
-  constructor(props) {
-    super(props);
-    this._active = new Animated.Value(0);
-    this._style = {
-      ...Platform.select({
-        ios: {
-          transform: [{
-            scale: this._active.interpolate({
-              inputRange: [0, 1],
-              outputRange: [1, 1.1],
-            }),
-          }],
-          shadowRadius: this._active.interpolate({
+  _active = new Animated.Value(0);
+  _style = {
+    ...Platform.select({
+      ios: {
+        transform: [{
+          scale: this._active.interpolate({
             inputRange: [0, 1],
-            outputRange: [2, 10],
+            outputRange: [1, 1.1],
           }),
-        },
+        }],
+        shadowRadius: this._active.interpolate({
+          inputRange: [0, 1],
+          outputRange: [2, 10],
+        }),
+      },
 
-        android: {
-          transform: [{
-            scale: this._active.interpolate({
-              inputRange: [0, 1],
-              outputRange: [1, 1.07],
-            }),
-          }],
-          elevation: this._active.interpolate({
+      android: {
+        transform: [{
+          scale: this._active.interpolate({
             inputRange: [0, 1],
-            outputRange: [2, 6],
+            outputRange: [1, 1.07],
           }),
-        },
-      })
-    };
-  }
+        }],
+        elevation: this._active.interpolate({
+          inputRange: [0, 1],
+          outputRange: [2, 6],
+        }),
+      },
+    })
+  };
 
   componentWillReceiveProps(nextProps) {
     if (this.props.active !== nextProps.active) {
@@ -58,7 +54,7 @@ class Row extends Component {
   }
 
   render() {
-   const {data, active, task, sId, removeTask, completeTask} = this.props;
+   const {task, sId, removeTask, completeTask} = this.props;
     return (
       <Animated.View style={[
         styles.row,
